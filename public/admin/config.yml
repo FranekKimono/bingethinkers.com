@@ -1,0 +1,32 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USER/bingethinkers-com
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: pages
+    label: Pages
+    folder: content
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Body,  name: body,  widget: markdown }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - file: content/settings/home.md
+        label: Home Page
+        fields:
+          - { label: Hero Title,     name: heroTitle,     widget: string }
+          - { label: Hero Subtitle,  name: heroSubtitle,  widget: string }
+          - { label: CTA Text,       name: ctaText,       widget: string }
+          - { label: Feature 1 Title,   name: feature1Title,   widget: string }
+          - { label: Feature 1 Body,    name: feature1Body,    widget: text }
+          - { label: Feature 2 Title,   name: feature2Title,   widget: string }
+          - { label: Feature 2 Body,    name: feature2Body,    widget: text }
+          - { label: Feature 3 Title,   name: feature3Title,   widget: string }
+          - { label: Feature 3 Body,    name: feature3Body,    widget: text }

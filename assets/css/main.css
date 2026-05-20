@@ -1,0 +1,205 @@
+/* ── Binge Thinkers —— Dark theme ── */
+:root {
+  --color-bg:       #06030a;
+  --color-surface:  #0e0818;
+  --color-border:   #1a1030;
+  --color-primary:  #480a77;
+  --color-accent:   #e85298;
+  --color-text:     #ede5f5;
+  --color-muted:    #8e7fa8;
+  --font-body:      'Inter', system-ui, -apple-system, sans-serif;
+  --font-display:   'Inter', system-ui, -apple-system, sans-serif;
+  --radius:         8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #c93e7e;
+  text-decoration: none;
+}
+.btn-outline {
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  background: transparent;
+}
+.btn-outline:hover {
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ── Layout ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.section {
+  padding: 5rem 0;
+}
+
+/* ── Navbar ── */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: rgba(6, 3, 10, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar .logo img { height: 48px; width: auto; }
+.nav-links { display: flex; gap: 1.75rem; align-items: center; }
+.nav-links a {
+  color: var(--color-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* ── Hero (Home) ── */
+.hero {
+  text-align: center;
+  padding: 8rem 1.5rem 6rem;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--color-primary) 0%, transparent 60%), var(--color-bg);
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.hero h1 span { color: var(--color-accent); }
+.hero p {
+  font-size: 1.2rem;
+  color: var(--color-muted);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+.hero .btn { font-size: 1.1rem; padding: 0.85rem 2.25rem; }
+
+/* ── Cards ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+.card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+.card p  { color: var(--color-muted); font-size: 0.95rem; }
+
+/* ── Steps (How It Works) ── */
+.steps {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.step {
+  flex: 1 1 280px;
+  text-align: center;
+}
+.step-number {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 1.5rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+/* ── Contact form ── */
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.form-group textarea { min-height: 140px; resize: vertical; }
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Content pages ── */
+.content-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+.content-page h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+.content-page h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; }
+.content-page p  { margin-bottom: 1rem; color: var(--color-muted); }
+.content-page ul { margin: 1rem 0; padding-left: 1.5rem; }
+.content-page li { margin-bottom: 0.5rem; }
+
+/* ── Mobile nav ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}

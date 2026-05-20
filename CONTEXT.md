@@ -16,6 +16,16 @@ _Avoid_: Representative, MC, Quizmaster
 A 2-hour trivia session booked by a Client with a Host at a specific date, time, and location. Fixed base price; tiered pricing (package, day-of-week, group size, location) planned but not yet defined.
 _Avoid_: Night, Booking, Session, Gig
 
+## Architecture
+
+**Static site**: Nuxt 3 with `@nuxt/content` for Markdown-driven pages, Decap CMS for content editing via GitHub web UI. Deployed to Cloudflare Pages.
+
+**Contact form**: Nuxt Nitro API route (`/api/contact`) deployed as a Cloudflare Worker. Currently logs to console; needs an email provider (Resend, Mailchannels) wired in before launch.
+
+**Content model**: Pages (how-it-works, pricing, about, faq, gallery) stored as Markdown in `content/`. Decap CMS provides a WYSIWYG admin at `/admin`. Home page rendered via `pages/index.vue` with settings pulled from `content/settings/home.md`.
+
+**Color scheme**: Dark theme derived from `coming-soon.jpg` — near-black `#06030a`, deep purple `#480a77`, hot pink accent `#e85298`.
+
 ## Example Dialogue
 
 > **Dev:** When a Client books, do they pick a specific Host or just any available one?
