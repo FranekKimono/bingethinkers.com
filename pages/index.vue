@@ -2,28 +2,25 @@
   <div>
     <section class="hero">
       <NuxtImg src="/splash.jpg" alt="Binge Thinkers Trivia Night" class="hero-splash" sizes="sm:100vw lg:700px" />
-      <h1>Book a <span>Trivia Night</span><br />Your Crowd Won't Forget</h1>
-      <p>
-        We bring the host, the questions, and the energy. You bring the crowd.
-        Perfect for bars, pubs, and private parties.
-      </p>
-      <NuxtLink to="/contact" class="btn btn-primary">Book Your Night</NuxtLink>
+      <h1 v-if="settings">{{ settings.heroTitle }}</h1>
+      <p v-if="settings">{{ settings.heroSubtitle }}</p>
+      <NuxtLink v-if="settings" to="/contact" class="btn btn-primary">{{ settings.ctaText }}</NuxtLink>
     </section>
 
     <section class="section">
       <div class="container">
         <div class="card-grid">
           <div class="card">
-            <h3>🎤 Professional Hosts</h3>
-            <p>Charismatic trivia masters who know how to work a room and keep the energy high for a full two hours.</p>
+            <h3>🎤 {{ settings?.feature1Title }}</h3>
+            <p>{{ settings?.feature1Body }}</p>
           </div>
           <div class="card">
-            <h3>📋 Everything Provided</h3>
-            <p>Answer sheets, a laptop that plugs into your TV or projector — we handle the setup. You handle the drinks.</p>
+            <h3>📋 {{ settings?.feature2Title }}</h3>
+            <p>{{ settings?.feature2Body }}</p>
           </div>
           <div class="card">
-            <h3>💰 Flat Pricing</h3>
-            <p>One transparent price per two-hour event. No surprises. Custom packages available for recurring nights.</p>
+            <h3>💰 {{ settings?.feature3Title }}</h3>
+            <p>{{ settings?.feature3Body }}</p>
           </div>
         </div>
       </div>
@@ -42,6 +39,10 @@
 </template>
 
 <script setup lang="ts">
+const { data: settings } = await useAsyncData('home-settings', () =>
+  queryContent('settings/home').findOne()
+)
+
 useSeoMeta({
   title: 'Binge Thinkers — Hosted Trivia Nights',
   description: 'Book a live trivia night for your bar, pub, or private event. Professional hosts bring the questions and energy — you bring the crowd.',
