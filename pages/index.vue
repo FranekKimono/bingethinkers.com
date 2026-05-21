@@ -28,7 +28,7 @@
       </div>
     </section>
 
-    <section class="section" style="text-align:center; border-top:1px solid var(--color-border)">
+    <section class="section" style="text-align:center">
       <div class="container">
         <h2 style="margin-bottom:1rem">Ready to host?</h2>
         <p style="color:var(--color-muted); margin-bottom:2rem">

@@ -81,6 +81,7 @@ img { max-width: 100%; height: auto; display: block; }
   top: 0;
   z-index: 100;
 }
+.navbar .logo { display: flex; align-items: center; gap: 0.5rem; }
 .navbar .logo img { height: 48px; width: auto; }
 .nav-links { display: flex; gap: 1.75rem; align-items: center; }
 .nav-links a {
@@ -198,6 +199,10 @@ footer {
 .content-page p  { margin-bottom: 1rem; color: var(--color-muted); }
 .content-page ul { margin: 1rem 0; padding-left: 1.5rem; }
 .content-page li { margin-bottom: 0.5rem; }
+.content-page img {
+  border-radius: var(--radius);
+  margin: 2rem 0;
+}
 
 /* ── Mobile nav ── */
 @media (max-width: 768px) {

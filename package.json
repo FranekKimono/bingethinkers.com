@@ -10,5 +10,8 @@
   "devDependencies": {
     "@nuxt/content": "^2.13.0",
     "nuxt": "^3.13.0"
+  },
+  "dependencies": {
+    "resend": "6.12.3"
   }
 }
