@@ -44,7 +44,9 @@ const { data: settings } = await useAsyncData('home-settings', () =>
 )
 
 function formatAccent(text: string): string {
-  return text.replace(/\*\*(.+?)\*\*/g, '<span class="accent">$1</span>')
+  return text
+    .replace(/\\n/g, '<br>')
+    .replace(/\*\*(.+?)\*\*/g, '<span class="accent">$1</span>')
 }
 
 useSeoMeta({
