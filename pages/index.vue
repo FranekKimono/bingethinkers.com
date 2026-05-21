@@ -11,15 +11,18 @@
       <div class="container">
         <div class="card-grid">
           <div class="card">
-            <h3>🎤 {{ settings?.feature1Title }}</h3>
+            <IconMic />
+            <h3>{{ settings?.feature1Title }}</h3>
             <p>{{ settings?.feature1Body }}</p>
           </div>
           <div class="card">
-            <h3>📋 {{ settings?.feature2Title }}</h3>
+            <IconScreen />
+            <h3>{{ settings?.feature2Title }}</h3>
             <p>{{ settings?.feature2Body }}</p>
           </div>
           <div class="card">
-            <h3>💰 {{ settings?.feature3Title }}</h3>
+            <IconMoney />
+            <h3>{{ settings?.feature3Title }}</h3>
             <p>{{ settings?.feature3Body }}</p>
           </div>
         </div>

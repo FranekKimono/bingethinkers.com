@@ -135,6 +135,7 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 2rem;
 }
 .card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+.card svg { margin-bottom: 1rem; }
 .card p  { color: var(--color-muted); font-size: 0.95rem; }
 
 /* ── Steps (How It Works) ── */
