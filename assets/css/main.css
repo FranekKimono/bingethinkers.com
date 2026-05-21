@@ -212,7 +212,7 @@ footer {
 }
 .content-page img.about-icon {
   float: left;
-  width: 100px;
+  width: 140px;
   margin: 0 1.5rem 1.5rem 0;
   shape-outside: circle(50%);
   clip-path: circle(50%);

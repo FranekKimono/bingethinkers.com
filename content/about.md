@@ -2,7 +2,7 @@
 
 <img src="/bt-logo-about.jpg" class="about-icon" alt="Binge Thinkers" />
 
-We believe trivia is the best excuse to drink with friends and shout answers at a screen.
+We believe trivia is the best excuse to drink with friends and compete at brain games.
 
 Binge Thinkers was founded to bring professionally hosted trivia nights to bars, pubs, and private events. No dusty question packs. No awkward silence. Just high-energy, well-paced trivia that keeps your crowd entertained from round one to the final question.
 
