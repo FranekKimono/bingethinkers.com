@@ -1,8 +1,8 @@
 <template>
   <header class="navbar">
     <NuxtLink to="/" class="logo">
-      <img src="/logo.png" alt="Logo" height="48" />
-      <img src="/title.png" alt="Binge Thinkers" height="48" style="margin-top: 7px;" />
+      <NuxtImg src="/logo.png" alt="Logo" height="48" width="auto" />
+      <NuxtImg src="/title.png" alt="Binge Thinkers" height="48" width="auto" style="margin-top: 7px;" />
     </NuxtLink>
     <nav class="nav-links">
       <NuxtLink to="/">Home</NuxtLink>

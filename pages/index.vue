@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="hero">
-      <img src="/splash.jpg" alt="Binge Thinkers Trivia Night" class="hero-splash" />
+      <NuxtImg src="/splash.jpg" alt="Binge Thinkers Trivia Night" class="hero-splash" sizes="sm:100vw lg:700px" />
       <h1>Book a <span>Trivia Night</span><br />Your Crowd Won't Forget</h1>
       <p>
         We bring the host, the questions, and the energy. You bring the crowd.
