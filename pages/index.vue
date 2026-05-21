@@ -2,8 +2,8 @@
   <div>
     <section class="hero">
       <NuxtImg src="/splash.jpg" alt="Binge Thinkers Trivia Night" class="hero-splash" sizes="sm:100vw lg:700px" />
-      <h1 v-if="settings">{{ settings.heroTitle }}</h1>
-      <p v-if="settings">{{ settings.heroSubtitle }}</p>
+      <h1 v-if="settings" v-html="formatAccent(settings.heroTitle)" />
+      <p v-if="settings" v-html="formatAccent(settings.heroSubtitle)" />
       <NuxtLink v-if="settings" to="/contact" class="btn btn-primary">{{ settings.ctaText }}</NuxtLink>
     </section>
 
@@ -42,6 +42,10 @@
 const { data: settings } = await useAsyncData('home-settings', () =>
   queryContent('settings/home').findOne()
 )
+
+function formatAccent(text: string): string {
+  return text.replace(/\*\*(.+?)\*\*/g, '<span class="accent">$1</span>')
+}
 
 useSeoMeta({
   title: 'Binge Thinkers — Hosted Trivia Nights',
