@@ -33,6 +33,11 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Contact Binge Thinkers — Book a Trivia Night',
+  description: 'Get in touch to book a hosted trivia night for your bar, pub, or private event. We respond within 24 hours.',
+})
+
 const form = reactive({ name: '', email: '', phone: '', message: '' })
 const status = ref<'idle' | 'sending' | 'success' | 'error'>('idle')
 

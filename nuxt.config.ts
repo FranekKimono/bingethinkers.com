@@ -14,6 +14,7 @@ export default defineNuxtConfig({
         '/contact',
         '/faq',
         '/gallery',
+        '/privacy',
       ],
     },
   },

@@ -40,3 +40,33 @@
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+useSeoMeta({
+  title: 'Binge Thinkers — Hosted Trivia Nights',
+  description: 'Book a live trivia night for your bar, pub, or private event. Professional hosts bring the questions and energy — you bring the crowd.',
+  ogTitle: 'Binge Thinkers — Hosted Trivia Nights',
+  ogDescription: 'Book a live trivia night for your bar, pub, or private event.',
+  ogImage: 'https://bingethinkers.com/splash.jpg',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+})
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: 'Binge Thinkers',
+        description: 'Professional hosted trivia nights for bars, pubs, and private events.',
+        url: 'https://bingethinkers.com',
+        email: 'info@bingethinkers.com',
+        image: 'https://bingethinkers.com/splash.jpg',
+        priceRange: '\$\$',
+      }),
+    },
+  ],
+})
+</script>
