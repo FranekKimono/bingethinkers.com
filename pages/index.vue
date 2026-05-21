@@ -11,7 +11,7 @@
       <div class="container">
         <div class="card-grid">
           <div class="card">
-            <IconMic />
+            <IconFace />
             <h3>{{ settings?.feature1Title }}</h3>
             <p>{{ settings?.feature1Body }}</p>
           </div>

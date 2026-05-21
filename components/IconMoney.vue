@@ -3,19 +3,20 @@
     <defs>
       <filter id="neon-glow-money">
         <feGaussianBlur stdDeviation="2" result="blur" />
-        <feMerge>
-          <feMergeNode in="blur" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
+        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
       </filter>
     </defs>
-    <circle cx="24" cy="24" r="18" stroke="#44d67a" stroke-width="2" fill="none" filter="url(#neon-glow-money)" />
-    <text x="24" y="29" text-anchor="middle" font-size="20" font-weight="800" fill="#44d67a" filter="url(#neon-glow-money)" font-family="system-ui, sans-serif">$</text>
-    <line x1="24" y1="6" x2="24" y2="12" stroke="#44d67a" stroke-width="2" filter="url(#neon-glow-money)" />
-    <line x1="24" y1="36" x2="24" y2="42" stroke="#44d67a" stroke-width="2" filter="url(#neon-glow-money)" />
+    <!-- Dollar bill in perspective (tilted isometric-ish) -->
+    <g transform="translate(24,24) scale(0.6)">
+      <!-- Shadow/back face -->
+      <polygon points="-22,-12 -12,-18 22,-12 12,-6" stroke="#44d67a" stroke-width="2.5" fill="none" filter="url(#neon-glow-money)" />
+      <!-- Right side -->
+      <polygon points="22,-12 22,12 12,6 12,-6" stroke="#44d67a" stroke-width="2.5" fill="none" filter="url(#neon-glow-money)" />
+      <!-- Front face -->
+      <polygon points="-12,-18 -12,-6 12,-6 12,6" stroke="#44d67a" stroke-width="2.5" fill="none" filter="url(#neon-glow-money)" />
+      <!-- Dollar sign on front -->
+      <text x="-12" y="-2" transform="skewY(18)" font-size="14" font-weight="800" fill="#44d67a" filter="url(#neon-glow-money)" font-family="system-ui, sans-serif">$</text>
+    </g>
   </svg>
 </template>
-
-<style scoped>
-.neon-icon { display: block; }
-</style>
+<style scoped>.neon-icon { display: block; }</style>
