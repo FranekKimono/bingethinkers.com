@@ -1,6 +1,7 @@
 <template>
   <div>
     <section class="hero">
+      <img src="/splash.jpg" alt="Binge Thinkers Trivia Night" class="hero-splash" />
       <h1>Book a <span>Trivia Night</span><br />Your Crowd Won't Forget</h1>
       <p>
         We bring the host, the questions, and the energy. You bring the crowd.

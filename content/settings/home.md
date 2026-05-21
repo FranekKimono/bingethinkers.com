@@ -1,6 +1,6 @@
 ---
 title: Home Page Settings
-heroTitle: Book a Trivia Night Your Crowd Won't Forget
+heroTitle: Book a Trivia Night Your Crowd Won't Forget The Next Day
 heroSubtitle: We bring the host, the questions, and the energy. You bring the crowd. Perfect for bars, pubs, and private parties.
 ctaText: Book Your Night
 feature1Title: Professional Hosts

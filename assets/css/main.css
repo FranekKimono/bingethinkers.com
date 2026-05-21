@@ -98,8 +98,13 @@ img { max-width: 100%; height: auto; display: block; }
 /* ── Hero (Home) ── */
 .hero {
   text-align: center;
-  padding: 8rem 1.5rem 6rem;
+  padding: 4rem 1.5rem 6rem;
   background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--color-primary) 0%, transparent 60%), var(--color-bg);
+}
+.hero-splash {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  border-radius: var(--radius);
 }
 .hero h1 {
   font-size: clamp(2.5rem, 5vw, 4rem);
