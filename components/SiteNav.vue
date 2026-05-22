@@ -1,17 +1,17 @@
 <template>
   <header class="navbar">
     <NuxtLink to="/" class="logo">
-      <NuxtImg src="/logo.png" alt="Logo" height="48" width="auto" />
-      <NuxtImg src="/title.png" alt="Binge Thinkers" height="48" width="auto" style="margin-top: 7px;" />
+      <img src="/bt-logo-about.jpg" alt="Logo" height="96" style="margin-top: -4px;" />
+      <img src="/title-98x600.jpg" alt="Binge Thinkers" width="300" height="49" style="margin-top: 4px;" />
     </NuxtLink>
     <nav class="nav-links">
       <NuxtLink to="/">Home</NuxtLink>
       <NuxtLink to="/how-it-works">How It Works</NuxtLink>
       <NuxtLink to="/pricing">Pricing</NuxtLink>
-      <NuxtLink to="/about">About</NuxtLink>
-      <NuxtLink to="/contact">Contact</NuxtLink>
-      <NuxtLink to="/faq" v-if="showFaq">FAQ</NuxtLink>
       <NuxtLink to="/gallery" v-if="showGallery">Gallery</NuxtLink>
+      <NuxtLink to="/about">About</NuxtLink>
+      <NuxtLink to="/faq" v-if="showFaq">FAQ</NuxtLink>
+      <NuxtLink to="/contact">Contact</NuxtLink>
     </nav>
   </header>
 </template>

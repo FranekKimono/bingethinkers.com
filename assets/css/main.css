@@ -73,7 +73,7 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
+  padding: 0.25rem 1.5rem;
   background: rgba(6, 3, 10, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
@@ -82,7 +82,7 @@ img { max-width: 100%; height: auto; display: block; }
   z-index: 100;
 }
 .navbar .logo { display: flex; align-items: center; gap: 0.5rem; }
-.navbar .logo img { height: 48px; width: auto; }
+.navbar .logo img:first-child { height: 96px; width: auto; }
 .nav-links { display: flex; gap: 1.75rem; align-items: center; }
 .nav-links a {
   color: var(--color-muted);

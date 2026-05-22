@@ -74,7 +74,7 @@ useHead({
         url: 'https://bingethinkers.com',
         email: 'info@bingethinkers.com',
         image: 'https://bingethinkers.com/splash.jpg',
-        priceRange: '\$\$',
+        priceRange: '\$\$\$',
       }),
     },
   ],
