@@ -14,14 +14,27 @@
         :href="`/binge-images/${i}.jpg`"
         target="_blank"
         class="ig-card"
+        :class="{ 'is-loaded': loaded[i] }"
       >
-        <img :src="`/binge-images/${i}.jpg`" :alt="`Gallery image ${i}`" loading="lazy" />
+        <img
+          :ref="(el) => setImageRef(el as HTMLImageElement | null, i)"
+          :src="`/binge-images/${i}.jpg`"
+          :alt="`Gallery image ${i}`"
+          loading="lazy"
+          @load="loaded[i] = true"
+        />
       </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const loaded = reactive<Record<number, boolean>>({})
+
+function setImageRef(el: HTMLImageElement | null, i: number) {
+  if (el?.complete) loaded[i] = true
+}
+
 useSeoMeta({
   title: 'Gallery — Binge Thinkers',
   description: 'Photos from Binge Thinkers trivia nights. See the energy, the laughs, and the competition.',
@@ -41,11 +54,47 @@ useSeoMeta({
   aspect-ratio: 1;
   overflow: hidden;
   display: block;
+  position: relative;
+  background: #1a1520;
+}
+.ig-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #1a1520 0%,
+    #2a2235 50%,
+    #1a1520 100%
+  );
+  background-size: 200% 100%;
+  animation: ig-shimmer 1.4s ease-in-out infinite;
+  z-index: 0;
+}
+.ig-card.is-loaded::before {
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 .ig-card img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.ig-card.is-loaded img {
+  opacity: 1;
+}
+@keyframes ig-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ig-card::before {
+    animation: none;
+  }
 }
 @media (max-width: 640px) {
   .ig-grid {
