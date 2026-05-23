@@ -16,10 +16,13 @@
         class="ig-card"
         :class="{ 'is-loaded': loaded[i] }"
       >
-        <img
-          :ref="(el) => setImageRef(el as HTMLImageElement | null, i)"
+        <NuxtImg
+          :ref="(el) => setImageRef(el, i)"
           :src="`/binge-images/${i}.jpg`"
           :alt="`Gallery image ${i}`"
+          width="750"
+          height="750"
+          sizes="(max-width: 640px) 50vw, 367px"
           loading="lazy"
           @load="loaded[i] = true"
         />
@@ -31,8 +34,13 @@
 <script setup lang="ts">
 const loaded = reactive<Record<number, boolean>>({})
 
-function setImageRef(el: HTMLImageElement | null, i: number) {
-  if (el?.complete) loaded[i] = true
+function setImageRef(el: Element | ComponentPublicInstance | null, i: number) {
+  nextTick(() => {
+    const img = el instanceof HTMLImageElement
+      ? el
+      : (el as ComponentPublicInstance | null)?.$el as HTMLImageElement | undefined
+    if (img?.complete && img.naturalWidth) loaded[i] = true
+  })
 }
 
 useSeoMeta({
