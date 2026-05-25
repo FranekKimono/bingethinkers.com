@@ -1,9 +1,21 @@
 <template>
   <div class="content-page">
-    <h1>Contact Us</h1>
+    <h1>Book & Contact</h1>
     <p style="color:var(--color-muted); margin-bottom:2rem">
       Ready to book a trivia night? Fill out the form below and we'll get back to you within 24 hours.
     </p>
+
+    <section class="pricing-blurb">
+      <h2>Pricing</h2>
+      <p>
+        Every venue is different — group size, day of the week, how often you want to run trivia,
+        and whether you need something custom all affect what makes sense for you.
+      </p>
+      <p>
+        We don't publish fixed rates here. <strong style="color:var(--color-text)">Ask us for a quote</strong>
+        and we'll put together something that fits your space and your crowd.
+      </p>
+    </section>
 
     <form @submit.prevent="submitForm">
       <div class="form-group">
@@ -34,8 +46,8 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Contact Binge Thinkers — Book a Trivia Night',
-  description: 'Get in touch to book a hosted trivia night for your bar, pub, or private event. We respond within 24 hours.',
+  title: 'Book & Contact — Binge Thinkers',
+  description: 'Book a hosted trivia night or ask for a quote. We respond within 24 hours.',
 })
 
 const form = reactive({ name: '', email: '', phone: '', message: '' })
@@ -57,3 +69,28 @@ async function submitForm() {
   }
 }
 </script>
+
+<style scoped>
+.pricing-blurb {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.pricing-blurb h2 {
+  font-size: var(--text-subsection);
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+}
+
+.pricing-blurb p {
+  color: var(--color-muted);
+  margin-bottom: 0.75rem;
+}
+
+.pricing-blurb p:last-child {
+  margin-bottom: 0;
+}
+</style>

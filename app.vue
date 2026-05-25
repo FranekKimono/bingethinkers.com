@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SiteNav :show-faq="true" :show-gallery="true" />
+    <SiteNav :show-faq="true" />
     <main>
       <NuxtPage />
     </main>

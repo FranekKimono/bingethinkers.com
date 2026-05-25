@@ -1,0 +1,40 @@
+{
+  "events": [
+    {
+      "id": "weekly-kings-head",
+      "title": "Trivia Night @ The King's Head",
+      "venue": "The King's Head",
+      "recurrence": { "type": "weekly", "dayOfWeek": 3 }
+    },
+    {
+      "id": "weekly-corydon",
+      "title": "Corydon Pub Quiz",
+      "venue": "Corydon Tap House",
+      "recurrence": { "type": "weekly", "dayOfWeek": 1 }
+    },
+    {
+      "id": "monthly-championship",
+      "title": "Monthly Championship Round",
+      "venue": "Various venues",
+      "recurrence": { "type": "monthly", "dayOfMonth": 15 }
+    },
+    {
+      "id": "winnipeg-launch",
+      "title": "Winnipeg Launch Night",
+      "venue": "Exchange District",
+      "recurrence": { "type": "once", "date": "2026-06-12" }
+    },
+    {
+      "id": "summer-special",
+      "title": "Summer Patio Trivia",
+      "venue": "The Forks Market",
+      "recurrence": { "type": "once", "date": "2026-07-04" }
+    },
+    {
+      "id": "corporate-demo",
+      "title": "Corporate Team Trivia",
+      "venue": "Private booking",
+      "recurrence": { "type": "once", "date": "2026-05-30" }
+    }
+  ]
+}

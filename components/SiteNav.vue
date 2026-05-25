@@ -6,21 +6,31 @@
     </NuxtLink>
     <nav class="nav-links">
       <NuxtLink to="/">Home</NuxtLink>
-      <NuxtLink to="/how-it-works">How It Works</NuxtLink>
-      <NuxtLink to="/pricing">Pricing</NuxtLink>
-      <NuxtLink to="/gallery" v-if="showGallery">Gallery</NuxtLink>
-      <NuxtLink to="/about">About</NuxtLink>
+      <a
+        v-if="route.path === '/'"
+        href="#calendar"
+        @click.prevent="scrollToCalendar"
+      >Calendar</a>
+      <NuxtLink v-else to="/#calendar">Calendar</NuxtLink>
+      <NuxtLink to="/testimonials">Testimonials</NuxtLink>
+      <NuxtLink to="/our-story">Our Story</NuxtLink>
       <NuxtLink to="/faq" v-if="showFaq">FAQ</NuxtLink>
-      <NuxtLink to="/contact">Contact</NuxtLink>
+      <NuxtLink to="/contact" class="nav-book">Book</NuxtLink>
     </nav>
   </header>
 </template>
 
 <script setup lang="ts">
-const { showFaq, showGallery } = defineProps<{
+const route = useRoute()
+
+const { showFaq } = defineProps<{
   showFaq?: boolean
-  showGallery?: boolean
 }>()
+
+function scrollToCalendar() {
+  document.getElementById('calendar')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  history.replaceState(null, '', '#calendar')
+}
 </script>
 
 <style scoped>

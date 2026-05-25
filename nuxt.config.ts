@@ -2,18 +2,23 @@
 export default defineNuxtConfig({
   modules: ['@nuxt/content', '@nuxt/image'],
 
+  routeRules: {
+    '/about': { redirect: '/our-story' },
+    '/pricing': { redirect: '/contact' },
+    '/how-it-works': { redirect: '/' },
+    '/gallery': { redirect: '/testimonials' },
+  },
+
   nitro: {
     preset: 'cloudflare-pages',
     prerender: {
       crawlLinks: true,
       routes: [
         '/',
-        '/how-it-works',
-        '/pricing',
-        '/about',
+        '/our-story',
+        '/testimonials',
         '/contact',
         '/faq',
-        '/gallery',
         '/privacy',
       ],
     },
