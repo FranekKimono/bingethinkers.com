@@ -39,6 +39,10 @@
           Bars, pubs, private parties — tell us what you're planning and we'll get you a quote.
         </p>
         <NuxtLink to="/contact" class="btn btn-outline">Get in Touch</NuxtLink>
+        <div class="home-cta__links">
+          <NuxtLink to="/testimonials">See testimonials →</NuxtLink>
+          <NuxtLink to="/faq">Read the FAQ →</NuxtLink>
+        </div>
       </div>
     </section>
   </div>
@@ -134,6 +138,16 @@ useHead({
 
 .home-cta__lead {
   margin-bottom: 2rem;
+}
+
+.home-cta__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+  font-weight: 600;
+  font-size: var(--text-base);
 }
 
 .home-events {
