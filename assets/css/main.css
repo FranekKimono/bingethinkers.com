@@ -370,6 +370,11 @@ footer {
   shape-outside: circle(50%);
   clip-path: circle(50%);
 }
+.content-page img.story-wide {
+  display: block;
+  width: 100%;
+  margin: 2rem 0;
+}
 
 /* ── Compact nav (tablet & mobile) ── */
 @media (max-width: 1024px) {

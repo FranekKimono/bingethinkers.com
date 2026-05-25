@@ -15,6 +15,8 @@ description: From a single bar in South Korea to trivia nights across Winnipeg �
 
 Binge Thinkers started over **15 years ago in South Korea** — one bar, one host, and a room full of people who didn't know they needed trivia in their lives yet.
 
+<img src="/jeff.sinclair-black-wide.jpg" class="story-wide" alt="Jeff Sinclair, stand-up comedian and curator of Binge Thinkers trivia content" />
+
 What began as a side project grew into something bigger: weekly nights across multiple venues, a loyal following, and a reputation for trivia that actually feels like a night out — not a school exam.
 
 ## Building something real
