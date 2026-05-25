@@ -9,6 +9,7 @@ export interface CalendarEvent {
   id: string
   title: string
   venue?: string
+  time?: string
   recurrence: EventRecurrence
 }
 
@@ -104,6 +105,24 @@ export function getEventsOnDay(
 
 export function dayEventKey(item: DayEvent): string {
   return `${item.event.id}:${formatDateKey(item.date)}`
+}
+
+export function getEventsTonight(date: Date = new Date()): DayEvent[] {
+  const tonight = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+  const results: DayEvent[] = []
+
+  for (const event of getAllEvents()) {
+    if (eventMatchesDate(event, tonight)) {
+      results.push({ event, date: tonight })
+    }
+  }
+
+  return results.sort((a, b) => {
+    if (a.event.time && b.event.time) return a.event.time.localeCompare(b.event.time)
+    if (a.event.time) return -1
+    if (b.event.time) return 1
+    return a.event.title.localeCompare(b.event.title)
+  })
 }
 
 export function getNextEvent(fromDate: Date = new Date()): DayEvent | null {

@@ -10,7 +10,7 @@
 
     <section class="section testimonials-logos">
       <div class="container">
-        <h2 class="section-title">Companies We've Worked With</h2>
+        <h2 class="clients-title">Some of our clients</h2>
         <div class="logo-grid">
           <div
             v-for="n in 25"
@@ -24,7 +24,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section testimonials-quotes">
       <div class="container">
         <h2 class="section-title">What People Say</h2>
         <div class="testimonial-feed">
@@ -205,6 +205,27 @@ useSeoMeta({
 
 .section-title {
   margin-bottom: 2rem;
+}
+
+.clients-title {
+  text-align: center;
+  font-size: var(--text-subsection);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.testimonials-quotes {
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-deep) 0%,
+    var(--color-surface-raised) 35%,
+    var(--color-border) 50%,
+    var(--color-surface-raised) 65%,
+    var(--color-bg-deep) 100%
+  );
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .logo-grid {
