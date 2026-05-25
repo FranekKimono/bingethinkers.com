@@ -24,7 +24,7 @@ _Avoid_: Night, Booking, Session, Gig
 
 **Content model**: Pages (how-it-works, pricing, about, faq, gallery) stored as Markdown in `content/`. Decap CMS provides a WYSIWYG admin at `/admin`. Home page rendered via `pages/index.vue` with settings pulled from `content/settings/home.md`.
 
-**Color scheme**: Dark theme derived from `coming-soon.jpg` — near-black `#06030a`, deep purple `#480a77`, hot pink accent `#e85298`.
+**Color scheme**: Dark theme derived from `coming-soon.jpg` — warm off-black `#06030a` (never pure `#000`), deep purple `#480a77`, hot pink accent `#e85298`. Buttons use a darker `--color-accent-button` for WCAG contrast; inline links use `--color-link`. All dark surfaces use purple-tinted off-blacks layered as `--color-bg` → `--color-surface` → `--color-border`. Tokens and focus rings live in `assets/css/main.css`.
 
 ## Example Dialogue
 

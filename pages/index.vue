@@ -10,10 +10,12 @@
     <section class="section home-intro">
       <div class="container home-intro__inner">
         <p class="text-eyebrow home-intro__eyebrow">Seoul roots · Winnipeg nights</p>
-        <h2 class="text-display">Trivia that feels like a night out,<br>not a homework assignment.</h2>
+        <h2 class="text-display">Hosted trivia with decades of curated content</h2>
         <p class="text-lead home-intro__lead">
-          Binge Thinkers has been running hosted trivia for over 15 years. We started in South Korea,
-          built a loyal following across dozens of venues, and now we're bringing that same energy to Winnipeg.
+          We run trivia nights for bars, pubs, and private events. Our question library uses video,
+          audio, and images across a wide range of topics — content we've been building for over
+          15 years, starting in South Korea and now in Winnipeg. Jeff Sinclair, a standup comedian,
+          curates it. Most trivia companies don't work that way.
         </p>
         <div class="home-intro__links">
           <NuxtLink to="/our-story">Read our story →</NuxtLink>
@@ -92,11 +94,11 @@ useHead({
 .home-intro {
   background: linear-gradient(
     180deg,
-    #0a0612 0%,
-    #150a24 35%,
-    #1a1030 50%,
-    #150a24 65%,
-    #0a0612 100%
+    var(--color-bg-deep) 0%,
+    var(--color-surface-raised) 35%,
+    var(--color-border) 50%,
+    var(--color-surface-raised) 65%,
+    var(--color-bg-deep) 100%
   );
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
@@ -126,6 +128,13 @@ useHead({
   justify-content: center;
   font-weight: 600;
   font-size: var(--text-base);
+}
+
+.home-cta {
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 50%, var(--color-primary-tint-soft) 0%, transparent 65%),
+    var(--color-surface);
+  border-top: 1px solid var(--color-border);
 }
 
 .home-cta__inner {

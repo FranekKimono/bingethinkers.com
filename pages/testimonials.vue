@@ -293,7 +293,7 @@ useSeoMeta({
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: var(--radius);
-  background: #1a1520;
+  background: var(--color-skeleton);
 }
 
 .gallery-photo::before {
@@ -302,9 +302,9 @@ useSeoMeta({
   inset: 0;
   background: linear-gradient(
     90deg,
-    #1a1520 0%,
-    #2a2235 50%,
-    #1a1520 100%
+    var(--color-skeleton) 0%,
+    var(--color-skeleton-shine) 50%,
+    var(--color-skeleton) 100%
   );
   background-size: 200% 100%;
   animation: gallery-shimmer 1.4s ease-in-out infinite;

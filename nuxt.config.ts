@@ -1,6 +1,31 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { access, mkdir, writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
+
+/** Pre-seed app manifest before Vite SSR build (avoids #app-manifest resolve race in dev). */
+async function ensureAppManifest(buildDir: string, buildId: string) {
+  const manifestPath = join(buildDir, 'manifest', 'meta', `${buildId}.json`)
+  try {
+    await access(manifestPath)
+  } catch {
+    await mkdir(join(buildDir, 'manifest', 'meta'), { recursive: true })
+    await writeFile(
+      manifestPath,
+      JSON.stringify({ id: buildId, timestamp: Date.now(), prerendered: [] }),
+    )
+  }
+}
+
 export default defineNuxtConfig({
   modules: ['@nuxt/content', '@nuxt/image'],
+
+  hooks: {
+    ready: async (nuxt) => {
+      if (!nuxt.options.experimental.appManifest) return
+      const buildId = nuxt.options.dev ? 'dev' : nuxt.options.buildId
+      await ensureAppManifest(nuxt.options.buildDir, buildId)
+    },
+  },
 
   routeRules: {
     '/about': { redirect: '/our-story' },

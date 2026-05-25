@@ -178,6 +178,11 @@ function nextMonth() {
   color: var(--color-accent);
 }
 
+.events-calendar__nav:focus-visible {
+  border-color: var(--color-highlight);
+  outline-color: var(--color-highlight);
+}
+
 .events-calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -214,8 +219,8 @@ function nextMonth() {
 }
 
 .events-calendar__cell--today .events-calendar__day {
-  background: var(--color-accent);
-  color: #fff;
+  background: var(--color-accent-button);
+  color: var(--color-text-inverse);
 }
 
 .events-calendar__cell--has-events {
@@ -223,16 +228,16 @@ function nextMonth() {
 }
 
 .events-calendar__cell--next {
-  background: rgba(72, 10, 119, 0.35);
+  background: var(--color-primary-tint);
   box-shadow: inset 0 0 0 2px var(--color-primary);
 }
 
 .events-calendar__event--next .events-calendar__event-name {
-  color: #c084fc;
+  color: var(--color-highlight);
 }
 
 .events-calendar__event--next .events-calendar__event-venue {
-  color: #a78bfa;
+  color: var(--color-highlight-muted);
 }
 
 .events-calendar__day {
@@ -303,7 +308,7 @@ function nextMonth() {
 }
 
 .events-calendar__list-item--next {
-  background: rgba(72, 10, 119, 0.25);
+  background: var(--color-primary-tint-soft);
   border-radius: var(--radius);
   padding: 0.6rem 0.75rem !important;
   margin: 0 -0.75rem;
@@ -311,7 +316,7 @@ function nextMonth() {
 }
 
 .events-calendar__list-item--next time {
-  color: #c084fc;
+  color: var(--color-highlight);
 }
 
 @media (max-width: 640px) {
@@ -340,7 +345,7 @@ function nextMonth() {
   }
 
   .events-calendar__cell--next .events-calendar__day::after {
-    background: #c084fc;
+    background: var(--color-highlight);
     width: 6px;
     height: 6px;
   }

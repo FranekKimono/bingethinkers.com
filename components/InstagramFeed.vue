@@ -69,7 +69,7 @@ const posts = computed<IgPost[]>(() => (data.value as any)?.posts || [])
 .ig-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(6, 3, 10, 0.85), transparent 60%);
+  background: linear-gradient(to top, rgba(var(--color-bg-rgb), 0.85), transparent 60%);
   display: flex;
   align-items: flex-end;
   padding: 0.75rem;
@@ -80,7 +80,7 @@ const posts = computed<IgPost[]>(() => (data.value as any)?.posts || [])
   opacity: 1;
 }
 .ig-overlay span {
-  color: #fff;
+  color: var(--color-text-inverse);
   font-size: 0.8rem;
   line-height: 1.3;
   display: -webkit-box;
