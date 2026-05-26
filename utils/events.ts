@@ -4,6 +4,7 @@ export type EventRecurrence =
   | { type: 'once'; date: string }
   | { type: 'weekly'; dayOfWeek: number }
   | { type: 'monthly'; dayOfMonth: number }
+  | { type: 'monthlyWeekday'; dayOfWeek: number; nth: number }
 
 export interface CalendarEvent {
   id: string
@@ -31,6 +32,19 @@ export function formatDateKey(date: Date): string {
   return `${y}-${m}-${d}`
 }
 
+function isNthWeekdayOfMonth(date: Date, dayOfWeek: number, nth: number): boolean {
+  if (date.getDay() !== dayOfWeek) return false
+
+  let count = 0
+  for (let day = 1; day <= date.getDate(); day++) {
+    if (new Date(date.getFullYear(), date.getMonth(), day).getDay() === dayOfWeek) {
+      count++
+    }
+  }
+
+  return count === nth
+}
+
 export function eventMatchesDate(event: CalendarEvent, date: Date): boolean {
   const { recurrence } = event
   if (recurrence.type === 'once') {
@@ -41,6 +55,9 @@ export function eventMatchesDate(event: CalendarEvent, date: Date): boolean {
   }
   if (recurrence.type === 'monthly') {
     return recurrence.dayOfMonth === date.getDate()
+  }
+  if (recurrence.type === 'monthlyWeekday') {
+    return isNthWeekdayOfMonth(date, recurrence.dayOfWeek, recurrence.nth)
   }
   return false
 }

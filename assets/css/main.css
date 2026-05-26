@@ -261,16 +261,74 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: 4px;
 }
 
+/* ── Skeleton image placeholder ── */
+.skeleton-image {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-skeleton);
+}
+
+.skeleton-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton) 0%,
+    var(--color-skeleton-shine) 50%,
+    var(--color-skeleton) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  z-index: 0;
+}
+
+.skeleton-image.is-loaded::before {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.skeleton-image img {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.skeleton-image.is-loaded img {
+  opacity: 1;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-image::before {
+    animation: none;
+  }
+}
+
 /* ── Hero (Home) ── */
 .hero {
   text-align: center;
   padding: 4rem 1.5rem 6rem;
   background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--color-primary) 0%, transparent 60%), var(--color-bg);
 }
-.hero-splash {
+.hero-splash-wrap {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto 2rem;
+  border-radius: var(--radius);
+  aspect-ratio: 1200 / 324;
+}
+.hero-splash {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
   border-radius: var(--radius);
 }
 .hero h1 {

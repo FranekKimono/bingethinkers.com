@@ -1,7 +1,16 @@
 <template>
   <div>
     <section class="hero">
-      <NuxtImg src="/splash.jpg" alt="Binge Thinkers Trivia Night" class="hero-splash" sizes="sm:100vw lg:700px" />
+      <div class="hero-splash-wrap skeleton-image" :class="{ 'is-loaded': splashLoaded }">
+        <NuxtImg
+          ref="splashRef"
+          src="/splash.jpg"
+          alt="Binge Thinkers Trivia Night"
+          class="hero-splash"
+          sizes="sm:100vw lg:700px"
+          @load="splashLoaded = true"
+        />
+      </div>
       <h1 v-if="settings" v-html="formatAccent(settings.heroTitle)" />
       <p v-if="settings" v-html="formatAccent(settings.heroSubtitle)" />
       <NuxtLink v-if="settings" to="/contact" class="btn btn-primary">{{ settings.ctaText }}</NuxtLink>
@@ -54,6 +63,19 @@
 const { data: settings } = await useAsyncData('home-settings', () =>
   queryContent('settings/home').findOne()
 )
+
+const splashLoaded = ref(false)
+const splashRef = ref<ComponentPublicInstance | HTMLImageElement | null>(null)
+
+onMounted(() => {
+  nextTick(() => {
+    const el = splashRef.value
+    const img = el instanceof HTMLImageElement
+      ? el
+      : (el as ComponentPublicInstance | null)?.$el as HTMLImageElement | undefined
+    if (img?.complete && img.naturalWidth) splashLoaded.value = true
+  })
+})
 
 function formatAccent(text: string): string {
   return text

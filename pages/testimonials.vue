@@ -13,12 +13,22 @@
         <h2 class="clients-title">Some of our clients</h2>
         <div class="logo-grid">
           <div
-            v-for="n in 25"
-            :key="n"
-            class="logo-card"
-            :aria-label="`Company logo ${n} (placeholder)`"
+            v-for="client in clientLogos"
+            :key="client.src"
+            class="logo-card skeleton-image"
+            :class="{ 'is-loaded': logoLoaded[client.src] }"
+            :aria-label="`${client.name} logo`"
           >
-            <span class="logo-card__placeholder">Logo {{ n }}</span>
+            <NuxtImg
+              :ref="(el) => setLogoRef(el, client.src)"
+              :src="client.src"
+              :alt="`${client.name} logo`"
+              width="160"
+              height="160"
+              sizes="(max-width: 640px) 33vw, 140px"
+              loading="lazy"
+              @load="logoLoaded[client.src] = true"
+            />
           </div>
         </div>
       </div>
@@ -50,7 +60,7 @@
                 :href="`/binge-images/${img}.jpg`"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="gallery-photo"
+                class="gallery-photo skeleton-image"
                 :class="{ 'is-loaded': loaded[img] }"
                 :aria-label="`Gallery photo ${img}`"
               >
@@ -74,6 +84,30 @@
 </template>
 
 <script setup lang="ts">
+const clientLogos = [
+  { name: 'Shindico', src: '/clients/logos__0000_Shindico.jpg' },
+  { name: '9 circl', src: '/clients/logos__0001_9 circl.jpg' },
+  { name: 'Heartland', src: '/clients/logos__0002_Heartland.jpg' },
+  { name: 'Dignity Memorial', src: '/clients/logos__0003_Dignity Memorial.jpg' },
+  { name: 'We Rock Winnipeg', src: '/clients/logos__0004_We Rock Winnipeg.jpg' },
+  { name: 'iQMetrix', src: '/clients/logos__0005_iQMetrix.jpg' },
+  { name: 'Kids Inc', src: '/clients/logos__0006_Kids Inc.jpg' },
+  { name: 'Winnipeg Teachers Association', src: '/clients/logos__0007_Winnipeg Teachers Association.jpg' },
+  { name: 'Emergent BioSolutions', src: '/clients/logos__0008_Emergent BIoSolutions.jpg' },
+  { name: 'ALSIP', src: '/clients/logos__0009_ALSIP.jpg' },
+  { name: 'Theatre By the River', src: '/clients/logos__0010_Theatre By the River.jpg' },
+  { name: 'Keener Jerseys', src: '/clients/logos__0011_Keener Jerseys.jpg' },
+  { name: 'Winnipeg Comedy Festival', src: '/clients/logos__0012_Winnipeg Comedy Festival.jpg' },
+  { name: 'West Four', src: '/clients/logos__0013_West Four.jpg' },
+  { name: 'Quad Real', src: '/clients/logos__0014_Quad Real.jpg' },
+  { name: 'PowerTec', src: '/clients/logos__0015_PowerTec.jpg' },
+  { name: 'Nu Burger', src: '/clients/logos__0016_Nu Burger.jpg' },
+  { name: 'NavCanada', src: '/clients/logos__0017_NavCanada.jpg' },
+  { name: 'Northwest Company', src: '/clients/logos__0018_Northwest Company.jpg' },
+  { name: 'Offspeed Volleyball', src: '/clients/logos__0019_Offspeed Volleyball.jpg' },
+  { name: 'GAS STATION', src: '/clients/logos__0020_GAS STATION.jpg' },
+]
+
 const testimonials = [
   {
     id: 1,
@@ -174,14 +208,26 @@ const feed = computed<FeedItem[]>(() => {
 })
 
 const loaded = reactive<Record<number, boolean>>({})
+const logoLoaded = reactive<Record<string, boolean>>({})
 
-function setImageRef(el: Element | ComponentPublicInstance | null, i: number) {
+function markImageLoadedIfCached(
+  el: Element | ComponentPublicInstance | null,
+  onLoaded: () => void,
+) {
   nextTick(() => {
     const img = el instanceof HTMLImageElement
       ? el
       : (el as ComponentPublicInstance | null)?.$el as HTMLImageElement | undefined
-    if (img?.complete && img.naturalWidth) loaded[i] = true
+    if (img?.complete && img.naturalWidth) onLoaded()
   })
+}
+
+function setImageRef(el: Element | ComponentPublicInstance | null, i: number) {
+  markImageLoadedIfCached(el, () => { loaded[i] = true })
+}
+
+function setLogoRef(el: Element | ComponentPublicInstance | null, src: string) {
+  markImageLoadedIfCached(el, () => { logoLoaded[src] = true })
 }
 
 useSeoMeta({
@@ -230,33 +276,30 @@ useSeoMeta({
 
 .logo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  max-width: 980px;
+  margin: 0 auto;
 }
 
 .logo-card {
-  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 1rem;
+  border-radius: var(--radius-sm, 4px);
+  padding: 0.35rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 5 / 2;
+  aspect-ratio: 1 / 1;
 }
 
 .logo-card :deep(img) {
-  max-height: 48px;
-  width: auto;
-  opacity: 0.85;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.logo-card__placeholder {
-  color: var(--color-muted);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+.logo-card.is-loaded :deep(img) {
+  opacity: 0.85;
 }
 
 .testimonial-feed {
@@ -308,55 +351,28 @@ useSeoMeta({
 }
 
 .gallery-photo {
-  display: block;
-  position: relative;
   width: 100%;
   aspect-ratio: 1;
-  overflow: hidden;
   border-radius: var(--radius);
-  background: var(--color-skeleton);
-}
-
-.gallery-photo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    var(--color-skeleton) 0%,
-    var(--color-skeleton-shine) 50%,
-    var(--color-skeleton) 100%
-  );
-  background-size: 200% 100%;
-  animation: gallery-shimmer 1.4s ease-in-out infinite;
-  z-index: 0;
-}
-
-.gallery-photo.is-loaded::before {
-  opacity: 0;
-  transition: opacity 0.25s ease;
 }
 
 .gallery-photo img {
-  position: relative;
-  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.gallery-photo.is-loaded img {
-  opacity: 1;
-}
-
-@keyframes gallery-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
 
 @media (max-width: 640px) {
+  .logo-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.15rem;
+    max-width: none;
+  }
+
+  .logo-card {
+    padding: 0.2rem;
+  }
+
   .testimonial-feed {
     grid-template-columns: 1fr;
   }
@@ -366,9 +382,4 @@ useSeoMeta({
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .gallery-photo::before {
-    animation: none;
-  }
-}
 </style>

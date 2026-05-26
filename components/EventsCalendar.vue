@@ -49,6 +49,7 @@
               :class="{ 'events-calendar__event--next': isNextShow(item) }"
             >
               <span class="events-calendar__event-name">{{ item.event.title }}</span>
+              <span v-if="item.event.time" class="events-calendar__event-time">{{ item.event.time }}</span>
               <span v-if="item.event.venue" class="events-calendar__event-venue">{{ item.event.venue }}</span>
             </li>
           </ul>
@@ -66,6 +67,7 @@
           {{ item.date.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' }) }}
         </time>
         <span>{{ item.event.title }}</span>
+        <span v-if="item.event.time" class="events-calendar__list-time">{{ item.event.time }}</span>
         <span v-if="item.event.venue" class="events-calendar__list-venue">{{ item.event.venue }}</span>
       </li>
     </ul>
@@ -271,6 +273,14 @@ function nextMonth() {
   color: var(--color-text);
 }
 
+.events-calendar__event-time {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-accent);
+  line-height: 1.2;
+}
+
 .events-calendar__event-venue {
   display: block;
   font-size: var(--text-xs);
@@ -302,6 +312,12 @@ function nextMonth() {
   min-width: 7rem;
 }
 
+.events-calendar__list-time {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
 .events-calendar__list-venue {
   color: var(--color-muted);
   font-size: var(--text-sm);
@@ -326,6 +342,7 @@ function nextMonth() {
   }
 
   .events-calendar__event-name,
+  .events-calendar__event-time,
   .events-calendar__event-venue {
     display: none;
   }
