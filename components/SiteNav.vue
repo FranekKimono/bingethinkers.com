@@ -5,23 +5,23 @@
       <img src="/title-98x600.jpg" alt="Binge Thinkers" width="300" height="49" style="margin-top: 4px;" />
     </NuxtLink>
 
-    <a
-      v-if="tonightEvent"
-      href="#calendar"
-      class="nav-tonight"
-      @click.prevent="goToCalendar"
-    >
-      <span class="nav-tonight__label">On tonight:</span>
-      <span class="nav-tonight__show">{{ tonightEvent.event.title }}</span>
-      <template v-if="tonightEvent.event.time">
-        <span class="nav-tonight__sep" aria-hidden="true">·</span>
-        <span class="nav-tonight__time">{{ tonightEvent.event.time }}</span>
-      </template>
+    <div v-if="tonightEvent" class="nav-tonight">
+      <a href="#calendar" class="nav-tonight__calendar" @click.prevent="goToCalendar">
+        <span class="nav-tonight__label">On tonight:</span>
+        <span class="nav-tonight__show">{{ tonightEvent.event.title }}</span>
+        <template v-if="tonightEvent.event.time">
+          <span class="nav-tonight__sep" aria-hidden="true">·</span>
+          <span class="nav-tonight__time">{{ tonightEvent.event.time }}</span>
+        </template>
+      </a>
       <template v-if="tonightEvent.event.venue">
         <span class="nav-tonight__sep" aria-hidden="true">·</span>
-        <span class="nav-tonight__venue">{{ tonightEvent.event.venue }}</span>
+        <VenueLink
+          :name="tonightEvent.event.venue"
+          link-class="nav-tonight__venue"
+        />
       </template>
-    </a>
+    </div>
 
     <nav class="nav-links">
       <NuxtLink to="/">Home</NuxtLink>

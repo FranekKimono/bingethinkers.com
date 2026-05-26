@@ -194,9 +194,35 @@ img { max-width: 100%; height: auto; display: block; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.nav-tonight:hover {
+.nav-tonight__calendar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+.nav-tonight__calendar:hover {
   color: var(--color-text);
   text-decoration: none;
+}
+.nav-tonight__calendar:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 4px;
+}
+a.venue-link {
+  color: inherit;
+  text-decoration: none;
+}
+a.venue-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a.venue-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 2px;
 }
 .nav-tonight__label {
   color: var(--color-highlight);
@@ -216,11 +242,6 @@ img { max-width: 100%; height: auto; display: block; }
 .nav-tonight__sep {
   color: var(--color-border);
   flex-shrink: 0;
-}
-.nav-tonight:focus-visible {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
-  outline-offset: var(--focus-ring-offset);
-  border-radius: 4px;
 }
 .nav-links { display: flex; gap: 1.75rem; align-items: center; flex-shrink: 0; }
 @media (min-width: 1280px) {

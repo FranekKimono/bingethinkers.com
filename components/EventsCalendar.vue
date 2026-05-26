@@ -50,7 +50,11 @@
             >
               <span class="events-calendar__event-name">{{ item.event.title }}</span>
               <span v-if="item.event.time" class="events-calendar__event-time">{{ item.event.time }}</span>
-              <span v-if="item.event.venue" class="events-calendar__event-venue">{{ item.event.venue }}</span>
+              <VenueLink
+                v-if="item.event.venue"
+                :name="item.event.venue"
+                link-class="events-calendar__event-venue"
+              />
             </li>
           </ul>
         </div>
@@ -68,7 +72,11 @@
         </time>
         <span>{{ item.event.title }}</span>
         <span v-if="item.event.time" class="events-calendar__list-time">{{ item.event.time }}</span>
-        <span v-if="item.event.venue" class="events-calendar__list-venue">{{ item.event.venue }}</span>
+        <VenueLink
+          v-if="item.event.venue"
+          :name="item.event.venue"
+          link-class="events-calendar__list-venue"
+        />
       </li>
     </ul>
   </div>
