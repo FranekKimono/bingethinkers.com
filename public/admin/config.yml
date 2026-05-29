@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: FranekKimono/bingethinkers.com
-  branch: master
+  branch: dev
   base_url: https://bingethinkers.com
   auth_endpoint: /api/auth
 
