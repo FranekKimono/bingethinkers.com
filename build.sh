@@ -6,9 +6,13 @@ if [ "$CF_PAGES_BRANCH" = "master" ]; then
   mkdir -p dist
   cp index.html coming-soon.jpg dist/
   [ -f README.md ] && cp README.md dist/
-  echo "  Done."
+  cp -r functions dist/functions
+  echo "  Done (coming-soon + OAuth functions)."
 else
   echo "→ Building preview (Nuxt site) on branch: $CF_PAGES_BRANCH"
   npm install
   npm run generate
+  # Cloudflare Pages Functions must live inside the build output directory
+  cp -r functions dist/functions
+  echo "  Done (dist + OAuth functions)."
 fi

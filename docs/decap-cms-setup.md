@@ -23,35 +23,45 @@ Optional extra gate: [Cloudflare Access](https://developers.cloudflare.com/cloud
 5. Create the app and note the **Client ID**
 6. Generate a **Client Secret**
 
+OAuth runs on the production domain (`bingethinkers.com`) even when you open `/admin` on a preview URL. The master branch deploy includes OAuth functions alongside the coming-soon page.
+
 ### 2. Cloudflare Pages environment variables
 
-In Cloudflare → **Workers & Pages** → your project → **Settings** → **Environment variables**, add for **Production and Preview**:
+In Cloudflare → **Workers & Pages** → your project → **Settings** → **Environment variables**:
+
+**Preview** (required for dev CMS):
 
 | Variable | Value |
 |----------|--------|
 | `GITHUB_CLIENT_ID` | Client ID from step 1 |
 | `GITHUB_CLIENT_SECRET` | Client Secret from step 1 |
-| `CMS_OAUTH_BASE_URL` | `https://bingethinkers.com` (same on preview — see below) |
+| `CMS_OAUTH_BASE_URL` | `https://bingethinkers.com` |
 
-These are read at runtime by `server/api/auth.get.ts` and `server/api/callback.get.ts`. **Commit those route files** — they contain no secrets. Only the env var values stay out of git (see `.env.example`).
+**Production** (same values):
+
+| Variable | Value |
+|----------|--------|
+| `GITHUB_CLIENT_ID` | Client ID from step 1 |
+| `GITHUB_CLIENT_SECRET` | Client Secret from step 1 |
+| `CMS_OAUTH_BASE_URL` | `https://bingethinkers.com` (optional; default) |
+
+OAuth is implemented by `functions/api/auth.js` and `functions/api/callback.js` (copied into `dist/` at build time). Server routes in `server/api/` are for a future full `nuxt build` deploy.
 
 ### 3. Branches (production vs preview CMS)
 
-Each Cloudflare build runs `scripts/prepare-admin.mjs`, which sets the CMS target branch from `CF_PAGES_BRANCH`:
+Each Cloudflare preview build runs `scripts/prepare-admin.mjs`, which sets the CMS target branch from `CF_PAGES_BRANCH`:
 
 | Cloudflare build | `CF_PAGES_BRANCH` | CMS commits go to |
 |------------------|-------------------|-------------------|
 | Production (`master`) | `master` | `master` → live site |
 | Preview (`dev`, PRs, etc.) | `dev` (or branch name) | That preview branch only |
 
-- **Production:** `https://bingethinkers.com/admin` — edits go to `master`.
-- **Preview:** `https://<preview-url>/admin` — edits go to `dev` (or the branch that was deployed).
-
-OAuth always uses `CMS_OAUTH_BASE_URL` (production) so GitHub login works from preview URLs without registering every `*.pages.dev` callback.
+- **Production:** `https://bingethinkers.com/admin` — edits go to `master` (once master deploys the Nuxt site).
+- **Preview:** `https://dev.bingethinkers-com.pages.dev/admin/` — edits go to `dev`.
 
 ### 4. Deploy
 
-Push and let Cloudflare build. Open `/admin` on the deployment you want (production or preview) and click **Login with GitHub**.
+Push and let Cloudflare build. Open `/admin/` (with trailing slash) on the deployment you want and click **Login with GitHub**.
 
 ## Add a second editor
 
@@ -59,7 +69,7 @@ Push and let Cloudflare build. Open `/admin` on the deployment you want (product
 2. **Add people** → enter their GitHub username or email
 3. Role: **Write** (enough to commit content via Decap; not Admin unless they need repo settings)
 4. They accept the invite
-5. They visit `/admin` on production or preview, log in with **their** GitHub account, and edit Pages, Settings, and Calendar Events
+5. They visit `/admin/` on production or preview, log in with **their** GitHub account, and edit Pages, Settings, and Calendar Events
 
 No Decap configuration change is required per user.
 
@@ -75,9 +85,10 @@ After each save, Decap commits to the branch configured for that deployment; Clo
 
 ## Troubleshooting
 
-- **White screen at `/admin`:** Open DevTools → Console. Often a bad `config.yml` (fixed by removing unsupported `condition` fields). Confirm `/admin/config.yml` loads (200). Use `/admin/` with trailing slash.
-- **Console spam `SES Removing unpermitted intrinsics`:** Usually a browser extension (often MetaMask). It is noisy but unrelated to the CMS. Try an incognito window with extensions disabled to test admin.
-- **Login popup loops / keeps reopening:** Pin Decap to one version (see `index.html`), confirm GitHub OAuth callback is exactly `https://bingethinkers.com/api/callback`, and that `CMS_OAUTH_BASE_URL` is set on Preview builds. OAuth always runs on production; preview admin receives the token via `postMessage`.
-- **Login button does nothing / OAuth error:** Check `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, and `CMS_OAUTH_BASE_URL` in Cloudflare. GitHub OAuth callback must be `https://bingethinkers.com/api/callback`.
+- **Infinite reload at `/admin/`:** Was caused by a Nuxt redirect rule that replaced the admin page with `<meta refresh url=/admin/>`. Fixed — use `/admin/` and redeploy.
+- **White screen at `/admin`:** Open DevTools → Console. Often a bad `config.yml`. Confirm `/admin/config.yml` loads (200, YAML content). Use `/admin/` with trailing slash.
+- **Console spam `SES Removing unpermitted intrinsics`:** Usually a browser extension (often MetaMask). Try incognito with extensions disabled.
+- **Login popup loops:** Usually OAuth functions missing on production, or wrong GitHub callback URL. Confirm `https://bingethinkers.com/api/auth` redirects to GitHub (not coming-soon HTML). Redeploy **master** so OAuth functions are live.
+- **Login button does nothing / OAuth 404:** Confirm `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` are set for Preview. Check `/api/auth` returns a redirect to GitHub (not 404 or HTML).
 - **Login works but save fails:** User needs **Write** access on the repo; preview saves need permission to push to `dev`.
 - **Events look wrong after edit:** Only fill recurrence fields that match the selected type (once / weekly / monthly / monthlyWeekday). Leave unused fields empty.
