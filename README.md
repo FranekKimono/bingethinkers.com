@@ -19,23 +19,41 @@ npm run dev        # http://localhost:3000
    - **Build command:** `npm run generate`
    - **Build output directory:** `dist/`
 4. Add custom domain: `bingethinkers.com`
-5. **Environment variables** (in Cloudflare Pages → Settings → Variables):
-   - `RESEND_API_KEY` — if using Resend for contact form emails
+5. Set **environment variables** in Cloudflare Pages → Settings → Variables (see [Secrets](#secrets))
 
 ### On every push
 
-Cloudflare Pages auto-deploys from `main`. No manual steps.
+Cloudflare Pages auto-deploys **production** from `master`. Pushes to `dev` (and other branches) get **preview** deployments only.
 
 ## Content editing (for non-devs)
 
 Go to **bingethinkers.com/admin** → log in with GitHub. Decap CMS provides a WYSIWYG editor for:
 
-- **Pages** — edit any content page (About, Pricing, How It Works, FAQ, Gallery)
+- **Pages** — edit any content page (About, FAQ, Gallery, etc.)
 - **Settings** — update the home page hero text, feature cards, and CTA
+- **Calendar Events** — add or edit trivia nights in `data/events.json`
 
-All changes are committed directly to the `main` branch and auto-deployed.
+All CMS saves commit to **`master`** (see `public/admin/config.yml`) and trigger a production deploy. Use **bingethinkers.com/admin** for edits — not preview URLs on `dev`.
 
-> **First-time setup:** update `public/admin/config.yml` → replace `YOUR_GITHUB_USER` with your actual GitHub username.
+**Setup and adding editors:** see [docs/decap-cms-setup.md](docs/decap-cms-setup.md) (GitHub OAuth, Cloudflare env vars, inviting a second GitHub user as a repo collaborator).
+
+## Secrets
+
+**Do not commit secret values.** `.env`, `.env.local`, and `.dev.vars` are gitignored. Copy [`.env.example`](.env.example) to `.env` for local dev.
+
+**Do commit the server route files** (`server/api/auth.get.ts`, `server/api/callback.get.ts`, etc.). They contain no secrets — they read env vars at runtime. Without them in git, Cloudflare Pages cannot serve `/api/auth` or `/api/callback` and Decap login breaks.
+
+Set these in **Cloudflare Pages → Settings → Environment variables** for production (and in `.env` locally):
+
+| Variable | Used by | Required |
+|----------|---------|----------|
+| `GITHUB_CLIENT_ID` | Decap CMS OAuth | Yes, for `/admin` |
+| `GITHUB_CLIENT_SECRET` | Decap CMS OAuth | Yes, for `/admin` |
+| `RESEND_API_KEY` | Contact form email | Before launch |
+| `INSTAGRAM_TOKEN` | Instagram feed API | If using feed |
+| `INSTAGRAM_ACCOUNT_ID` | Instagram feed API | If using feed |
+
+GitHub OAuth app setup and collaborator access: [docs/decap-cms-setup.md](docs/decap-cms-setup.md).
 
 ## Contact form
 

@@ -1,7 +1,10 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_USER/bingethinkers-com
-  branch: main
+  repo: FranekKimono/bingethinkers.com
+  branch: master
+  site_domain: https://bingethinkers.com
+  base_url: https://bingethinkers.com
+  auth_endpoint: /api/auth
 
 media_folder: public/images
 public_folder: /images
@@ -13,7 +16,7 @@ collections:
     create: true
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Body,  name: body,  widget: markdown }
+      - { label: Body, name: body, widget: markdown }
 
   - name: settings
     label: Site Settings
@@ -21,12 +24,90 @@ collections:
       - file: content/settings/home.md
         label: Home Page
         fields:
-          - { label: Hero Title,     name: heroTitle,     widget: string }
-          - { label: Hero Subtitle,  name: heroSubtitle,  widget: string }
-          - { label: CTA Text,       name: ctaText,       widget: string }
-          - { label: Feature 1 Title,   name: feature1Title,   widget: string }
-          - { label: Feature 1 Body,    name: feature1Body,    widget: text }
-          - { label: Feature 2 Title,   name: feature2Title,   widget: string }
-          - { label: Feature 2 Body,    name: feature2Body,    widget: text }
-          - { label: Feature 3 Title,   name: feature3Title,   widget: string }
-          - { label: Feature 3 Body,    name: feature3Body,    widget: text }
+          - { label: Hero Title, name: heroTitle, widget: string }
+          - { label: Hero Subtitle, name: heroSubtitle, widget: string }
+          - { label: CTA Text, name: ctaText, widget: string }
+          - { label: Feature 1 Title, name: feature1Title, widget: string }
+          - { label: Feature 1 Body, name: feature1Body, widget: text }
+          - { label: Feature 2 Title, name: feature2Title, widget: string }
+          - { label: Feature 2 Body, name: feature2Body, widget: text }
+          - { label: Feature 3 Title, name: feature3Title, widget: string }
+          - { label: Feature 3 Body, name: feature3Body, widget: text }
+
+  - name: events
+    label: Calendar Events
+    files:
+      - label: Events
+        name: events
+        file: data/events.json
+        format: json
+        fields:
+          - label: Events
+            name: events
+            widget: list
+            summary: '{{fields.title}} — {{fields.venue}}'
+            fields:
+              - { label: ID, name: id, widget: string, hint: 'Unique slug, e.g. weekly-x-cues or rec-room-2026-06-02' }
+              - { label: Title, name: title, widget: string, default: 'Trivia Night' }
+              - { label: Venue, name: venue, widget: string }
+              - { label: Time, name: time, widget: string, hint: 'e.g. 7:00 PM' }
+              - label: Recurrence
+                name: recurrence
+                widget: object
+                collapsed: false
+                fields:
+                  - label: Type
+                    name: type
+                    widget: select
+                    options:
+                      - { label: One-time date, value: once }
+                      - { label: Every week, value: weekly }
+                      - { label: Every month (day of month), value: monthly }
+                      - { label: Monthly weekday (e.g. 2nd Tuesday), value: monthlyWeekday }
+                  - label: Date
+                    name: date
+                    widget: string
+                    pattern: ['\d{4}-\d{2}-\d{2}', 'YYYY-MM-DD']
+                    hint: 'For one-time events only'
+                    required: false
+                    condition:
+                      field: type
+                      value: once
+                  - label: Day of week
+                    name: dayOfWeek
+                    widget: select
+                    options:
+                      - { label: Sunday, value: 0 }
+                      - { label: Monday, value: 1 }
+                      - { label: Tuesday, value: 2 }
+                      - { label: Wednesday, value: 3 }
+                      - { label: Thursday, value: 4 }
+                      - { label: Friday, value: 5 }
+                      - { label: Saturday, value: 6 }
+                    required: false
+                    condition:
+                      field: type
+                      values: [weekly, monthlyWeekday]
+                  - label: Day of month
+                    name: dayOfMonth
+                    widget: number
+                    value_type: int
+                    min: 1
+                    max: 31
+                    required: false
+                    condition:
+                      field: type
+                      value: monthly
+                  - label: Which weekday of the month
+                    name: nth
+                    widget: select
+                    options:
+                      - { label: 1st, value: 1 }
+                      - { label: 2nd, value: 2 }
+                      - { label: 3rd, value: 3 }
+                      - { label: 4th, value: 4 }
+                      - { label: 5th, value: 5 }
+                    required: false
+                    condition:
+                      field: type
+                      value: monthlyWeekday

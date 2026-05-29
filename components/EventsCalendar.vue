@@ -95,16 +95,22 @@ import {
   type DayEvent,
 } from '~/utils/events'
 
-const now = new Date()
-const today = now.getDate()
+// Evaluated in the browser so prerender/build time does not freeze "today".
+const now = ref(new Date())
+const displayDate = ref(new Date())
 
-const displayDate = ref(new Date(now.getFullYear(), now.getMonth(), 1))
+onMounted(() => {
+  now.value = new Date()
+  displayDate.value = new Date(now.value.getFullYear(), now.value.getMonth(), 1)
+})
+
+const today = computed(() => now.value.getDate())
 
 const year = computed(() => displayDate.value.getFullYear())
 const month = computed(() => displayDate.value.getMonth())
 
 const isCurrentMonth = computed(
-  () => year.value === now.getFullYear() && month.value === now.getMonth(),
+  () => year.value === now.value.getFullYear() && month.value === now.value.getMonth(),
 )
 
 const monthLabel = computed(() => getMonthLabel(year.value, month.value))
@@ -122,14 +128,14 @@ const eventsByDay = computed(() => {
 })
 
 const upcomingList = computed(() => {
-  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const startOfToday = new Date(now.value.getFullYear(), now.value.getMonth(), now.value.getDate())
   if (isCurrentMonth.value) {
     return monthEvents.value.filter((e) => e.date >= startOfToday)
   }
   return monthEvents.value
 })
 
-const nextShow = computed(() => getNextEvent(now))
+const nextShow = computed(() => getNextEvent(now.value))
 const nextShowKey = computed(() => (nextShow.value ? dayEventKey(nextShow.value) : null))
 
 function isNextShow(item: DayEvent): boolean {
