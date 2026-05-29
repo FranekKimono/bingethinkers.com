@@ -2,7 +2,6 @@ backend:
   name: github
   repo: FranekKimono/bingethinkers.com
   branch: master
-  site_domain: https://bingethinkers.com
   base_url: https://bingethinkers.com
   auth_endpoint: /api/auth
 
@@ -21,8 +20,9 @@ collections:
   - name: settings
     label: Site Settings
     files:
-      - file: content/settings/home.md
+      - name: home
         label: Home Page
+        file: content/settings/home.md
         fields:
           - { label: Hero Title, name: heroTitle, widget: string }
           - { label: Hero Subtitle, name: heroSubtitle, widget: string }
@@ -64,18 +64,12 @@ collections:
                       - { label: Every week, value: weekly }
                       - { label: Every month (day of month), value: monthly }
                       - { label: Monthly weekday (e.g. 2nd Tuesday), value: monthlyWeekday }
-                  - label: Date
-                    name: date
-                    widget: string
-                    pattern: ['\d{4}-\d{2}-\d{2}', 'YYYY-MM-DD']
-                    hint: 'For one-time events only'
-                    required: false
-                    condition:
-                      field: type
-                      value: once
+                  - { label: Date (once only), name: date, widget: string, required: false, hint: 'YYYY-MM-DD — only when type is once' }
                   - label: Day of week
                     name: dayOfWeek
                     widget: select
+                    required: false
+                    hint: 'For weekly or monthlyWeekday'
                     options:
                       - { label: Sunday, value: 0 }
                       - { label: Monday, value: 1 }
@@ -84,30 +78,14 @@ collections:
                       - { label: Thursday, value: 4 }
                       - { label: Friday, value: 5 }
                       - { label: Saturday, value: 6 }
-                    required: false
-                    condition:
-                      field: type
-                      values: [weekly, monthlyWeekday]
-                  - label: Day of month
-                    name: dayOfMonth
-                    widget: number
-                    value_type: int
-                    min: 1
-                    max: 31
-                    required: false
-                    condition:
-                      field: type
-                      value: monthly
-                  - label: Which weekday of the month
+                  - { label: Day of month (monthly only), name: dayOfMonth, widget: number, value_type: int, min: 1, max: 31, required: false }
+                  - label: Which weekday of the month (monthlyWeekday only)
                     name: nth
                     widget: select
+                    required: false
                     options:
                       - { label: 1st, value: 1 }
                       - { label: 2nd, value: 2 }
                       - { label: 3rd, value: 3 }
                       - { label: 4th, value: 4 }
                       - { label: 5th, value: 5 }
-                    required: false
-                    condition:
-                      field: type
-                      value: monthlyWeekday

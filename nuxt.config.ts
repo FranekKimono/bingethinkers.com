@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     '/pricing': { redirect: '/contact' },
     '/how-it-works': { redirect: '/' },
     '/gallery': { redirect: '/testimonials' },
+    '/admin': { redirect: { to: '/admin/', statusCode: 302 } },
   },
 
   nitro: {

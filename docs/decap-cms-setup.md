@@ -19,37 +19,39 @@ Optional extra gate: [Cloudflare Access](https://developers.cloudflare.com/cloud
 1. GitHub → **Settings** → **Developer settings** → **OAuth Apps** → **New OAuth App**
 2. **Application name:** Binge Thinkers CMS (or similar)
 3. **Homepage URL:** `https://bingethinkers.com`
-4. **Authorization callback URL:** `https://bingethinkers.com` (homepage is fine; callback is a subpath)
+4. **Authorization callback URL:** `https://bingethinkers.com/api/callback`
 5. Create the app and note the **Client ID**
 6. Generate a **Client Secret**
 
 ### 2. Cloudflare Pages environment variables
 
-In Cloudflare → **Workers & Pages** → your project → **Settings** → **Environment variables**, add (Production and Preview):
+In Cloudflare → **Workers & Pages** → your project → **Settings** → **Environment variables**, add for **Production and Preview**:
 
 | Variable | Value |
 |----------|--------|
 | `GITHUB_CLIENT_ID` | Client ID from step 1 |
 | `GITHUB_CLIENT_SECRET` | Client Secret from step 1 |
+| `CMS_OAUTH_BASE_URL` | `https://bingethinkers.com` (same on preview — see below) |
 
 These are read at runtime by `server/api/auth.get.ts` and `server/api/callback.get.ts`. **Commit those route files** — they contain no secrets. Only the env var values stay out of git (see `.env.example`).
 
-### 3. Production branch (CMS commits)
+### 3. Branches (production vs preview CMS)
 
-`public/admin/config.yml` sets `branch: master`. Every save from `/admin` commits to **`master`**, which is the production branch (`origin/HEAD` → `master`).
+Each Cloudflare build runs `scripts/prepare-admin.mjs`, which sets the CMS target branch from `CF_PAGES_BRANCH`:
 
-| Branch | Role |
-|--------|------|
-| `master` | Production site (`bingethinkers.com`) and **all CMS commits** |
-| `dev` | Preview deployments only — code/content experiments, not the live CMS target |
+| Cloudflare build | `CF_PAGES_BRANCH` | CMS commits go to |
+|------------------|-------------------|-------------------|
+| Production (`master`) | `master` | `master` → live site |
+| Preview (`dev`, PRs, etc.) | `dev` (or branch name) | That preview branch only |
 
-Editors should use **`https://bingethinkers.com/admin`** on production. Preview builds on `dev` still ship the same `config.yml`, so `/admin` on a preview URL would also target `master`; avoid editing from preview URLs to prevent confusion.
+- **Production:** `https://bingethinkers.com/admin` — edits go to `master`.
+- **Preview:** `https://<preview-url>/admin` — edits go to `dev` (or the branch that was deployed).
 
-If production ever moves to another branch, update `branch` in `config.yml` to match.
+OAuth always uses `CMS_OAUTH_BASE_URL` (production) so GitHub login works from preview URLs without registering every `*.pages.dev` callback.
 
 ### 4. Deploy
 
-Push and let Cloudflare build. Then open `https://bingethinkers.com/admin` and click **Login with GitHub**.
+Push and let Cloudflare build. Open `/admin` on the deployment you want (production or preview) and click **Login with GitHub**.
 
 ## Add a second editor
 
@@ -57,7 +59,7 @@ Push and let Cloudflare build. Then open `https://bingethinkers.com/admin` and c
 2. **Add people** → enter their GitHub username or email
 3. Role: **Write** (enough to commit content via Decap; not Admin unless they need repo settings)
 4. They accept the invite
-5. They visit `https://bingethinkers.com/admin`, log in with **their** GitHub account, and edit Pages, Settings, and Calendar Events
+5. They visit `/admin` on production or preview, log in with **their** GitHub account, and edit Pages, Settings, and Calendar Events
 
 No Decap configuration change is required per user.
 
@@ -69,10 +71,11 @@ No Decap configuration change is required per user.
 | Site Settings | `content/settings/home.md` | Home hero and features |
 | Calendar Events | `data/events.json` | Trivia nights and recurrence rules |
 
-After each save, Decap opens a PR or commits directly (depending on config); Cloudflare rebuilds on push to the configured branch.
+After each save, Decap commits to the branch configured for that deployment; Cloudflare rebuilds that branch.
 
 ## Troubleshooting
 
-- **Login button does nothing / OAuth error:** Check `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` in Cloudflare, and that OAuth app homepage URL matches the live site.
-- **Login works but save fails:** User needs **Write** access on the repo; check `branch` in `config.yml` matches a branch they can push to.
-- **Events look wrong after edit:** Recurrence fields are conditional — only fill fields that match the selected recurrence type (once / weekly / monthly / monthlyWeekday).
+- **White screen at `/admin`:** Open DevTools → Console. Often a bad `config.yml` (fixed by removing unsupported `condition` fields). Confirm `/admin/config.yml` loads (200). Use `/admin/` with trailing slash.
+- **Login button does nothing / OAuth error:** Check `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, and `CMS_OAUTH_BASE_URL` in Cloudflare. GitHub OAuth callback must be `https://bingethinkers.com/api/callback`.
+- **Login works but save fails:** User needs **Write** access on the repo; preview saves need permission to push to `dev`.
+- **Events look wrong after edit:** Only fill recurrence fields that match the selected type (once / weekly / monthly / monthlyWeekday). Leave unused fields empty.
