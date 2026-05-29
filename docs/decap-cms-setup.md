@@ -27,27 +27,36 @@ Optional extra gate: [Cloudflare Access](https://developers.cloudflare.com/cloud
 
 Preview builds use **same-origin OAuth** on `https://dev.bingethinkers-com.pages.dev` (stable branch URL). Open `/admin/` on that URL when testing CMS on `dev`, not the per-deploy hash URL.
 
-Production (`master`) uses `https://bingethinkers.com` for OAuth. The master deploy is currently a coming-soon page, but it still serves OAuth at `/api/auth` and `/api/callback` via Cloudflare Pages Functions.
+Production (`master`) uses `https://bingethinkers.com` for OAuth. The master deploy is currently a coming-soon page, but it still serves OAuth at `/api/auth` and `/api/callback` via `dist/_worker.js`.
 
 ### 2. Cloudflare Pages environment variables
 
-In Cloudflare → **Workers & Pages** → your project → **Settings** → **Environment variables**:
+In Cloudflare → **Workers & Pages** → your project → **Settings** → **Variables and Secrets**:
 
-**Preview** (required for dev CMS at `dev.bingethinkers-com.pages.dev/admin/`):
+When adding each variable, enable the correct **environment** checkbox:
+
+- **Preview** — required for `dev.bingethinkers-com.pages.dev/admin/`
+- **Production** — required for `bingethinkers.com/admin`
+
+If you only set Production, preview `/admin` will show `GITHUB_CLIENT_ID is not configured` even though the variable appears in the dashboard.
+
+**Preview:**
 
 | Variable | Value |
 |----------|--------|
 | `GITHUB_CLIENT_ID` | Client ID from step 1 |
 | `GITHUB_CLIENT_SECRET` | Client Secret from step 1 |
 
-**Production** (required for `bingethinkers.com/admin` once master deploys the site):
+**Production:**
 
 | Variable | Value |
 |----------|--------|
 | `GITHUB_CLIENT_ID` | Client ID from step 1 |
 | `GITHUB_CLIENT_SECRET` | Client Secret from step 1 |
 
-OAuth is implemented by `functions/api/auth.js` and `functions/api/callback.js` (copied into `dist/` at build time). Server routes in `server/api/` are for a future full `nuxt build` deploy.
+After adding or changing variables, **trigger a new deploy** — existing deployments do not pick up new values.
+
+OAuth is implemented in `dist/_worker.js` (generated at build time by `scripts/write-oauth-worker.mjs`). Local dev can also use `server/api/auth.get.ts` and `server/api/callback.get.ts`.
 
 ### 3. Branches (production vs preview CMS)
 
@@ -91,6 +100,7 @@ After each save, Decap commits to the branch configured for that deployment; Clo
 - **White screen at `/admin`:** Open DevTools → Console. Often a bad `config.yml`. Confirm `/admin/config.yml` loads (200, YAML content). Use `/admin/` with trailing slash.
 - **Console spam `SES Removing unpermitted intrinsics`:** Usually a browser extension (often MetaMask). Try incognito with extensions disabled.
 - **Login popup shows broken image / blank page:** `/api/auth` is serving the coming-soon page instead of redirecting to GitHub. Confirm `https://bingethinkers.com/api/auth` returns a **302 to github.com** (not HTML). Redeploy **master** after the OAuth routing fix. On preview, use `https://dev.bingethinkers-com.pages.dev/admin/` and confirm `/api/auth` redirects to GitHub.
-- **Login popup loops:** Usually missing `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` in Cloudflare Preview env vars, or wrong GitHub callback URL.
+- **`GITHUB_CLIENT_ID is not configured`:** Variables exist in Cloudflare but **Preview** was not checked when they were added, or the deploy predates the variables. Edit each variable → enable **Preview** → redeploy `dev`.
+- **Login popup loops:** Usually missing Preview env vars, or wrong GitHub callback URL.
 - **Login works but save fails:** User needs **Write** access on the repo; preview saves need permission to push to `dev`.
 - **Events look wrong after edit:** Only fill recurrence fields that match the selected type (once / weekly / monthly / monthlyWeekday). Leave unused fields empty.

@@ -1,21 +1,27 @@
 /**
- * Ensures /api/auth and /api/callback invoke Cloudflare Pages Functions.
- *
- * On the master coming-soon deploy there is no Nuxt worker — without this file,
- * /api/auth serves index.html. The popup then shows a broken image because
- * coming-soon.jpg resolves relative to /api/ → /api/coming-soon.jpg (404).
+ * Ensures /api/auth and /api/callback are handled by _worker.js, not static assets.
  */
-import { existsSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 
 const routesPath = 'dist/_routes.json'
+const oauthPaths = ['/api/auth', '/api/callback']
 
-if (existsSync(routesPath)) {
-  console.log('[patch-oauth-routes] dist/_routes.json already exists (Nuxt preview) — skipping')
+if (!existsSync(routesPath)) {
+  writeFileSync(
+    routesPath,
+    `${JSON.stringify({ version: 1, include: ['/api/*'] }, null, 2)}\n`,
+  )
+  console.log('[patch-oauth-routes] Created dist/_routes.json (OAuth only)')
   process.exit(0)
 }
 
-writeFileSync(
-  routesPath,
-  `${JSON.stringify({ version: 1, include: ['/api/*'] }, null, 2)}\n`,
-)
-console.log('[patch-oauth-routes] Created dist/_routes.json (OAuth only)')
+const routes = JSON.parse(readFileSync(routesPath, 'utf8'))
+const exclude = new Set(routes.exclude || [])
+
+for (const path of oauthPaths) {
+  exclude.delete(path)
+}
+
+routes.exclude = [...exclude]
+writeFileSync(routesPath, `${JSON.stringify(routes, null, 2)}\n`)
+console.log('[patch-oauth-routes] Ensured OAuth paths invoke _worker.js')

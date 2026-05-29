@@ -43,7 +43,7 @@ CMS commits go to the branch being built: **`master`** on production, **`dev`** 
 
 **Do commit the server route files** (`server/api/auth.get.ts`, `server/api/callback.get.ts`, etc.). They contain no secrets — they read env vars at runtime. Without them in git, Cloudflare Pages cannot serve `/api/auth` or `/api/callback` and Decap login breaks.
 
-Set these in **Cloudflare Pages → Settings → Environment variables** for production (and in `.env` locally):
+Set these in **Cloudflare Pages → Settings → Variables and Secrets**. When adding each one, check **Preview** and/or **Production** as needed — preview CMS on `dev` only sees variables enabled for **Preview**. After changing variables, redeploy.
 
 | Variable | Used by | Required |
 |----------|---------|----------|
