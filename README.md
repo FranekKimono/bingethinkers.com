@@ -16,7 +16,7 @@ npm run dev        # http://localhost:3000
 1. Push this repo to GitHub
 2. Cloudflare Dashboard → **Workers & Pages** → **Pages** → **Connect to Git**
 3. Select repo. Configure build:
-   - **Build command:** `npm run generate`
+   - **Build command:** `./build.sh` (preview builds Nuxt; production builds coming-soon + OAuth)
    - **Build output directory:** `dist/`
 4. Add custom domain: `bingethinkers.com`
 5. Set **environment variables** in Cloudflare Pages → Settings → Variables (see [Secrets](#secrets))
