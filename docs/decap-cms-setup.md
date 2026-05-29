@@ -76,6 +76,8 @@ After each save, Decap commits to the branch configured for that deployment; Clo
 ## Troubleshooting
 
 - **White screen at `/admin`:** Open DevTools → Console. Often a bad `config.yml` (fixed by removing unsupported `condition` fields). Confirm `/admin/config.yml` loads (200). Use `/admin/` with trailing slash.
+- **Console spam `SES Removing unpermitted intrinsics`:** Usually a browser extension (often MetaMask). It is noisy but unrelated to the CMS. Try an incognito window with extensions disabled to test admin.
+- **Login popup loops / keeps reopening:** Pin Decap to one version (see `index.html`), confirm GitHub OAuth callback is exactly `https://bingethinkers.com/api/callback`, and that `CMS_OAUTH_BASE_URL` is set on Preview builds. OAuth always runs on production; preview admin receives the token via `postMessage`.
 - **Login button does nothing / OAuth error:** Check `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, and `CMS_OAUTH_BASE_URL` in Cloudflare. GitHub OAuth callback must be `https://bingethinkers.com/api/callback`.
 - **Login works but save fails:** User needs **Write** access on the repo; preview saves need permission to push to `dev`.
 - **Events look wrong after edit:** Only fill recurrence fields that match the selected type (once / weekly / monthly / monthlyWeekday). Leave unused fields empty.

@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Binge Thinkers — Admin</title>
   <link href="config.yml" type="application/yaml" rel="cms-config-url" />
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </head>
 <body>
   <div id="nc-root"></div>
   <noscript>Enable JavaScript to use the CMS.</noscript>
+  <script src="https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js"></script>
   <script>
+    window.addEventListener('unhandledrejection', function (event) {
+      showBootError(String(event.reason && event.reason.message ? event.reason.message : event.reason));
+    });
     window.addEventListener('error', function (event) {
+      showBootError(event.message || String(event.error));
+    });
+    function showBootError(message) {
       var el = document.getElementById('cms-boot-error');
       if (!el) {
         el = document.createElement('pre');
@@ -19,8 +25,8 @@
         el.style.cssText = 'margin:1rem;padding:1rem;background:#fee;border:1px solid #c00;color:#400;font:14px/1.4 monospace;white-space:pre-wrap';
         document.body.prepend(el);
       }
-      el.textContent = 'CMS failed to load. Check the browser console and /admin/config.yml.\n\n' + (event.message || event);
-    });
+      el.textContent = 'CMS failed to load. Check the browser console and /admin/config.yml.\n\n' + message;
+    }
   </script>
 </body>
 </html>
