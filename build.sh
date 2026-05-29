@@ -7,6 +7,7 @@ if [ "$CF_PAGES_BRANCH" = "master" ]; then
   cp index.html coming-soon.jpg dist/
   [ -f README.md ] && cp README.md dist/
   cp -r functions dist/functions
+  node scripts/patch-oauth-routes.mjs
   echo "  Done (coming-soon + OAuth functions)."
 else
   echo "→ Building preview (Nuxt site) on branch: $CF_PAGES_BRANCH"
@@ -14,5 +15,6 @@ else
   npm run generate
   # Cloudflare Pages Functions must live inside the build output directory
   cp -r functions dist/functions
+  node scripts/patch-oauth-routes.mjs
   echo "  Done (dist + OAuth functions)."
 fi

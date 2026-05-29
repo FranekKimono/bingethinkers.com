@@ -53,7 +53,11 @@ export async function onRequest(context) {
     }
 
     return new Response(renderBody('success', { token: result.access_token, provider: 'github' }), {
-      headers: { 'content-type': 'text/html;charset=UTF-8' },
+      headers: {
+        'content-type': 'text/html;charset=UTF-8',
+        'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+        'Cross-Origin-Embedder-Policy': 'unsafe-none',
+      },
       status: 200,
     })
   } catch (error) {

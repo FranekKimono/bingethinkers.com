@@ -12,5 +12,10 @@ export async function onRequest(context) {
   redirectUrl.searchParams.set('redirect_uri', `${oauthBase}/api/callback`)
   redirectUrl.searchParams.set('scope', 'repo user')
 
-  return Response.redirect(redirectUrl.href, 302)
+  return Response.redirect(redirectUrl.href, 302, {
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+      'Cross-Origin-Embedder-Policy': 'unsafe-none',
+    },
+  })
 }

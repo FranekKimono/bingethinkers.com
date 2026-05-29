@@ -33,7 +33,7 @@ Go to **bingethinkers.com/admin** → log in with GitHub. Decap CMS provides a W
 - **Settings** — update the home page hero text, feature cards, and CTA
 - **Calendar Events** — add or edit trivia nights in `data/events.json`
 
-CMS commits go to the branch being built: **`master`** on production, **`dev`** on preview (see `scripts/prepare-admin.mjs`). Use **bingethinkers.com/admin** for live edits; use your **preview URL/admin** to test CMS changes on `dev` before merging.
+CMS commits go to the branch being built: **`master`** on production, **`dev`** on preview (see `scripts/prepare-admin.mjs`). Use **bingethinkers.com/admin** for live edits; use **`https://dev.bingethinkers-com.pages.dev/admin/`** to test CMS on `dev` (stable branch URL, not the hash preview URL).
 
 **Setup and adding editors:** see [docs/decap-cms-setup.md](docs/decap-cms-setup.md) (GitHub OAuth, Cloudflare env vars, inviting a second GitHub user as a repo collaborator).
 
@@ -49,7 +49,6 @@ Set these in **Cloudflare Pages → Settings → Environment variables** for pro
 |----------|---------|----------|
 | `GITHUB_CLIENT_ID` | Decap CMS OAuth | Yes, for `/admin` |
 | `GITHUB_CLIENT_SECRET` | Decap CMS OAuth | Yes, for `/admin` |
-| `CMS_OAUTH_BASE_URL` | OAuth callback host (use `https://bingethinkers.com` on preview too) | Recommended |
 | `RESEND_API_KEY` | Contact form email | Before launch |
 | `INSTAGRAM_TOKEN` | Instagram feed API | If using feed |
 | `INSTAGRAM_ACCOUNT_ID` | Instagram feed API | If using feed |
