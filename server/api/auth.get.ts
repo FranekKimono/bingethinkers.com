@@ -1,3 +1,5 @@
+import { renderAuthRedirect, oauthHtmlHeaders } from '../utils/oauth-html'
+
 export default defineEventHandler((event) => {
   const clientId = process.env.GITHUB_CLIENT_ID
   if (!clientId) {
@@ -10,9 +12,9 @@ export default defineEventHandler((event) => {
   redirectUrl.searchParams.set('client_id', clientId)
   redirectUrl.searchParams.set('redirect_uri', `${oauthBase}/api/callback`)
   redirectUrl.searchParams.set('scope', 'repo user')
-  redirectUrl.searchParams.set('state', crypto.randomUUID())
 
-  setResponseHeader(event, 'Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
-  setResponseHeader(event, 'Cross-Origin-Embedder-Policy', 'unsafe-none')
-  return sendRedirect(event, redirectUrl.href, 302)
+  for (const [key, value] of Object.entries(oauthHtmlHeaders)) {
+    setResponseHeader(event, key, value)
+  }
+  return renderAuthRedirect(redirectUrl.href)
 })

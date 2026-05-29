@@ -1,9 +1,10 @@
 /**
  * Writes dist/_worker.js for Decap CMS GitHub OAuth on Cloudflare Pages.
- * Workers receive dashboard env vars via the `env` argument (unlike Pages Functions
- * in some preview setups, where context.env can be empty even when vars are set).
  */
 import { writeFileSync } from 'node:fs'
+import { renderAuthRedirect } from './oauth-html.mjs'
+
+const authHtmlTemplate = renderAuthRedirect('__GITHUB_URL__')
 
 const worker = `export default {
   async fetch(request, env) {
@@ -25,6 +26,14 @@ function oauthBase(url, env) {
   return (env.CMS_OAUTH_BASE_URL || url.origin).replace(/\\/$/, '')
 }
 
+function oauthHtmlHeaders() {
+  return {
+    'content-type': 'text/html;charset=UTF-8',
+    'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+    'Cross-Origin-Embedder-Policy': 'unsafe-none',
+  }
+}
+
 function handleAuth(url, env) {
   const clientId = env.GITHUB_CLIENT_ID
   if (!clientId) {
@@ -40,19 +49,23 @@ function handleAuth(url, env) {
   redirectUrl.searchParams.set('redirect_uri', base + '/api/callback')
   redirectUrl.searchParams.set('scope', 'repo user')
 
-  return Response.redirect(redirectUrl.href, 302)
+  const html = ${JSON.stringify(authHtmlTemplate)}.replace('__GITHUB_URL__', redirectUrl.href)
+  return new Response(html, { status: 200, headers: oauthHtmlHeaders() })
 }
 
 function renderCallbackBody(status, content) {
-  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Authorizing…</title></head><body><script>\\n' +
+  const contentJson = JSON.stringify(content)
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Authorizing…</title></head><body>' +
+    '<p id="status">Authorizing…</p><script>\\n' +
     '(function(){\\n' +
     '  var status=' + JSON.stringify(status) + ';\\n' +
-    '  var payload=' + JSON.stringify(JSON.stringify(content)) + ';\\n' +
-    '  var message="authorization:github:"+status+":"+payload;\\n' +
-    '  function deliver(origin){if(!window.opener||delivered)return;try{window.opener.postMessage(message,origin||"*");delivered=true;if(status==="success")setTimeout(function(){window.close()},200)}catch(e){}}\\n' +
-    '  var delivered=false;\\n' +
-    '  window.addEventListener("message",function(e){deliver(e.origin);window.removeEventListener("message",arguments.callee,false)},false);\\n' +
-    '  if(window.opener){window.opener.postMessage("authorizing:github","*")}else{document.body.innerHTML="<p>Authorization finished. Return to the admin tab.</p>"}\\n' +
+    '  var content=' + contentJson + ';\\n' +
+    '  var authMessage="authorization:github:"+status+":"+JSON.stringify(content);\\n' +
+    '  var OAUTH_KEY="decap-oauth-pending";\\n' +
+    '  function storeForAdmin(){try{localStorage.setItem(OAUTH_KEY,JSON.stringify({status:status,content:content}))}catch(e){}document.getElementById("status").textContent="Authorization finished. Close this window and return to the admin tab."}\\n' +
+    '  function receiveMessage(event){if(!window.opener)return;try{window.opener.postMessage(authMessage,event.origin);window.removeEventListener("message",receiveMessage,false);if(status==="success")setTimeout(function(){window.close()},200)}catch(e){storeForAdmin()}}\\n' +
+    '  window.addEventListener("message",receiveMessage,false);\\n' +
+    '  if(window.opener){try{window.opener.postMessage("authorizing:github","*")}catch(e){storeForAdmin()}}else{storeForAdmin()}\\n' +
     '})();\\n' +
     '</script></body></html>'
 }
@@ -84,20 +97,13 @@ async function handleCallback(url, env) {
     if (result.error) {
       return new Response(renderCallbackBody('error', result), {
         status: 401,
-        headers: { 'content-type': 'text/html;charset=UTF-8' },
+        headers: oauthHtmlHeaders(),
       })
     }
 
     return new Response(
       renderCallbackBody('success', { token: result.access_token, provider: 'github' }),
-      {
-        status: 200,
-        headers: {
-          'content-type': 'text/html;charset=UTF-8',
-          'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
-          'Cross-Origin-Embedder-Policy': 'unsafe-none',
-        },
-      },
+      { status: 200, headers: oauthHtmlHeaders() },
     )
   } catch (error) {
     return new Response(String(error), { status: 500 })

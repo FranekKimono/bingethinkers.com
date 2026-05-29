@@ -10,6 +10,45 @@
 <body>
   <div id="nc-root"></div>
   <noscript>Enable JavaScript to use the CMS.</noscript>
+  <script>
+    (function () {
+      var OAUTH_KEY = 'decap-oauth-pending';
+
+      function getBaseUrl(cb) {
+        fetch('config.yml', { cache: 'no-store' })
+          .then(function (r) { return r.text(); })
+          .then(function (t) {
+            var m = t.match(/^\s*base_url:\s*(\S+)/m);
+            cb(m ? m[1].replace(/["']/g, '') : window.location.origin);
+          })
+          .catch(function () { cb(window.location.origin); });
+      }
+
+      function completeFromStorage() {
+        var raw = localStorage.getItem(OAUTH_KEY);
+        if (!raw) return;
+        localStorage.removeItem(OAUTH_KEY);
+
+        var payload;
+        try { payload = JSON.parse(raw); } catch (e) { return; }
+
+        getBaseUrl(function (baseUrl) {
+          window.dispatchEvent(new MessageEvent('message', {
+            data: 'authorizing:github',
+            origin: baseUrl,
+          }));
+          window.dispatchEvent(new MessageEvent('message', {
+            data: 'authorization:github:' + payload.status + ':' + JSON.stringify(payload.content),
+            origin: baseUrl,
+          }));
+        });
+      }
+
+      window.addEventListener('load', completeFromStorage);
+      window.addEventListener('focus', completeFromStorage);
+      setInterval(completeFromStorage, 500);
+    })();
+  </script>
   <script src="https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js"></script>
   <script>
     window.addEventListener('unhandledrejection', function (event) {
