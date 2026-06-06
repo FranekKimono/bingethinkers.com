@@ -123,11 +123,19 @@ body {
 #nc-root [class*="ListItem"],
 #nc-root [class*="SortableListItem"],
 #nc-root [class*="StyledListItemTopBar"],
+#nc-root [class*="TopBarContainer"],
 #nc-root [data-testid^="styled-list-item-top-bar-"],
 #nc-root [class*="NestedObjectLabel"] {
   background-color: var(--cms-surface-raised) !important;
   border-color: var(--cms-border) !important;
   color: var(--cms-text) !important;
+}
+
+#nc-root [class*="ControlContainer"] > div,
+#nc-root [data-testid^="styled-list-item-top-bar-"] ~ div {
+  background-color: var(--cms-surface-raised) !important;
+  border-color: var(--cms-border) !important;
+  color: var(--cms-text-body) !important;
 }
 
 #nc-root [class*="NestedObjectLabel"] {
@@ -165,6 +173,7 @@ body {
 }
 
 #nc-root button {
+  background-color: var(--cms-surface) !important;
   border-radius: 8px !important;
   border-color: var(--cms-border) !important;
   color: var(--cms-text-body) !important;
@@ -188,11 +197,53 @@ body {
 #nc-root input:not([type="checkbox"]):not([type="radio"]),
 #nc-root textarea,
 #nc-root select,
+#nc-root option,
 #nc-root [contenteditable="true"] {
   background: var(--cms-surface) !important;
   border-color: var(--cms-border) !important;
   color: var(--cms-text-body) !important;
   border-radius: 8px !important;
+}
+
+#nc-root [class*="-control"],
+#nc-root [class*="-menu"],
+#nc-root [class*="-menu-list"],
+#nc-root [class*="-valueContainer"],
+#nc-root [class*="-input-container"],
+#nc-root [class*="-indicatorsContainer"],
+#nc-root [role="listbox"] {
+  background-color: var(--cms-surface) !important;
+  border-color: var(--cms-border) !important;
+  color: var(--cms-text-body) !important;
+}
+
+#nc-root [class*="-singleValue"],
+#nc-root [class*="-input"],
+#nc-root [class*="-option"],
+#nc-root [role="option"] {
+  color: var(--cms-text-body) !important;
+}
+
+#nc-root [class*="-placeholder"] {
+  color: var(--cms-muted) !important;
+}
+
+#nc-root [class*="-option"],
+#nc-root [role="option"] {
+  background-color: var(--cms-surface) !important;
+}
+
+#nc-root [class*="-option"]:hover,
+#nc-root [class*="-option"][aria-selected="true"],
+#nc-root [role="option"]:hover,
+#nc-root [role="option"][aria-selected="true"] {
+  background-color: var(--cms-primary) !important;
+  color: var(--cms-text) !important;
+}
+
+#nc-root input[type="checkbox"],
+#nc-root input[type="radio"] {
+  accent-color: var(--cms-accent);
 }
 
 #nc-root input::placeholder,
