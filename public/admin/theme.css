@@ -98,6 +98,31 @@ body {
   border-color: var(--cms-border) !important;
 }
 
+#nc-root [class*="FieldLabel"] {
+  background-color: var(--cms-primary) !important;
+  color: var(--cms-text) !important;
+}
+
+#nc-root [class*="FieldLabel"]::before,
+#nc-root [class*="FieldLabel"]::after {
+  background-color: var(--cms-primary) !important;
+}
+
+#nc-root [class*="ControlTopbar"],
+#nc-root [class*="WidgetTopBar"],
+#nc-root [class*="WidgetTopBarContainer"],
+#nc-root [class*="EditorControlBar"],
+#nc-root [class*="ObjectWidget"],
+#nc-root [class*="ListItem"] {
+  background-color: var(--cms-surface-raised) !important;
+  border-color: var(--cms-border) !important;
+  color: var(--cms-text) !important;
+}
+
+#nc-root [class*="PreviewPaneFrame"] {
+  background: var(--cms-bg) !important;
+}
+
 #nc-root h1,
 #nc-root h2,
 #nc-root h3,
@@ -127,6 +152,7 @@ body {
 #nc-root button {
   border-radius: 8px !important;
   border-color: var(--cms-border) !important;
+  color: var(--cms-text-body) !important;
   font-family: inherit !important;
   font-weight: 600 !important;
 }
@@ -157,6 +183,14 @@ body {
 #nc-root input::placeholder,
 #nc-root textarea::placeholder {
   color: var(--cms-muted) !important;
+}
+
+#nc-root [class*="EditorControlBar"] button,
+#nc-root [class*="WidgetTopBar"] button,
+#nc-root [class*="ObjectWidget"] button,
+#nc-root [class*="ListItem"] button {
+  background-color: var(--cms-surface) !important;
+  color: var(--cms-text-body) !important;
 }
 
 #nc-root hr,
