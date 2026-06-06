@@ -15,7 +15,7 @@ const { data: doc } = await useAsyncData(route.path, () =>
 const title = doc.value?.title || 'Binge Thinkers'
 
 useSeoMeta({
-  title: `${title} — Binge Thinkers`,
+  title: `${title} | Binge Thinkers`,
   description: doc.value?.description || 'Professional hosted trivia nights for bars, pubs, and private events.',
 })
 </script>

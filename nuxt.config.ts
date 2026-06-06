@@ -59,11 +59,11 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Binge Thinkers — Trivia Nights',
+      title: 'Binge Thinkers | Trivia Nights',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Book a live trivia night for your bar, pub, or event. Professional hosts bring the fun — you bring the crowd.' },
+		{ name: 'description', content: 'Book a lively trivia night for your bar, pub, or event. We bring the host and questions. You bring the crowd.' },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon/favicon.svg' },

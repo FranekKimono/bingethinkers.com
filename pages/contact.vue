@@ -24,8 +24,7 @@
       </div>
       <div class="form-group">
         <label for="message">Tell us about your event</label>
-        <textarea id="message" v-model="form.message" required
-          placeholder="Date, location, number of people — any details help."></textarea>
+		<textarea id="message" v-model="form.message" required placeholder="Date, venue, crowd size. Anything helpful."></textarea>
       </div>
       <button type="submit" class="btn btn-primary" :disabled="status === 'sending'">
         {{ status === 'sending' ? 'Sending…' : 'Send Message' }}
@@ -42,7 +41,7 @@ const { data: settings } = await useAsyncData('contact-settings', () =>
 )
 
 useSeoMeta({
-  title: 'Book & Contact — Binge Thinkers',
+  title: 'Book & Contact | Binge Thinkers',
   description: 'Book a hosted trivia night or ask for a quote. We respond within 24 hours.',
 })
 

@@ -185,7 +185,7 @@ function setLogoRef(el: Element | ComponentPublicInstance | null, src: string) {
 }
 
 useSeoMeta({
-  title: 'Testimonials — Binge Thinkers',
+  title: 'Testimonials | Binge Thinkers',
   description: 'See what venues and companies say about Binge Thinkers hosted trivia nights.',
 })
 </script>

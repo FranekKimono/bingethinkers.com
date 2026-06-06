@@ -1,14 +1,14 @@
 ---
 title: Home Page Settings
-heroTitle: Book a **Trivia Night** \n Your Crowd Won't Forget \n The Next Morning
-heroSubtitle: We bring the host, the questions, and you bring the sauce. Perfect for bars, pubs, and private parties.
+heroTitle: Book a **Trivia Night** \n People Will Talk About \n Tomorrow
+heroSubtitle: We bring the host, the questions, and the good chaos. You bring the crowd.
 ctaText: Book Your Night
 introEyebrow: Seoul roots · Winnipeg nights
-introTitle: Hosted trivia with decades of curated content
-introBody: We run trivia nights for bars, pubs, and private events. Our question library uses video, audio, and images across a wide range of topics — content we've been building for over 15 years, starting in South Korea and now in Winnipeg. Jeff Sinclair, a standup comedian, curates it. Most trivia companies don't work that way.
+introTitle: 15 years of sharper trivia nights
+introBody: We create lively trivia for bars, pubs, and private events. Our library blends video, audio, images, and 15 years of questions, curated by comedian Jeff Sinclair. It started in South Korea. Now it is made for Winnipeg.
 eventsTitle: Upcoming Trivia Nights
-eventsSubtitle: Trivia nights across Winnipeg. Use the arrows to browse upcoming months.
+eventsSubtitle: Find your next Winnipeg trivia night.
 bottomCtaTitle: Want us at your venue?
-bottomCtaBody: Bars, pubs, private parties — tell us what you're planning and we'll get you a quote.
+bottomCtaBody: Planning a night? Tell us the basics and we'll send a quote.
 bottomCtaText: Get in Touch
 ---

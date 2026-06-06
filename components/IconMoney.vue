@@ -6,7 +6,7 @@
         <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
       </filter>
     </defs>
-    <!-- Flat bill on table — slight top-down perspective -->
+    <!-- Flat bill on table with a slight top-down perspective -->
     <g transform="translate(24,28) rotate(-8) skewX(20) scale(0.46)">
       <rect x="-38" y="-18" width="76" height="36" rx="4" stroke="#44d67a" stroke-width="4" fill="none" filter="url(#neon-glow-money)" />
       <!-- Inner border -->

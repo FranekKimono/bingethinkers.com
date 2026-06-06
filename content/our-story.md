@@ -1,35 +1,35 @@
 ---
 title: Our Story
-description: From a single bar in South Korea to trivia nights across Winnipeg — the Binge Thinkers story.
+description: From one bar in South Korea to trivia nights across Winnipeg.
 ---
 
 # Our Story
 
 <img src="/bt-logo-about.jpg" class="about-icon" alt="Binge Thinkers" />
 
-*Full story coming soon.*
+*More stories coming soon.*
 
 ---
 
 ## From Seoul to Winnipeg
 
-Binge Thinkers started over **15 years ago in South Korea** — one bar, one host, and a room full of people who didn't know they needed trivia in their lives yet.
+Binge Thinkers began more than **15 years ago in South Korea**. One bar, one host, and a room full of people ready to discover trivia.
 
 <img src="/jeff.sinclair-black-wide.jpg" class="story-wide" alt="Jeff Sinclair, stand-up comedian and curator of Binge Thinkers trivia content" />
 
-What began as a side project grew into something bigger: weekly nights across multiple venues, a loyal following, and a reputation for trivia that actually feels like a night out — not a school exam.
+That small side project became weekly nights, loyal regulars, and trivia that felt like a proper night out. Never a school exam.
 
 ## Building something real
 
-Over the years we built a small empire of hosted trivia across South Korea. Custom rounds, recurring league nights, corporate events, and the kind of crowd energy that keeps people coming back every week.
+We built custom rounds, league nights, and corporate events across South Korea. The rooms kept filling up.
 
-Our hosts became the face of the brand. The questions got sharper. The nights got louder.
+Our hosts became familiar faces. The questions got sharper. The nights got louder.
 
 ## A new chapter in Winnipeg
 
-Now we've brought everything we've learned to **Winnipeg** — same energy, new city, same obsession with getting trivia right.
+Now **Winnipeg** gets the best of what we learned in Seoul: smart questions, warm hosts, and nights people want to repeat.
 
-We're setting up shop, finding our venues, and building the kind of trivia community we know works. If you've been to one of our nights in Korea, you'll recognize the vibe. If you haven't — you're in for something different.
+We're finding new venues and growing a local trivia crowd. If you knew us in Korea, welcome back. If not, come see what the fuss is about.
 
 ---
 

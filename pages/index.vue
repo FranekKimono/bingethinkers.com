@@ -75,10 +75,10 @@ function formatAccent(text: string): string {
 }
 
 useSeoMeta({
-  title: 'Binge Thinkers — Hosted Trivia Nights',
-  description: 'Book a live trivia night for your bar, pub, or private event. Professional hosts bring the questions and energy — you bring the crowd.',
-  ogTitle: 'Binge Thinkers — Hosted Trivia Nights',
-  ogDescription: 'Book a live trivia night for your bar, pub, or private event.',
+  title: 'Binge Thinkers | Hosted Trivia Nights',
+  description: 'Book a lively trivia night for your bar, pub, or private event. We bring the host and questions. You bring the crowd.',
+  ogTitle: 'Binge Thinkers | Hosted Trivia Nights',
+  ogDescription: 'Book a lively trivia night for your bar, pub, or private event.',
   ogImage: 'https://bingethinkers.com/splash.jpg',
   ogType: 'website',
   twitterCard: 'summary_large_image',
