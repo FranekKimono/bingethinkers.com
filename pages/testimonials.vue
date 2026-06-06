@@ -299,8 +299,6 @@ useSeoMeta({
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
-  max-width: 720px;
-  margin: 0 auto;
   width: 100%;
 }
 

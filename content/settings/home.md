@@ -1,7 +1,7 @@
 ---
 title: Home Page Settings
 heroTitle: Book a **Trivia Night** \n People Will Talk About \n Tomorrow
-heroSubtitle: We bring the host, the questions, and the good chaos. You bring the crowd.
+heroSubtitle: We bring the host, the questions, and the good chaos. You bring the sauce.
 ctaText: Book Your Night
 introEyebrow: Seoul roots · Winnipeg nights
 introTitle: 15 years of sharper trivia nights
