@@ -18,8 +18,13 @@ import { getVenueMapsUrl } from '~/utils/venues'
 
 const props = defineProps<{
   name: string
+  location?: {
+    address: string
+    placeId?: string
+    mapsUrl?: string
+  }
   linkClass?: string
 }>()
 
-const mapsUrl = computed(() => getVenueMapsUrl(props.name))
+const mapsUrl = computed(() => getVenueMapsUrl(props.name, props.location))
 </script>

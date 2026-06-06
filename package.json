@@ -2,7 +2,7 @@
   "name": "bingethinkers",
   "private": true,
   "scripts": {
-    "dev": "nuxt dev",
+    "dev": "node scripts/prepare-admin.mjs && nuxt dev",
     "build": "node scripts/prepare-admin.mjs && nuxt build",
     "generate": "node scripts/prepare-admin.mjs && nuxt generate",
     "postgenerate": "node scripts/write-oauth-worker.mjs && node scripts/patch-oauth-routes.mjs",
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@nuxt/image": "2.0.0",
+    "@react-email/render": "2.0.8",
     "resend": "6.12.3"
   }
 }

@@ -6,10 +6,17 @@ export type EventRecurrence =
   | { type: 'monthly'; dayOfMonth: number }
   | { type: 'monthlyWeekday'; dayOfWeek: number; nth: number }
 
+export interface EventLocation {
+  address: string
+  placeId?: string
+  mapsUrl?: string
+}
+
 export interface CalendarEvent {
   id: string
   title: string
   venue?: string
+  location?: EventLocation
   time?: string
   recurrence: EventRecurrence
 }

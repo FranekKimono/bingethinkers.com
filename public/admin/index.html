@@ -11,6 +11,8 @@
 <body>
   <div id="nc-root"></div>
   <noscript>Enable JavaScript to use the CMS.</noscript>
+  <script src="maps-config.js"></script>
+  <script src="address-widget.js"></script>
   <script>
     (function () {
       var OAUTH_KEY = 'decap-oauth-pending';
@@ -78,9 +80,17 @@
   <script>
     window.__decapAdminReady.then(function (ready) {
       if (!ready) return;
+      window.CMS_MANUAL_INIT = true;
       var script = document.createElement('script');
       script.src = 'https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js';
-      script.onload = function () { if (window.CMS) window.CMS.registerPreviewStyle('preview.css'); };
+      script.onload = function () {
+        if (!window.CMS) return;
+        window.CMS.registerPreviewStyle('preview.css');
+        if (window.registerBingeAddressWidget) {
+          window.registerBingeAddressWidget(window.CMS, window.createClass, window.h);
+        }
+        window.CMS.init();
+      };
       document.body.appendChild(script);
     });
   </script>

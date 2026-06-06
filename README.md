@@ -48,6 +48,7 @@ Set these in **Cloudflare Pages → Settings → Variables and Secrets**. When a
 |----------|---------|----------|
 | `GITHUB_CLIENT_ID` | Decap CMS OAuth | Yes, for `/admin` |
 | `GITHUB_CLIENT_SECRET` | Decap CMS OAuth | Yes, for `/admin` |
+| `GOOGLE_MAPS_API_KEY` | CMS event address suggestions | Recommended for `/admin` |
 | `RESEND_API_KEY` | Contact form email | Before launch |
 | `INSTAGRAM_TOKEN` | Instagram feed API | If using feed |
 | `INSTAGRAM_ACCOUNT_ID` | Instagram feed API | If using feed |

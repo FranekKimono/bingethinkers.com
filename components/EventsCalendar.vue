@@ -53,6 +53,7 @@
               <VenueLink
                 v-if="item.event.venue"
                 :name="item.event.venue"
+                :location="item.event.location"
                 link-class="events-calendar__event-venue"
               />
             </li>
@@ -75,6 +76,7 @@
         <VenueLink
           v-if="item.event.venue"
           :name="item.event.venue"
+          :location="item.event.location"
           link-class="events-calendar__list-venue"
         />
       </li>

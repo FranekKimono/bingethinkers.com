@@ -18,6 +18,7 @@
         <span class="nav-tonight__sep" aria-hidden="true">·</span>
         <VenueLink
           :name="tonightEvent.event.venue"
+          :location="tonightEvent.event.location"
           link-class="nav-tonight__venue"
         />
       </template>

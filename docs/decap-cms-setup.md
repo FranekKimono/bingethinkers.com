@@ -46,6 +46,7 @@ If you only set Production, preview `/admin` will show `GITHUB_CLIENT_ID is not 
 |----------|--------|
 | `GITHUB_CLIENT_ID` | Client ID from step 1 |
 | `GITHUB_CLIENT_SECRET` | Client Secret from step 1 |
+| `GOOGLE_MAPS_API_KEY` | Browser key for event address suggestions |
 
 **Production:**
 
@@ -53,8 +54,17 @@ If you only set Production, preview `/admin` will show `GITHUB_CLIENT_ID is not 
 |----------|--------|
 | `GITHUB_CLIENT_ID` | Client ID from step 1 |
 | `GITHUB_CLIENT_SECRET` | Client Secret from step 1 |
+| `GOOGLE_MAPS_API_KEY` | Browser key for event address suggestions |
 
 After adding or changing variables, **trigger a new deploy** — existing deployments do not pick up new values.
+
+For `GOOGLE_MAPS_API_KEY`, enable **Maps JavaScript API** and **Places API (New)** in Google Cloud. Restrict the key to those APIs and to the website referrers that use the CMS:
+
+- `https://bingethinkers.com/*`
+- `https://*.bingethinkers-com.pages.dev/*`
+- `http://localhost:*/*` for local CMS testing
+
+The key is used in the browser, so the restrictions are important. Without it, editors can still enter an address manually, but Google suggestions will be unavailable.
 
 OAuth is implemented in `dist/_worker.js` (generated at build time by `scripts/write-oauth-worker.mjs`). Local dev can also use `server/api/auth.get.ts` and `server/api/callback.get.ts`.
 
@@ -89,7 +99,7 @@ No Decap configuration change is required per user.
 | Collection | File(s) | Notes |
 |------------|---------|--------|
 | Pages | `content/*.md`, `content/settings/*.md` | Home, Testimonials, Book & Contact, Our Story, FAQ, and Privacy Policy |
-| Calendar Events | `data/events.json` | Trivia nights and recurrence rules |
+| Calendar Events | `data/events.json` | Trivia nights, addresses, Google Maps links, and recurrence rules |
 
 After each save, Decap commits to the branch configured for that deployment; Cloudflare rebuilds that branch.
 
@@ -104,3 +114,4 @@ After each save, Decap commits to the branch configured for that deployment; Clo
 - **Popup says "Authorization finished. Return to the admin tab" but admin still shows Login:** This happens when `/admin/` and the OAuth callback use different Cloudflare preview origins. Preview admin pages now redirect automatically to the stable branch URL (`https://dev.bingethinkers-com.pages.dev/admin/`) before Decap loads. If an older deployment still shows this behavior, open that stable URL directly.
 - **Login works but save fails:** User needs **Write** access on the repo; preview saves need permission to push to `dev`.
 - **Events look wrong after edit:** Only fill recurrence fields that match the selected type (once / weekly / monthly / monthlyWeekday). Leave unused fields empty.
+- **Event address suggestions do not appear:** Confirm `GOOGLE_MAPS_API_KEY` is set for the deployment environment, Maps JavaScript API and Places API (New) are enabled, and the CMS host is allowed by the key's website restrictions. Manual addresses still save and open in Google Maps.

@@ -8,6 +8,7 @@ import { join } from 'node:path'
 const adminDir = join('public', 'admin')
 const templatePath = join(adminDir, 'config.yml.template')
 const configPath = join(adminDir, 'config.yml')
+const mapsConfigPath = join(adminDir, 'maps-config.js')
 const branch = process.env.CF_PAGES_BRANCH || 'master'
 
 /** Stable branch URL, e.g. dev.bingethinkers-com.pages.dev from any deploy hash. */
@@ -50,4 +51,10 @@ config = config.replace(/^(\s*branch:\s*).+$/m, `$1${branch}`)
 config = config.replace(/^(\s*base_url:\s*).+$/m, `$1${oauthBase}`)
 
 writeFileSync(configPath, config)
-console.log(`[prepare-admin] CMS branch=${branch}, oauth base=${oauthBase}`)
+writeFileSync(
+  mapsConfigPath,
+  `window.BINGE_GOOGLE_MAPS_API_KEY = ${JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || '')};\n`,
+)
+console.log(
+  `[prepare-admin] CMS branch=${branch}, oauth base=${oauthBase}, address autocomplete=${process.env.GOOGLE_MAPS_API_KEY ? 'enabled' : 'disabled'}`,
+)

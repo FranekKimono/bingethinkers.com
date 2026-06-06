@@ -293,3 +293,60 @@ body {
   background: var(--cms-primary);
   color: var(--cms-text);
 }
+
+#nc-root .bt-address-widget {
+  position: relative;
+}
+
+#nc-root .bt-address-widget input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px 20px;
+  font: inherit;
+}
+
+#nc-root .bt-address-suggestions {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% - 20px);
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--cms-surface) !important;
+  border: 1px solid var(--cms-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+#nc-root .bt-address-suggestions li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  color: var(--cms-text-body) !important;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#nc-root .bt-address-suggestions li:hover,
+#nc-root .bt-address-suggestions li.is-active {
+  background: var(--cms-primary) !important;
+  color: var(--cms-text) !important;
+}
+
+#nc-root .bt-address-suggestions strong {
+  color: inherit;
+}
+
+#nc-root .bt-address-suggestions span {
+  color: var(--cms-muted);
+  font-size: 0.85rem;
+}
+
+#nc-root .bt-address-message {
+  min-height: 1.2em;
+  margin: 8px 2px 0;
+  font-size: 0.82rem;
+}

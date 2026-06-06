@@ -4,6 +4,7 @@
       "id": "weekly-x-cues",
       "title": "Trivia Night",
       "venue": "X-Cues",
+      "location": { "address": "551 Sargent Ave, Winnipeg, MB R3B 1W4", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=551+Sargent+Ave%2C+Winnipeg%2C+MB+R3B+1W4" },
       "time": "7:30 PM",
       "recurrence": { "type": "weekly", "dayOfWeek": 1 }
     },
@@ -11,6 +12,7 @@
       "id": "rec-room-2026-05-26",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-05-26" }
     },
@@ -18,6 +20,7 @@
       "id": "rec-room-2026-06-02",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-06-02" }
     },
@@ -25,6 +28,7 @@
       "id": "rec-room-2026-06-09",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-06-09" }
     },
@@ -32,6 +36,7 @@
       "id": "rec-room-2026-06-30",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-06-30" }
     },
@@ -39,6 +44,7 @@
       "id": "rec-room-2026-07-07",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-07-07" }
     },
@@ -46,6 +52,7 @@
       "id": "rec-room-2026-07-14",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-07-14" }
     },
@@ -53,6 +60,7 @@
       "id": "rec-room-2026-07-21",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-07-21" }
     },
@@ -60,6 +68,7 @@
       "id": "rec-room-2026-07-28",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-07-28" }
     },
@@ -67,6 +76,7 @@
       "id": "rec-room-2026-08-04",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-08-04" }
     },
@@ -74,6 +84,7 @@
       "id": "rec-room-2026-08-11",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-08-11" }
     },
@@ -81,6 +92,7 @@
       "id": "rec-room-2026-08-18",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-08-18" }
     },
@@ -88,6 +100,7 @@
       "id": "rec-room-2026-08-25",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-08-25" }
     },
@@ -95,6 +108,7 @@
       "id": "rec-room-2026-09-01",
       "title": "Trivia Night",
       "venue": "Rec Room",
+      "location": { "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=696+Sterling+Lyon+Pkwy+Lot+5%2C+Winnipeg%2C+MB+R3P+1E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-09-01" }
     },
@@ -102,6 +116,7 @@
       "id": "kilter-2nd-tuesday",
       "title": "Trivia Night",
       "venue": "Kilter",
+      "location": { "address": "450 Rue Deschambault, Winnipeg, MB R2H 0K1", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=450+Rue+Deschambault%2C+Winnipeg%2C+MB+R2H+0K1" },
       "time": "7:30 PM",
       "recurrence": { "type": "monthlyWeekday", "dayOfWeek": 2, "nth": 2 }
     },
@@ -109,6 +124,7 @@
       "id": "kilter-4th-tuesday",
       "title": "Trivia Night",
       "venue": "Kilter",
+      "location": { "address": "450 Rue Deschambault, Winnipeg, MB R2H 0K1", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=450+Rue+Deschambault%2C+Winnipeg%2C+MB+R2H+0K1" },
       "time": "7:30 PM",
       "recurrence": { "type": "monthlyWeekday", "dayOfWeek": 2, "nth": 4 }
     },
@@ -116,6 +132,7 @@
       "id": "weekly-underdogs",
       "title": "Trivia Night",
       "venue": "Underdogs",
+      "location": { "address": "2609 Portage Ave, Winnipeg, MB R3J 0P6", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=2609+Portage+Ave%2C+Winnipeg%2C+MB+R3J+0P6" },
       "time": "7:00 PM",
       "recurrence": { "type": "weekly", "dayOfWeek": 3 }
     },
@@ -123,6 +140,7 @@
       "id": "weekly-garbozos-polo-park",
       "title": "Trivia Night",
       "venue": "Garbozos Polo Park",
+      "location": { "address": "1320 Ellice Ave, Winnipeg, MB R3G 0E9", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=1320+Ellice+Ave%2C+Winnipeg%2C+MB+R3G+0E9" },
       "time": "7:00 PM",
       "recurrence": { "type": "weekly", "dayOfWeek": 3 }
     },
@@ -130,6 +148,7 @@
       "id": "smittys-pembina-2026-05-30",
       "title": "Trivia Night",
       "venue": "Smitty's Pembina South",
+      "location": { "address": "2835 Pembina Hwy #1, Winnipeg, MB R3T 4Z8", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=2835+Pembina+Hwy+%231%2C+Winnipeg%2C+MB+R3T+4Z8" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-05-30" }
     },
@@ -137,6 +156,7 @@
       "id": "smittys-grant-2026-06-06",
       "title": "Trivia Night",
       "venue": "Smitty's Grant",
+      "location": { "address": "580 Pembina Hwy, Winnipeg, MB R3M 2M5", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=580+Pembina+Hwy%2C+Winnipeg%2C+MB+R3M+2M5" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-06-06" }
     },
@@ -144,6 +164,7 @@
       "id": "smittys-pembina-2026-07-13",
       "title": "Trivia Night",
       "venue": "Smitty's Pembina South",
+      "location": { "address": "2835 Pembina Hwy #1, Winnipeg, MB R3T 4Z8", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=2835+Pembina+Hwy+%231%2C+Winnipeg%2C+MB+R3T+4Z8" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-07-13" }
     },
@@ -151,6 +172,7 @@
       "id": "smittys-grant-2026-07-20",
       "title": "Trivia Night",
       "venue": "Smitty's Grant",
+      "location": { "address": "580 Pembina Hwy, Winnipeg, MB R3M 2M5", "mapsUrl": "https://www.google.com/maps/search/?api=1&query=580+Pembina+Hwy%2C+Winnipeg%2C+MB+R3M+2M5" },
       "time": "7:00 PM",
       "recurrence": { "type": "once", "date": "2026-07-20" }
     }

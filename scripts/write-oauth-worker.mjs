@@ -1,8 +1,17 @@
 /**
  * Writes dist/_worker.js for Decap CMS GitHub OAuth on Cloudflare Pages.
  */
-import { writeFileSync } from 'node:fs'
+import { existsSync, statSync, writeFileSync } from 'node:fs'
 import { renderAuthRedirect } from './oauth-html.mjs'
+
+const workerPath = 'dist/_worker.js'
+
+// Nuxt preview builds already bundle the OAuth API routes in a directory worker.
+// The standalone worker below is only needed by the production coming-soon build.
+if (existsSync(workerPath) && statSync(workerPath).isDirectory()) {
+  console.log('[write-oauth-worker] Kept Nuxt worker with bundled OAuth routes')
+  process.exit(0)
+}
 
 const authHtmlTemplate = renderAuthRedirect('__GITHUB_URL__')
 
@@ -111,5 +120,5 @@ async function handleCallback(url, env) {
 }
 `
 
-writeFileSync('dist/_worker.js', worker)
+writeFileSync(workerPath, worker)
 console.log('[write-oauth-worker] Wrote dist/_worker.js')
