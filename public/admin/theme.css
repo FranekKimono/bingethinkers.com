@@ -119,6 +119,21 @@ body {
   color: var(--cms-text) !important;
 }
 
+#nc-root [class*="ControlContainer"],
+#nc-root [class*="ListItem"],
+#nc-root [class*="SortableListItem"],
+#nc-root [class*="StyledListItemTopBar"],
+#nc-root [data-testid^="styled-list-item-top-bar-"],
+#nc-root [class*="NestedObjectLabel"] {
+  background-color: var(--cms-surface-raised) !important;
+  border-color: var(--cms-border) !important;
+  color: var(--cms-text) !important;
+}
+
+#nc-root [class*="NestedObjectLabel"] {
+  box-shadow: inset 0 1px 0 var(--cms-border);
+}
+
 #nc-root [class*="PreviewPaneFrame"] {
   background: var(--cms-bg) !important;
 }
