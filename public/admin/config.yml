@@ -2,37 +2,89 @@ backend:
   name: github
   repo: FranekKimono/bingethinkers.com
   branch: dev
-  base_url: https://bingethinkers.com
+  base_url: https://dev.bingethinkers-com.pages.dev
   auth_endpoint: /api/auth
 
 media_folder: public/images
 public_folder: /images
 
+site_url: https://bingethinkers.com
+display_url: https://bingethinkers.com
+logo:
+  src: /title.png
+  show_in_header: true
+
 collections:
   - name: pages
     label: Pages
-    folder: content
-    create: true
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Body, name: body, widget: markdown }
-
-  - name: settings
-    label: Site Settings
     files:
       - name: home
         label: Home Page
         file: content/settings/home.md
         fields:
+          - { label: Admin Title, name: title, widget: hidden, default: Home Page }
           - { label: Hero Title, name: heroTitle, widget: string }
           - { label: Hero Subtitle, name: heroSubtitle, widget: string }
           - { label: CTA Text, name: ctaText, widget: string }
-          - { label: Feature 1 Title, name: feature1Title, widget: string }
-          - { label: Feature 1 Body, name: feature1Body, widget: text }
-          - { label: Feature 2 Title, name: feature2Title, widget: string }
-          - { label: Feature 2 Body, name: feature2Body, widget: text }
-          - { label: Feature 3 Title, name: feature3Title, widget: string }
-          - { label: Feature 3 Body, name: feature3Body, widget: text }
+          - { label: Intro Eyebrow, name: introEyebrow, widget: string }
+          - { label: Intro Heading, name: introTitle, widget: string }
+          - { label: Intro Copy, name: introBody, widget: text }
+          - { label: Calendar Heading, name: eventsTitle, widget: string }
+          - { label: Calendar Intro, name: eventsSubtitle, widget: text }
+          - { label: Bottom CTA Heading, name: bottomCtaTitle, widget: string }
+          - { label: Bottom CTA Copy, name: bottomCtaBody, widget: text }
+          - { label: Bottom CTA Button, name: bottomCtaText, widget: string }
+
+      - name: testimonials
+        label: Testimonials
+        file: content/settings/testimonials.md
+        fields:
+          - { label: Admin Title, name: title, widget: hidden, default: Testimonials }
+          - { label: Page Introduction, name: intro, widget: text }
+          - { label: Clients Heading, name: clientsTitle, widget: string }
+          - { label: Testimonials Heading, name: quotesTitle, widget: string }
+          - label: Testimonials
+            name: testimonials
+            widget: list
+            summary: '{{fields.name}} — {{fields.role}}'
+            fields:
+              - { label: Quote, name: quote, widget: text }
+              - { label: Name, name: name, widget: string }
+              - { label: Role / Organization, name: role, widget: string }
+
+      - name: contact
+        label: Book & Contact
+        file: content/settings/contact.md
+        fields:
+          - { label: Admin Title, name: title, widget: hidden, default: Book & Contact }
+          - { label: Page Introduction, name: intro, widget: text }
+          - { label: Pricing Heading, name: pricingTitle, widget: string }
+          - { label: Pricing Paragraph 1, name: pricingBody, widget: text }
+          - { label: Pricing Paragraph 2, name: pricingCta, widget: text }
+
+      - name: our-story
+        label: Our Story
+        file: content/our-story.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Search Description, name: description, widget: text }
+          - { label: Body, name: body, widget: markdown }
+
+      - name: faq
+        label: Frequently Asked Questions
+        file: content/faq.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Search Description, name: description, widget: text }
+          - { label: Body, name: body, widget: markdown }
+
+      - name: privacy
+        label: Privacy Policy
+        file: content/privacy.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Search Description, name: description, widget: text }
+          - { label: Body, name: body, widget: markdown }
 
   - name: events
     label: Calendar Events

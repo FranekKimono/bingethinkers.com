@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Binge Thinkers — Admin</title>
   <link rel="icon" href="/favicon/favicon.ico" />
+  <link rel="stylesheet" href="theme.css" />
   <link href="config.yml" type="application/yaml" rel="cms-config-url" />
 </head>
 <body>
@@ -14,15 +15,40 @@
     (function () {
       var OAUTH_KEY = 'decap-oauth-pending';
 
-      function getBaseUrl(cb) {
-        fetch('config.yml', { cache: 'no-store' })
-          .then(function (r) { return r.text(); })
-          .then(function (t) {
-            var m = t.match(/^\s*base_url:\s*(\S+)/m);
-            cb(m ? m[1].replace(/["']/g, '') : window.location.origin);
+      function readBaseUrl() {
+        return fetch('config.yml', { cache: 'no-store' })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Could not load Decap config');
+            return response.text();
           })
-          .catch(function () { cb(window.location.origin); });
+          .then(function (text) {
+            var match = text.match(/^\s*base_url:\s*(\S+)/m);
+            return match ? match[1].replace(/["']/g, '') : window.location.origin;
+          })
+          .catch(function () { return window.location.origin; });
       }
+
+      function isCloudflarePagesHost(hostname) {
+        return hostname.endsWith('.pages.dev');
+      }
+
+      var baseUrlPromise = readBaseUrl();
+
+      window.__decapAdminReady = baseUrlPromise.then(function (baseUrl) {
+        var oauthUrl = new URL(baseUrl, window.location.href);
+        if (
+          oauthUrl.origin !== window.location.origin &&
+          isCloudflarePagesHost(oauthUrl.hostname) &&
+          isCloudflarePagesHost(window.location.hostname)
+        ) {
+          oauthUrl.pathname = '/admin/';
+          oauthUrl.search = window.location.search;
+          oauthUrl.hash = window.location.hash;
+          window.location.replace(oauthUrl.href);
+          return false;
+        }
+        return true;
+      });
 
       function completeFromStorage() {
         var raw = localStorage.getItem(OAUTH_KEY);
@@ -32,7 +58,7 @@
         var payload;
         try { payload = JSON.parse(raw); } catch (e) { return; }
 
-        getBaseUrl(function (baseUrl) {
+        baseUrlPromise.then(function (baseUrl) {
           window.dispatchEvent(new MessageEvent('message', {
             data: 'authorizing:github',
             origin: baseUrl,
@@ -49,7 +75,14 @@
       setInterval(completeFromStorage, 500);
     })();
   </script>
-  <script src="https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js"></script>
+  <script>
+    window.__decapAdminReady.then(function (ready) {
+      if (!ready) return;
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js';
+      document.body.appendChild(script);
+    });
+  </script>
   <script>
     window.addEventListener('unhandledrejection', function (event) {
       showBootError(String(event.reason && event.reason.message ? event.reason.message : event.reason));

@@ -18,14 +18,9 @@
 
     <section class="section home-intro">
       <div class="container home-intro__inner">
-        <p class="text-eyebrow home-intro__eyebrow">Seoul roots · Winnipeg nights</p>
-        <h2 class="text-display">Hosted trivia with decades of curated content</h2>
-        <p class="text-lead home-intro__lead">
-          We run trivia nights for bars, pubs, and private events. Our question library uses video,
-          audio, and images across a wide range of topics — content we've been building for over
-          15 years, starting in South Korea and now in Winnipeg. Jeff Sinclair, a standup comedian,
-          curates it. Most trivia companies don't work that way.
-        </p>
+        <p class="text-eyebrow home-intro__eyebrow">{{ settings?.introEyebrow }}</p>
+        <h2 class="text-display">{{ settings?.introTitle }}</h2>
+        <p class="text-lead home-intro__lead">{{ settings?.introBody }}</p>
         <div class="home-intro__links">
           <NuxtLink to="/our-story">Read our story →</NuxtLink>
           <NuxtLink to="/testimonials">See who we've worked with →</NuxtLink>
@@ -35,21 +30,17 @@
 
     <section id="calendar" class="section home-events">
       <div class="container">
-        <h2 class="section-title">Upcoming Trivia Nights</h2>
-        <p class="section-subtitle">
-          Trivia nights across Winnipeg. Use the arrows to browse upcoming months.
-        </p>
+        <h2 class="section-title">{{ settings?.eventsTitle }}</h2>
+        <p class="section-subtitle">{{ settings?.eventsSubtitle }}</p>
         <EventsCalendar />
       </div>
     </section>
 
     <section class="section home-cta">
       <div class="container home-cta__inner">
-        <h2 class="text-display home-cta__title">Want us at your venue?</h2>
-        <p class="text-lead home-cta__lead">
-          Bars, pubs, private parties — tell us what you're planning and we'll get you a quote.
-        </p>
-        <NuxtLink to="/contact" class="btn btn-outline">Get in Touch</NuxtLink>
+        <h2 class="text-display home-cta__title">{{ settings?.bottomCtaTitle }}</h2>
+        <p class="text-lead home-cta__lead">{{ settings?.bottomCtaBody }}</p>
+        <NuxtLink to="/contact" class="btn btn-outline">{{ settings?.bottomCtaText }}</NuxtLink>
         <div class="home-cta__links">
           <NuxtLink to="/testimonials">See testimonials →</NuxtLink>
           <NuxtLink to="/faq">Read the FAQ →</NuxtLink>

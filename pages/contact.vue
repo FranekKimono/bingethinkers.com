@@ -1,20 +1,12 @@
 <template>
   <div class="content-page">
-    <h1>Book & Contact</h1>
-    <p style="color:var(--color-muted); margin-bottom:2rem">
-      Ready to book a trivia night? Fill out the form below and we'll get back to you within 24 hours.
-    </p>
+    <h1>{{ settings?.title }}</h1>
+    <p style="color:var(--color-muted); margin-bottom:2rem">{{ settings?.intro }}</p>
 
     <section class="pricing-blurb">
-      <h2>Pricing</h2>
-      <p>
-        Every venue is different — group size, day of the week, how often you want to run trivia,
-        and whether you need something custom all affect what makes sense for you.
-      </p>
-      <p>
-        We don't publish fixed rates here. <strong style="color:var(--color-text)">Ask us for a quote</strong>
-        and we'll put together something that fits your space and your crowd.
-      </p>
+      <h2>{{ settings?.pricingTitle }}</h2>
+      <p>{{ settings?.pricingBody }}</p>
+      <p>{{ settings?.pricingCta }}</p>
     </section>
 
     <form @submit.prevent="submitForm">
@@ -45,6 +37,10 @@
 </template>
 
 <script setup lang="ts">
+const { data: settings } = await useAsyncData('contact-settings', () =>
+  queryContent('settings/contact').findOne()
+)
+
 useSeoMeta({
   title: 'Book & Contact — Binge Thinkers',
   description: 'Book a hosted trivia night or ask for a quote. We respond within 24 hours.',

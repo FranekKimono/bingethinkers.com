@@ -1,16 +1,13 @@
 <template>
   <div class="testimonials-page">
     <header class="testimonials-page__header content-page">
-      <h1 class="section-title">Testimonials</h1>
-      <p>
-        We've hosted trivia for bars, pubs, and companies across two continents.
-        Here's what some of our partners have to say — and a few of the teams we've worked with.
-      </p>
+      <h1 class="section-title">{{ settings?.title }}</h1>
+      <p>{{ settings?.intro }}</p>
     </header>
 
     <section class="section testimonials-logos">
       <div class="container">
-        <h2 class="clients-title">Some of our clients</h2>
+        <h2 class="clients-title">{{ settings?.clientsTitle }}</h2>
         <div class="logo-grid">
           <div
             v-for="client in clientLogos"
@@ -36,7 +33,7 @@
 
     <section class="section testimonials-quotes">
       <div class="container">
-        <h2 class="section-title">What People Say</h2>
+        <h2 class="section-title">{{ settings?.quotesTitle }}</h2>
         <div class="testimonial-feed">
           <template v-for="item in feed" :key="item.key">
             <blockquote
@@ -84,6 +81,17 @@
 </template>
 
 <script setup lang="ts">
+interface Testimonial {
+  id: number
+  quote: string
+  name: string
+  role: string
+}
+
+const { data: settings } = await useAsyncData('testimonials-settings', () =>
+  queryContent('settings/testimonials').findOne()
+)
+
 const clientLogos = [
   { name: 'Shindico', src: '/clients/logos__0000_Shindico.jpg' },
   { name: '9 circl', src: '/clients/logos__0001_9 circl.jpg' },
@@ -108,73 +116,19 @@ const clientLogos = [
   { name: 'GAS STATION', src: '/clients/logos__0020_GAS STATION.jpg' },
 ]
 
-const testimonials = [
-  {
-    id: 1,
-    quote: 'Placeholder testimonial — our crowd has never been this engaged on a weeknight. Book them.',
-    name: 'Alex Kim',
-    role: 'Bar Manager, Placeholder Pub',
-  },
-  {
-    id: 2,
-    quote: 'Placeholder testimonial — professional from start to finish. Setup took ten minutes and the room was packed.',
-    name: 'Jordan Lee',
-    role: 'Events Coordinator, Sample Brewery',
-  },
-  {
-    id: 3,
-    quote: 'Placeholder testimonial — we run trivia every month now. Our regulars ask when the next one is before we even announce it.',
-    name: 'Sam Park',
-    role: 'Owner, Example Taproom',
-  },
-  {
-    id: 4,
-    quote: 'Placeholder testimonial — the host read the room perfectly. Funny, sharp, and never lost control of the night.',
-    name: 'Taylor Cho',
-    role: 'GM, Demo Restaurant Group',
-  },
-  {
-    id: 5,
-    quote: 'Placeholder testimonial — best corporate team event we\'ve done. People still talk about the final round.',
-    name: 'Morgan Jung',
-    role: 'HR Lead, Placeholder Corp',
-  },
-  {
-    id: 6,
-    quote: 'Placeholder testimonial — we tried running our own trivia once. Never again. These folks are worth every penny.',
-    name: 'Casey Min',
-    role: 'Venue Manager, Sample Lounge',
-  },
-  {
-    id: 7,
-    quote: 'Placeholder testimonial — brought the energy of a Seoul trivia night to our Winnipeg bar. Instant regulars.',
-    name: 'Riley Han',
-    role: 'Co-owner, Example Social Club',
-  },
-  {
-    id: 8,
-    quote: 'Placeholder testimonial — our Tuesday crowd doubled the first month. The questions are clever without being impossible.',
-    name: 'Jamie Yoon',
-    role: 'Marketing Director, Sample Hotel Group',
-  },
-  {
-    id: 9,
-    quote: 'Placeholder testimonial — they handled our launch night like pros. Sound, pacing, crowd control — all dialed in.',
-    name: 'Drew Kang',
-    role: 'Owner, Placeholder Brewing Co.',
-  },
-  {
-    id: 10,
-    quote: 'Placeholder testimonial — finally trivia that doesn\'t feel like a school quiz. Our staff wants to play on their nights off.',
-    name: 'Quinn Sato',
-    role: 'GM, Example Sports Bar',
-  },
-]
+const testimonials = computed<Testimonial[]>(() =>
+  (settings.value?.testimonials || []).map(
+    (testimonial: Omit<Testimonial, 'id'>, index: number) => ({
+      ...testimonial,
+      id: index + 1,
+    }),
+  )
+)
 
 const galleryImages = Array.from({ length: 9 }, (_, i) => i + 1)
 
 type FeedItem =
-  | { type: 'testimonial'; key: string; data: (typeof testimonials)[number] }
+  | { type: 'testimonial'; key: string; data: Testimonial }
   | { type: 'gallery-row'; key: string; data: number[] }
 
 function pushGalleryRow(items: FeedItem[], startIdx: number): number {
@@ -192,10 +146,10 @@ const feed = computed<FeedItem[]>(() => {
   const items: FeedItem[] = []
   let galleryIdx = 0
 
-  for (let i = 0; i < testimonials.length; i += 2) {
-    items.push({ type: 'testimonial', key: `t-${testimonials[i].id}`, data: testimonials[i] })
-    if (i + 1 < testimonials.length) {
-      items.push({ type: 'testimonial', key: `t-${testimonials[i + 1].id}`, data: testimonials[i + 1] })
+  for (let i = 0; i < testimonials.value.length; i += 2) {
+    items.push({ type: 'testimonial', key: `t-${testimonials.value[i].id}`, data: testimonials.value[i] })
+    if (i + 1 < testimonials.value.length) {
+      items.push({ type: 'testimonial', key: `t-${testimonials.value[i + 1].id}`, data: testimonials.value[i + 1] })
     }
     galleryIdx = pushGalleryRow(items, galleryIdx)
   }

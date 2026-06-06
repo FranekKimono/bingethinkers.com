@@ -1,0 +1,119 @@
+:root {
+  color-scheme: dark;
+  --cms-bg: #06030a;
+  --cms-bg-deep: #0a0612;
+  --cms-surface: #0e0818;
+  --cms-surface-raised: #150a24;
+  --cms-border: #2a1745;
+  --cms-primary: #480a77;
+  --cms-highlight: #c084fc;
+  --cms-accent: #e85298;
+  --cms-accent-button: #b83568;
+  --cms-accent-hover: #a83268;
+  --cms-text: #ede5f5;
+  --cms-text-body: #d8cce8;
+  --cms-muted: #a596bd;
+}
+
+html,
+body,
+#nc-root {
+  min-height: 100%;
+  background: var(--cms-bg);
+}
+
+body {
+  margin: 0;
+  color: var(--cms-text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#nc-root {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(72, 10, 119, 0.42), transparent 34rem),
+    var(--cms-bg);
+}
+
+#nc-root [class*="AuthenticationPage"] {
+  background: transparent !important;
+}
+
+#nc-root [class*="AppHeader"],
+#nc-root [class*="Toolbar"],
+#nc-root [class*="TopBar"] {
+  background: rgba(10, 6, 18, 0.96) !important;
+  border-color: var(--cms-border) !important;
+}
+
+#nc-root [class*="Sidebar"] {
+  background: var(--cms-bg-deep) !important;
+  border-color: var(--cms-border) !important;
+}
+
+#nc-root [class*="Card"],
+#nc-root [class*="Panel"],
+#nc-root [class*="Modal"] {
+  border-color: var(--cms-border) !important;
+}
+
+#nc-root h1,
+#nc-root h2,
+#nc-root h3,
+#nc-root label {
+  color: var(--cms-text) !important;
+}
+
+#nc-root p,
+#nc-root [class*="Description"],
+#nc-root [class*="Hint"] {
+  color: var(--cms-muted) !important;
+}
+
+#nc-root a {
+  color: var(--cms-accent) !important;
+}
+
+#nc-root button {
+  border-radius: 8px !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+}
+
+#nc-root [class*="LoginButton"],
+#nc-root button[class*="default"] {
+  background: var(--cms-accent-button) !important;
+  border-color: var(--cms-accent-button) !important;
+  color: var(--cms-text) !important;
+}
+
+#nc-root [class*="LoginButton"]:hover,
+#nc-root button[class*="default"]:hover {
+  background: var(--cms-accent-hover) !important;
+  border-color: var(--cms-accent-hover) !important;
+}
+
+#nc-root input:not([type="checkbox"]):not([type="radio"]),
+#nc-root textarea,
+#nc-root select,
+#nc-root [contenteditable="true"] {
+  background: var(--cms-surface) !important;
+  border-color: var(--cms-border) !important;
+  color: var(--cms-text-body) !important;
+  border-radius: 8px !important;
+}
+
+#nc-root input:focus,
+#nc-root textarea:focus,
+#nc-root select:focus,
+#nc-root [contenteditable="true"]:focus,
+#nc-root button:focus-visible,
+#nc-root a:focus-visible {
+  border-color: var(--cms-highlight) !important;
+  outline: 2px solid var(--cms-highlight) !important;
+  outline-offset: 2px !important;
+}
+
+#nc-root ::selection {
+  background: var(--cms-primary);
+  color: var(--cms-text);
+}

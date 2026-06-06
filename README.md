@@ -29,8 +29,7 @@ Cloudflare Pages auto-deploys **production** from `master`. Pushes to `dev` (and
 
 Go to **bingethinkers.com/admin** → log in with GitHub. Decap CMS provides a WYSIWYG editor for:
 
-- **Pages** — edit any content page (About, FAQ, Gallery, etc.)
-- **Settings** — update the home page hero text, feature cards, and CTA
+- **Pages** — edit Home, Testimonials, Book & Contact, Our Story, FAQ, and Privacy Policy
 - **Calendar Events** — add or edit trivia nights in `data/events.json`
 
 CMS commits go to the branch being built: **`master`** on production, **`dev`** on preview (see `scripts/prepare-admin.mjs`). Use **bingethinkers.com/admin** for live edits; use **`https://dev.bingethinkers-com.pages.dev/admin/`** to test CMS on `dev` (stable branch URL, not the hash preview URL).

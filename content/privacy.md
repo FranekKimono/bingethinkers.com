@@ -1,3 +1,8 @@
+---
+title: Privacy Policy
+description: How Binge Thinkers handles information submitted through the booking and contact form.
+---
+
 # Privacy Policy
 
 **Last updated:** [Date]
