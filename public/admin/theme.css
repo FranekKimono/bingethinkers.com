@@ -19,7 +19,7 @@ html,
 body,
 #nc-root {
   min-height: 100%;
-  background: var(--cms-bg);
+  background: var(--cms-bg) !important;
 }
 
 body {
@@ -31,11 +31,31 @@ body {
 #nc-root {
   background:
     radial-gradient(circle at 50% 0%, rgba(72, 10, 119, 0.42), transparent 34rem),
-    var(--cms-bg);
+    var(--cms-bg) !important;
+  color: var(--cms-text);
 }
 
 #nc-root [class*="AuthenticationPage"] {
   background: transparent !important;
+}
+
+#nc-root > div,
+#nc-root main,
+#nc-root [class*="AppMain"],
+#nc-root [class*="AppContainer"],
+#nc-root [class*="CollectionMain"],
+#nc-root [class*="CollectionTop"],
+#nc-root [class*="EntriesCollection"],
+#nc-root [class*="EntryListing"],
+#nc-root [class*="EditorContainer"],
+#nc-root [class*="EditorControlPane"],
+#nc-root [class*="EditorPreviewPane"],
+#nc-root [class*="ControlPane"],
+#nc-root [class*="PreviewPane"],
+#nc-root [class*="Workflow"],
+#nc-root [class*="MediaLibrary"] {
+  background-color: var(--cms-bg) !important;
+  color: var(--cms-text) !important;
 }
 
 #nc-root [class*="AppHeader"],
@@ -50,23 +70,54 @@ body {
   border-color: var(--cms-border) !important;
 }
 
+#nc-root [class*="Logo"] img[src="/title.png"],
+#nc-root img[src="/title.png"] {
+  filter: brightness(1.2) saturate(1.1);
+  mix-blend-mode: screen;
+}
+
+#nc-root [class*="EntryCard"],
+#nc-root [class*="CollectionCard"],
+#nc-root [class*="ListCard"],
 #nc-root [class*="Card"],
 #nc-root [class*="Panel"],
-#nc-root [class*="Modal"] {
+#nc-root [class*="Modal"],
+#nc-root [class*="Dropdown"],
+#nc-root [class*="Menu"],
+#nc-root [class*="Popover"] {
+  background-color: var(--cms-surface) !important;
+  border-color: var(--cms-border) !important;
+  color: var(--cms-text-body) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+}
+
+#nc-root [class*="EditorControlPane"] > div,
+#nc-root [class*="ControlPane"] > div,
+#nc-root [class*="Widget"] {
+  background-color: var(--cms-surface-raised) !important;
   border-color: var(--cms-border) !important;
 }
 
 #nc-root h1,
 #nc-root h2,
 #nc-root h3,
+#nc-root h4,
+#nc-root h5,
+#nc-root h6,
 #nc-root label {
   color: var(--cms-text) !important;
 }
 
 #nc-root p,
+#nc-root small,
 #nc-root [class*="Description"],
 #nc-root [class*="Hint"] {
   color: var(--cms-muted) !important;
+}
+
+#nc-root [class*="Text"],
+#nc-root [class*="Label"] {
+  border-color: var(--cms-border);
 }
 
 #nc-root a {
@@ -75,6 +126,7 @@ body {
 
 #nc-root button {
   border-radius: 8px !important;
+  border-color: var(--cms-border) !important;
   font-family: inherit !important;
   font-weight: 600 !important;
 }
@@ -100,6 +152,29 @@ body {
   border-color: var(--cms-border) !important;
   color: var(--cms-text-body) !important;
   border-radius: 8px !important;
+}
+
+#nc-root input::placeholder,
+#nc-root textarea::placeholder {
+  color: var(--cms-muted) !important;
+}
+
+#nc-root hr,
+#nc-root table,
+#nc-root th,
+#nc-root td {
+  border-color: var(--cms-border) !important;
+}
+
+#nc-root table,
+#nc-root th,
+#nc-root td {
+  background-color: var(--cms-surface) !important;
+  color: var(--cms-text-body) !important;
+}
+
+#nc-root svg:not([aria-label="Logo"]) {
+  color: var(--cms-muted);
 }
 
 #nc-root input:focus,
