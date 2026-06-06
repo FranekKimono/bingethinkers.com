@@ -132,7 +132,8 @@ body {
 }
 
 #nc-root [class*="ControlContainer"] > div,
-#nc-root [data-testid^="styled-list-item-top-bar-"] ~ div {
+#nc-root [class*="StyledListItemTopBar"] ~ div,
+#nc-root [class*="StyledListItemTopBar"] ~ div > div {
   background-color: var(--cms-surface-raised) !important;
   border-color: var(--cms-border) !important;
   color: var(--cms-text-body) !important;
