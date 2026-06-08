@@ -7,8 +7,9 @@ introEyebrow: Seoul roots · Winnipeg nights
 introTitle: 15 years of sharper trivia nights
 introBody: We create lively trivia for bars, pubs, and private events. Our
   library blends video, audio, images, and 15 years of questions, curated by
-  comedian Jeff Sinclair. It started in South Korea. Now it is made for
-  Winnipeg.
+  comedian Jeff Sinclair. Binge Thinkers trivia is unique. No other trivia
+  company works the same way, building each night as a full multimedia
+  experience. It started in South Korea. Now it is made for Winnipeg.
 eventsTitle: Upcoming Trivia Nights
 eventsSubtitle: Find your next Winnipeg trivia night.
 bottomCtaTitle: Want us at your venue?

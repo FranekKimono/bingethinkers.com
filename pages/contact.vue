@@ -67,21 +67,26 @@ async function submitForm() {
 
 <style scoped>
 .pricing-blurb {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-accent) 18%, var(--color-surface)),
+    color-mix(in srgb, var(--color-primary) 30%, var(--color-surface))
+  );
+  border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
   border-radius: var(--radius);
   padding: 1.75rem;
   margin-bottom: 2.5rem;
+  box-shadow: 0 0 32px color-mix(in srgb, var(--color-accent) 12%, transparent);
 }
 
 .pricing-blurb h2 {
   font-size: var(--text-subsection);
   margin-bottom: 0.75rem;
-  color: var(--color-text);
+  color: var(--color-accent);
 }
 
 .pricing-blurb p {
-  color: var(--color-muted);
+  color: color-mix(in srgb, var(--color-text) 82%, var(--color-accent));
   margin-bottom: 0.75rem;
 }
 
