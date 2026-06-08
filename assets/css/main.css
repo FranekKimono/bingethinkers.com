@@ -12,8 +12,8 @@
   --color-surface:         #0e0818;
   --color-surface-raised:  #150a24;
   --color-border:          #1a1030;
-  --color-skeleton:        #1a1520;
-  --color-skeleton-shine:  #2a2235;
+  --color-skeleton:        #260d3d;
+  --color-skeleton-shine:  #662398;
   --color-primary:         #480a77;
   --color-primary-tint:    rgba(72, 10, 119, 0.35);
   --color-primary-tint-soft: rgba(72, 10, 119, 0.25);
@@ -351,6 +351,13 @@ a.venue-link:focus-visible {
   display: block;
   object-fit: cover;
   border-radius: var(--radius);
+}
+.splash-wide {
+  position: relative;
+  left: 50%;
+  width: calc(100vw - 3rem);
+  max-width: 1400px;
+  transform: translateX(-50%);
 }
 .hero h1 {
   font-size: var(--text-display);

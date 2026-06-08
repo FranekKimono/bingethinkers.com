@@ -8,7 +8,7 @@
     <section class="section testimonials-splash">
       <div class="container">
         <div
-          class="testimonials-splash__image skeleton-image"
+          class="testimonials-splash__image splash-wide skeleton-image"
           :class="{ 'is-loaded': djSplashLoaded }"
         >
           <NuxtImg
@@ -238,7 +238,6 @@ useSeoMeta({
 }
 
 .testimonials-splash__image {
-  width: 100%;
   aspect-ratio: 1200 / 324;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);

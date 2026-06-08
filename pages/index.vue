@@ -21,7 +21,7 @@
         <div class="home-intro__inner">
           <p class="text-eyebrow home-intro__eyebrow">{{ settings?.introEyebrow }}</p>
         </div>
-        <div class="hero-splash-wrap skeleton-image" :class="{ 'is-loaded': introSplashLoaded }">
+        <div class="hero-splash-wrap splash-wide skeleton-image" :class="{ 'is-loaded': introSplashLoaded }">
           <NuxtImg
             ref="introSplashRef"
             src="/splash-dali.jpg"

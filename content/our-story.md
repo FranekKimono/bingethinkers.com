@@ -19,13 +19,13 @@ Binge Thinkers began more than **15 years ago in South Korea**. One bar, one hos
 
 That small side project became weekly nights, loyal regulars, and trivia that felt like a proper night out. Never a school exam.
 
-## Building something real
+## Building Something Real
 
 We built custom rounds, league nights, and corporate events across South Korea. The rooms kept filling up.
 
 Our hosts became familiar faces. The questions got sharper. The nights got louder.
 
-## A new chapter in Winnipeg
+## A New Chapter in Winnipeg
 
 Now **Winnipeg** gets the best of what we learned in Seoul: smart questions, warm hosts, and nights people want to repeat.
 

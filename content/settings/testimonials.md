@@ -1,7 +1,7 @@
 ---
 title: Testimonials
 intro: We've hosted trivia for bars, pubs, and companies on two continents. Here are a few kind words and familiar logos.
-clientsTitle: Some of our clients
+clientsTitle: Some of Our Clients
 quotesTitle: What People Say
 testimonials:
   - quote: Our crowd has never been this engaged on a weeknight. Book them.
