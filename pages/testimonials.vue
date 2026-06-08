@@ -5,6 +5,26 @@
       <p>{{ settings?.intro }}</p>
     </header>
 
+    <section class="section testimonials-splash">
+      <div class="container">
+        <div
+          class="testimonials-splash__image skeleton-image"
+          :class="{ 'is-loaded': djSplashLoaded }"
+        >
+          <NuxtImg
+            :ref="setDjSplashRef"
+            src="/splash-dj.jpg"
+            alt="A team working through trivia questions at a pub table"
+            width="1200"
+            height="324"
+            sizes="(max-width: 640px) 100vw, 1100px"
+            loading="lazy"
+            @load="djSplashLoaded = true"
+          />
+        </div>
+      </div>
+    </section>
+
     <section class="section testimonials-logos">
       <div class="container">
         <h2 class="clients-title">{{ settings?.clientsTitle }}</h2>
@@ -163,6 +183,7 @@ const feed = computed<FeedItem[]>(() => {
 
 const loaded = reactive<Record<number, boolean>>({})
 const logoLoaded = reactive<Record<string, boolean>>({})
+const djSplashLoaded = ref(false)
 
 function markImageLoadedIfCached(
   el: Element | ComponentPublicInstance | null,
@@ -182,6 +203,10 @@ function setImageRef(el: Element | ComponentPublicInstance | null, i: number) {
 
 function setLogoRef(el: Element | ComponentPublicInstance | null, src: string) {
   markImageLoadedIfCached(el, () => { logoLoaded[src] = true })
+}
+
+function setDjSplashRef(el: Element | ComponentPublicInstance | null) {
+  markImageLoadedIfCached(el, () => { djSplashLoaded.value = true })
 }
 
 useSeoMeta({
@@ -205,6 +230,25 @@ useSeoMeta({
 
 .section-title {
   margin-bottom: 2rem;
+}
+
+.testimonials-splash {
+  padding-top: 2rem;
+  padding-bottom: 0;
+}
+
+.testimonials-splash__image {
+  width: 100%;
+  aspect-ratio: 1200 / 324;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.testimonials-splash__image :deep(img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
 }
 
 .clients-title {

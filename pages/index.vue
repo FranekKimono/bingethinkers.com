@@ -17,13 +17,27 @@
     </section>
 
     <section class="section home-intro">
-      <div class="container home-intro__inner">
-        <p class="text-eyebrow home-intro__eyebrow">{{ settings?.introEyebrow }}</p>
-        <h2 class="text-display">{{ settings?.introTitle }}</h2>
-        <p class="text-lead home-intro__lead">{{ settings?.introBody }}</p>
-        <div class="home-intro__links">
-          <NuxtLink to="/our-story">Read our story →</NuxtLink>
-          <NuxtLink to="/testimonials">See who we've worked with →</NuxtLink>
+      <div class="container">
+        <div class="home-intro__inner">
+          <p class="text-eyebrow home-intro__eyebrow">{{ settings?.introEyebrow }}</p>
+        </div>
+        <div class="hero-splash-wrap skeleton-image" :class="{ 'is-loaded': introSplashLoaded }">
+          <NuxtImg
+            ref="introSplashRef"
+            src="/splash-dali.jpg"
+            alt="Salvador Dalí and Miles Davis in a library"
+            class="hero-splash"
+            sizes="sm:100vw lg:700px"
+            @load="introSplashLoaded = true"
+          />
+        </div>
+        <div class="home-intro__inner">
+          <h2 class="text-display">{{ settings?.introTitle }}</h2>
+          <p class="text-lead home-intro__lead">{{ settings?.introBody }}</p>
+          <div class="home-intro__links">
+            <NuxtLink to="/our-story">Read our story →</NuxtLink>
+            <NuxtLink to="/testimonials">See who we've worked with →</NuxtLink>
+          </div>
         </div>
       </div>
     </section>
@@ -57,14 +71,24 @@ const { data: settings } = await useAsyncData('home-settings', () =>
 
 const splashLoaded = ref(false)
 const splashRef = ref<ComponentPublicInstance | HTMLImageElement | null>(null)
+const introSplashLoaded = ref(false)
+const introSplashRef = ref<ComponentPublicInstance | HTMLImageElement | null>(null)
+
+function markImageLoaded(
+  refValue: ComponentPublicInstance | HTMLImageElement | null,
+  loaded: Ref<boolean>,
+) {
+  const el = refValue
+  const img = el instanceof HTMLImageElement
+    ? el
+    : (el as ComponentPublicInstance | null)?.$el as HTMLImageElement | undefined
+  if (img?.complete && img.naturalWidth) loaded.value = true
+}
 
 onMounted(() => {
   nextTick(() => {
-    const el = splashRef.value
-    const img = el instanceof HTMLImageElement
-      ? el
-      : (el as ComponentPublicInstance | null)?.$el as HTMLImageElement | undefined
-    if (img?.complete && img.naturalWidth) splashLoaded.value = true
+    markImageLoaded(splashRef.value, splashLoaded)
+    markImageLoaded(introSplashRef.value, introSplashLoaded)
   })
 })
 
@@ -119,11 +143,16 @@ useHead({
 
 .home-intro__inner {
   max-width: 720px;
+  margin-inline: auto;
   text-align: center;
 }
 
 .home-intro__eyebrow {
   margin-bottom: 1rem;
+}
+
+.home-intro .hero-splash-wrap {
+  margin-bottom: 1.5rem;
 }
 
 .home-intro h2 {
