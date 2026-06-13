@@ -68,9 +68,9 @@ testimonials:
       They brought so much creativity, energy, and humour to our Schitt's Creek
       Trivia Night fundraiser for We Rock Winnipeg. The questions, visuals, and
       overall experience were original, engaging, and incredibly fun for
-      everyone involved. Jeff generously donated their time and talent to support
-      our camp, and their passion for creating memorable events truly showed.
-      We are so grateful for their support and would highly recommend them to
+      everyone involved. Jeff generously donated his time and talent to support
+      our camp, and his passion for creating memorable events truly showed. We
+      are so grateful for the support and would highly recommend him to
       anyone looking for an outstanding trivia host.
     name: Brandi
     role: Board Chair of We Rock
