@@ -7,17 +7,13 @@ description: From one bar in South Korea to trivia nights across Winnipeg.
 
 <img src="/bt-logo-about.jpg" class="about-icon" alt="Binge Thinkers" />
 
-*More stories coming soon.*
-
----
-
 ## From Seoul to Winnipeg
 
-Binge Thinkers began more than **15 years ago in South Korea**. One bar, one host, and a room full of people ready to discover trivia.
+Binge Thinkers began more than 15 years ago in South Korea. One bar, one host, and a room full of people ready to believe.
 
 <img src="/jeff.sinclair-black-wide.jpg" class="story-wide" alt="Jeff Sinclair, stand-up comedian and curator of Binge Thinkers trivia content" />
 
-That small side project became weekly nights, loyal regulars, and trivia that felt like a proper night out. Never a school exam.
+That small side project became weekly nights, loyal regulars, and trivia that felt new and exciting..
 
 ## Building Something Real
 
@@ -27,7 +23,7 @@ Our hosts became familiar faces. The questions got sharper. The nights got loude
 
 ## A New Chapter in Winnipeg
 
-Now **Winnipeg** gets the best of what we learned in Seoul: smart questions, warm hosts, and nights people want to repeat.
+Now Winnipeg gets the best of what we learned in Seoul: smart questions, experienced hosts, and nights people want to repeat.
 
 We're finding new venues and growing a local trivia crowd. If you knew us in Korea, welcome back. If not, come see what the fuss is about.
 

@@ -250,12 +250,19 @@ a.venue-link:focus-visible {
     grid-template-columns: 1fr auto 1fr;
     gap: 1rem;
   }
-  .navbar .logo { justify-self: start; }
+  .navbar .logo {
+    grid-column: 1;
+    justify-self: start;
+  }
   .nav-tonight {
     display: flex;
+    grid-column: 2;
     justify-self: center;
   }
-  .nav-links { justify-self: end; }
+  .nav-links {
+    grid-column: 3;
+    justify-self: end;
+  }
 }
 .nav-links a {
   color: var(--color-muted);
