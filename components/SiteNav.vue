@@ -2,23 +2,27 @@
   <header class="navbar">
     <NuxtLink to="/" class="logo">
       <img src="/bt-logo-about.jpg" alt="Logo" height="96" style="margin-top: -4px;" />
-      <img src="/title-98x600.jpg" alt="Binge Thinkers" width="300" height="49" style="margin-top: 4px;" />
+      <img src="/title-98x600.png" alt="Binge Thinkers" width="300" height="49" style="margin-top: 4px;" />
     </NuxtLink>
 
-    <div v-if="tonightEvent" class="nav-tonight">
+    <div v-if="nextEvent" class="nav-tonight">
       <a href="#calendar" class="nav-tonight__calendar" @click.prevent="goToCalendar">
-        <span class="nav-tonight__label">On tonight:</span>
-        <span class="nav-tonight__show">{{ tonightEvent.event.title }}</span>
-        <template v-if="tonightEvent.event.time">
+        <span class="nav-tonight__label">{{ nextEventLabel }}</span>
+        <span class="nav-tonight__show">{{ nextEvent.event.title }}</span>
+        <template v-if="nextEventDateLabel">
           <span class="nav-tonight__sep" aria-hidden="true">·</span>
-          <span class="nav-tonight__time">{{ tonightEvent.event.time }}</span>
+          <span class="nav-tonight__date">{{ nextEventDateLabel }}</span>
+        </template>
+        <template v-if="nextEventTimeLabel">
+          <span class="nav-tonight__sep" aria-hidden="true">·</span>
+          <span class="nav-tonight__time">{{ nextEventTimeLabel }}</span>
         </template>
       </a>
-      <template v-if="tonightEvent.event.venue">
+      <template v-if="nextEvent.event.venue">
         <span class="nav-tonight__sep" aria-hidden="true">·</span>
         <VenueLink
-          :name="tonightEvent.event.venue"
-          :location="tonightEvent.event.location"
+          :name="nextEvent.event.venue"
+          :location="nextEvent.event.location"
           link-class="nav-tonight__venue"
         />
       </template>
@@ -41,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { getEventsTonight } from '~/utils/events'
+import { formatDateKey, getNextEvent } from '~/utils/events'
 
 const route = useRoute()
 const router = useRouter()
@@ -50,10 +54,31 @@ const { showFaq } = defineProps<{
   showFaq?: boolean
 }>()
 
-const tonightEvent = ref<ReturnType<typeof getEventsTonight>[0] | null>(null)
+const now = ref(new Date())
+const nextEvent = ref<ReturnType<typeof getNextEvent>>(null)
+
+const nextEventIsToday = computed(() => (
+  nextEvent.value ? formatDateKey(nextEvent.value.date) === formatDateKey(now.value) : false
+))
+
+const nextEventLabel = computed(() => (nextEventIsToday.value ? 'Tonight:' : 'Next:'))
+
+const nextEventDateLabel = computed(() => {
+  if (!nextEvent.value || nextEventIsToday.value) return ''
+
+  return nextEvent.value.date.toLocaleDateString('en-CA', {
+    month: 'short',
+    day: 'numeric',
+  })
+})
+
+const nextEventTimeLabel = computed(() => (
+  nextEvent.value?.event.time.replace(':00 ', ' ') ?? ''
+))
 
 onMounted(() => {
-  tonightEvent.value = getEventsTonight()[0] ?? null
+  now.value = new Date()
+  nextEvent.value = getNextEvent(now.value)
 })
 
 function scrollToCalendar() {
