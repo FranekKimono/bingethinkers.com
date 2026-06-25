@@ -18,6 +18,7 @@ export interface CalendarEvent {
   venue?: string
   location?: EventLocation
   time?: string
+  excludeDates?: string[]
   recurrence: EventRecurrence
 }
 
@@ -53,9 +54,12 @@ function isNthWeekdayOfMonth(date: Date, dayOfWeek: number, nth: number): boolea
 }
 
 export function eventMatchesDate(event: CalendarEvent, date: Date): boolean {
+  const dateKey = formatDateKey(date)
+  if (event.excludeDates?.includes(dateKey)) return false
+
   const { recurrence } = event
   if (recurrence.type === 'once') {
-    return recurrence.date === formatDateKey(date)
+    return recurrence.date === dateKey
   }
   if (recurrence.type === 'weekly') {
     return recurrence.dayOfWeek === date.getDay()
@@ -82,7 +86,7 @@ export function getEventsForMonth(year: number, month: number): DayEvent[] {
     }
   }
 
-  return results.sort((a, b) => a.date.getTime() - b.date.getTime())
+  return results.sort(compareDayEvents)
 }
 
 export function getMonthLabel(year: number, month: number): string {
@@ -131,6 +135,33 @@ export function dayEventKey(item: DayEvent): string {
   return `${item.event.id}:${formatDateKey(item.date)}`
 }
 
+function getTimeSortValue(time?: string): number {
+  if (!time) return Number.MAX_SAFE_INTEGER
+
+  const match = time.trim().match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/i)
+  if (!match) return Number.MAX_SAFE_INTEGER
+
+  const hour = Number(match[1])
+  const minutes = Number(match[2] ?? 0)
+  const period = match[3].toUpperCase()
+  const normalizedHour = (hour % 12) + (period === 'PM' ? 12 : 0)
+
+  return normalizedHour * 60 + minutes
+}
+
+export function compareDayEvents(a: DayEvent, b: DayEvent): number {
+  const dateDiff = a.date.getTime() - b.date.getTime()
+  if (dateDiff !== 0) return dateDiff
+
+  const timeDiff = getTimeSortValue(a.event.time) - getTimeSortValue(b.event.time)
+  if (timeDiff !== 0) return timeDiff
+
+  const venueDiff = (a.event.venue ?? '').localeCompare(b.event.venue ?? '')
+  if (venueDiff !== 0) return venueDiff
+
+  return a.event.title.localeCompare(b.event.title)
+}
+
 export function getEventsTonight(date: Date = new Date()): DayEvent[] {
   const tonight = new Date(date.getFullYear(), date.getMonth(), date.getDate())
   const results: DayEvent[] = []
@@ -141,26 +172,28 @@ export function getEventsTonight(date: Date = new Date()): DayEvent[] {
     }
   }
 
-  return results.sort((a, b) => {
-    if (a.event.time && b.event.time) return a.event.time.localeCompare(b.event.time)
-    if (a.event.time) return -1
-    if (b.event.time) return 1
-    return a.event.title.localeCompare(b.event.title)
-  })
+  return results.sort(compareDayEvents)
+}
+
+export function getUpcomingEvents(fromDate: Date = new Date(), limit = 8): DayEvent[] {
+  const start = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate())
+  const results: DayEvent[] = []
+
+  for (let i = 0; i < 400 && results.length < limit; i++) {
+    const date = new Date(start)
+    date.setDate(start.getDate() + i)
+
+    const dayMatches = getAllEvents()
+      .filter((event) => eventMatchesDate(event, date))
+      .map((event) => ({ event, date }))
+      .sort(compareDayEvents)
+
+    results.push(...dayMatches)
+  }
+
+  return results.slice(0, limit)
 }
 
 export function getNextEvent(fromDate: Date = new Date()): DayEvent | null {
-  const start = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate())
-
-  for (let i = 0; i < 400; i++) {
-    const date = new Date(start)
-    date.setDate(start.getDate() + i)
-    for (const event of getAllEvents()) {
-      if (eventMatchesDate(event, date)) {
-        return { event, date }
-      }
-    }
-  }
-
-  return null
+  return getUpcomingEvents(fromDate, 1)[0] ?? null
 }

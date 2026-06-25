@@ -5,24 +5,31 @@
       <img src="/title-98x600.png" alt="Binge Thinkers" width="300" height="49" style="margin-top: 4px;" />
     </NuxtLink>
 
-    <div v-if="nextEvent" class="nav-tonight">
+    <div
+      v-if="featuredEvent"
+      class="nav-tonight"
+      @mouseenter="stopFeaturedEventRotation"
+      @mouseleave="startFeaturedEventRotation"
+      @focusin="stopFeaturedEventRotation"
+      @focusout="handleFeaturedEventFocusOut"
+    >
       <a href="#calendar" class="nav-tonight__calendar" @click.prevent="goToCalendar">
-        <span class="nav-tonight__label">{{ nextEventLabel }}</span>
-        <span class="nav-tonight__show">{{ nextEvent.event.title }}</span>
-        <template v-if="nextEventDateLabel">
+        <span class="nav-tonight__label">{{ featuredEventLabel }}</span>
+        <span class="nav-tonight__show">{{ featuredEvent.event.title }}</span>
+        <template v-if="featuredEventDateLabel">
           <span class="nav-tonight__sep" aria-hidden="true">·</span>
-          <span class="nav-tonight__date">{{ nextEventDateLabel }}</span>
+          <span class="nav-tonight__date">{{ featuredEventDateLabel }}</span>
         </template>
-        <template v-if="nextEventTimeLabel">
+        <template v-if="featuredEventTimeLabel">
           <span class="nav-tonight__sep" aria-hidden="true">·</span>
-          <span class="nav-tonight__time">{{ nextEventTimeLabel }}</span>
+          <span class="nav-tonight__time">{{ featuredEventTimeLabel }}</span>
         </template>
       </a>
-      <template v-if="nextEvent.event.venue">
+      <template v-if="featuredEvent.event.venue">
         <span class="nav-tonight__sep" aria-hidden="true">·</span>
         <VenueLink
-          :name="nextEvent.event.venue"
-          :location="nextEvent.event.location"
+          :name="featuredEvent.event.venue"
+          :location="featuredEvent.event.location"
           link-class="nav-tonight__venue"
         />
       </template>
@@ -45,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { formatDateKey, getNextEvent } from '~/utils/events'
+import { formatDateKey, getUpcomingEvents } from '~/utils/events'
 
 const route = useRoute()
 const router = useRouter()
@@ -54,31 +61,55 @@ const { showFaq } = defineProps<{
   showFaq?: boolean
 }>()
 
-const now = ref(new Date())
-const nextEvent = ref<ReturnType<typeof getNextEvent>>(null)
+const FEATURED_EVENT_LIMIT = 8
+const FEATURED_EVENT_INTERVAL_MS = 6000
 
-const nextEventIsToday = computed(() => (
-  nextEvent.value ? formatDateKey(nextEvent.value.date) === formatDateKey(now.value) : false
+const now = ref(new Date())
+const upcomingEvents = ref<ReturnType<typeof getUpcomingEvents>>([])
+const featuredEventIndex = ref(0)
+let featuredEventTimer: ReturnType<typeof window.setInterval> | undefined
+
+const featuredEvent = computed(() => upcomingEvents.value[featuredEventIndex.value] ?? null)
+
+const featuredEventIsToday = computed(() => (
+  featuredEvent.value ? formatDateKey(featuredEvent.value.date) === formatDateKey(now.value) : false
 ))
 
-const nextEventLabel = computed(() => (nextEventIsToday.value ? 'Tonight:' : 'Next:'))
+const firstEventDateKey = computed(() => (
+  upcomingEvents.value[0] ? formatDateKey(upcomingEvents.value[0].date) : ''
+))
 
-const nextEventDateLabel = computed(() => {
-  if (!nextEvent.value || nextEventIsToday.value) return ''
+const featuredEventIsNextDate = computed(() => (
+  featuredEvent.value ? formatDateKey(featuredEvent.value.date) === firstEventDateKey.value : false
+))
 
-  return nextEvent.value.date.toLocaleDateString('en-CA', {
+const featuredEventLabel = computed(() => {
+  if (featuredEventIsToday.value) return 'Tonight:'
+  if (featuredEventIsNextDate.value) return 'Next:'
+  return 'Upcoming:'
+})
+
+const featuredEventDateLabel = computed(() => {
+  if (!featuredEvent.value || featuredEventIsToday.value) return ''
+
+  return featuredEvent.value.date.toLocaleDateString('en-CA', {
     month: 'short',
     day: 'numeric',
   })
 })
 
-const nextEventTimeLabel = computed(() => (
-  nextEvent.value?.event.time.replace(':00 ', ' ') ?? ''
+const featuredEventTimeLabel = computed(() => (
+  featuredEvent.value?.event.time.replace(':00 ', ' ') ?? ''
 ))
 
 onMounted(() => {
   now.value = new Date()
-  nextEvent.value = getNextEvent(now.value)
+  upcomingEvents.value = getUpcomingEvents(now.value, FEATURED_EVENT_LIMIT)
+  startFeaturedEventRotation()
+})
+
+onBeforeUnmount(() => {
+  stopFeaturedEventRotation()
 })
 
 function scrollToCalendar() {
@@ -92,6 +123,31 @@ function goToCalendar() {
     return
   }
   router.push('/#calendar')
+}
+
+function startFeaturedEventRotation() {
+  if (featuredEventTimer) return
+  if (upcomingEvents.value.length <= 1) return
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+  featuredEventTimer = window.setInterval(() => {
+    featuredEventIndex.value = (featuredEventIndex.value + 1) % upcomingEvents.value.length
+  }, FEATURED_EVENT_INTERVAL_MS)
+}
+
+function stopFeaturedEventRotation() {
+  if (!featuredEventTimer) return
+
+  window.clearInterval(featuredEventTimer)
+  featuredEventTimer = undefined
+}
+
+function handleFeaturedEventFocusOut(event: FocusEvent) {
+  const currentTarget = event.currentTarget as HTMLElement | null
+  const nextTarget = event.relatedTarget as Node | null
+  if (currentTarget?.contains(nextTarget)) return
+
+  startFeaturedEventRotation()
 }
 </script>
 

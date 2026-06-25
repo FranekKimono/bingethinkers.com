@@ -10,8 +10,13 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 ---
 
 <details>
+<summary>What kind of events is this good for?</summary>
+<p>We have done all kinds. Weekly trivia nights in bars, corporate events and dinners, team building events, wedding socials, Christmas parties, fundraisers, and even a bar mitzvah. See our <a href="/testimonials">testimonials</a>.</p>
+</details>
+
+<details>
 <summary>What exactly does Binge Thinkers provide?</summary>
-<p>We bring a <strong>professional host</strong>, all the <strong>questions and rounds</strong>, a <strong>laptop</strong>, and <strong>answer sheets</strong>. Your host runs the game and keeps the room lively. You bring the crowd and, ideally, a screen.</p>
+<p>We bring a <strong>professional host</strong>, all the <strong>questions and rounds</strong>, a <strong>laptop</strong>, pens, and <strong>answer sheets</strong>. Your host runs the game and keeps the room lively. You bring the crowd and, ideally, a screen. Other technical equipment can be provided upon request, such as a projector, mic, or speakers.</p>
 </details>
 
 <details>
@@ -21,12 +26,12 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 
 <details>
 <summary>How long does a trivia night run?</summary>
-<p>A standard night lasts about <strong>two hours</strong>, including several rounds, a break, and a final. Need a different length? We can adjust.</p>
+<p>A standard night lasts about <strong>two hours</strong>, including several rounds of categories with short breaks in between. Need a different length? We can adjust.</p>
 </details>
 
 <details>
 <summary>How does booking work?</summary>
-<p>Use our <a href="/contact">contact form</a> or call us. Share your date, location, and crowd size. We'll confirm availability within <strong>24 hours</strong> and send a quote.</p>
+<p>Use our <a href="/contact">contact form</a>. Share your date, location, and crowd size. We'll confirm availability within <strong>24 hours</strong> and ask some follow-up questions to help tailor the night for you and give you a quote.</p>
 </details>
 
 <details>
@@ -36,7 +41,7 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 
 <details>
 <summary>What kind of trivia do you run?</summary>
-<p>We write and update our questions in-house. Expect <strong>pop culture, sports, history, music, and excellent bar arguments</strong>. It is competitive enough to matter and relaxed enough for everyone.</p>
+<p>We write and update our questions in-house. Expect some of the classics like pop culture, music, movies, sports, and excellent bar arguments. We also toss in a few creative categories we've come up with that you won't find at other trivia events. It is competitive enough to matter and relaxed enough for everyone.</p>
 </details>
 
 <details>
@@ -51,12 +56,12 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 
 <details>
 <summary>Do you do corporate or private events?</summary>
-<p>Yes. Team events, holiday parties, launches, and celebrations all work. We can add themes, inside jokes, or custom questions. Tell us your idea on the <a href="/contact">contact form</a>.</p>
+<p>We can add themes, inside jokes, or custom questions. Tell us your idea on the <a href="/contact">contact form</a>.</p>
 </details>
 
 <details>
 <summary>How many people can play?</summary>
-<p>Trivia works best in <strong>teams of 3 to 6</strong>. We have hosted crowds from 20 to more than 200. Tell us your headcount and we'll shape the game around it.</p>
+<p>Trivia works best in teams of <strong>6 max</strong>. People can play solo or with a group of friends or coworkers. We have hosted crowds from 20 to more than 250. Tell us your headcount and we'll shape the game around it.</p>
 </details>
 
 <details>
@@ -76,7 +81,7 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 
 <details>
 <summary>What areas do you serve?</summary>
-<p>We're based in <strong>Winnipeg</strong>. Planning something nearby or unusual? Ask us. We like interesting plans.</p>
+<p>We are based in <strong>Winnipeg</strong>, but can accommodate events all over Manitoba. We've been to Gimli, Steinbach, Oak Bank, Selkirk, Winkler, and Morden. One way or another, we will get to you!</p>
 </details>
 
 ---

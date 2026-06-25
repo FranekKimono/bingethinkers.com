@@ -118,7 +118,6 @@ useHead({
         name: 'Binge Thinkers',
         description: 'Professional hosted trivia nights for bars, pubs, and private events.',
         url: 'https://bingethinkers.com',
-        email: 'info@bingethinkers.com',
         image: 'https://bingethinkers.com/splash.jpg',
       }),
     },

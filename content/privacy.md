@@ -23,8 +23,8 @@ Form submissions are sent via email to our team. We do not store submissions in 
 
 ## Your Rights
 
-You may request that we delete your email correspondence at any time by contacting us at info@bingethinkers.com.
+You may request that we delete your submitted information at any time through the contact form.
 
 ## Contact
 
-For questions about this policy: **info@bingethinkers.com**
+For questions about this policy, please use the [contact form](/contact).

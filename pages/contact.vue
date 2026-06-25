@@ -30,7 +30,7 @@
         {{ status === 'sending' ? 'Sending…' : 'Send Message' }}
       </button>
       <p v-if="status === 'success'" class="form-feedback form-feedback--success">✓ Message sent! We'll be in touch soon.</p>
-      <p v-if="status === 'error'" class="form-feedback form-feedback--error">Something went wrong. Please try again or email us directly.</p>
+      <p v-if="status === 'error'" class="form-feedback form-feedback--error">Something went wrong. Please try again in a moment.</p>
     </form>
   </div>
 </template>
