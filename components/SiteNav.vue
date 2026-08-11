@@ -1,7 +1,7 @@
 <template>
   <header class="navbar">
     <NuxtLink to="/" class="logo">
-      <img src="/bt-logo-about.png" alt="Binge Thinkers" height="96" style="margin-top: -4px;" />
+      <img src="/bt-logo-about.png" alt="Binge Thinkers" width="192" height="192" />
     </NuxtLink>
 
     <div

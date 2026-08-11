@@ -180,7 +180,14 @@ img { max-width: 100%; height: auto; display: block; }
   z-index: 100;
 }
 .navbar .logo { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
-.navbar .logo img { height: 96px; width: auto; }
+.navbar .logo img {
+  height: 192px;
+  width: auto;
+  /* Keep bar height; let the mark overflow above/below */
+  margin-block: -48px;
+  position: relative;
+  z-index: 1;
+}
 .nav-tonight {
   display: none;
   align-items: center;
@@ -587,5 +594,8 @@ footer {
 /* ── Compact nav (tablet & mobile) ── */
 @media (max-width: 1024px) {
   .nav-links a:not(.nav-book) { display: none; }
-  .navbar .logo img { height: 72px; }
+  .navbar .logo img {
+    height: 144px;
+    margin-block: -36px;
+  }
 }
