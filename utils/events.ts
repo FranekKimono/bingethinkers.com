@@ -18,6 +18,10 @@ export interface CalendarEvent {
   venue?: string
   location?: EventLocation
   time?: string
+  /** Inclusive YYYY-MM-DD — weekly/monthly events ignore dates before this */
+  startDate?: string
+  /** Inclusive YYYY-MM-DD — weekly/monthly events ignore dates after this */
+  endDate?: string
   excludeDates?: string[]
   recurrence: EventRecurrence
 }
@@ -56,6 +60,8 @@ function isNthWeekdayOfMonth(date: Date, dayOfWeek: number, nth: number): boolea
 export function eventMatchesDate(event: CalendarEvent, date: Date): boolean {
   const dateKey = formatDateKey(date)
   if (event.excludeDates?.includes(dateKey)) return false
+  if (event.startDate && dateKey < event.startDate) return false
+  if (event.endDate && dateKey > event.endDate) return false
 
   const { recurrence } = event
   if (recurrence.type === 'once') {

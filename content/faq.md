@@ -45,6 +45,16 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 </details>
 
 <details>
+<summary>Do you have themed trivia?</summary>
+<p>Yes, we have over <strong>30 themes</strong> involving TV shows, film franchises, music, and of course, Taylor Swift.</p>
+</details>
+
+<details>
+<summary>Can we buy trivia packages for our bar to use?</summary>
+<p>Yes, we can arrange that and have provided trivia to bars in the <strong>USA, Europe, and Asia</strong>.</p>
+</details>
+
+<details>
 <summary>How is this different from running our own trivia?</summary>
 <p>We've done this for <strong>over 15 years</strong> in dozens of venues. You get a proven format, fresh questions, and a host whose only job is giving your crowd a great night.</p>
 </details>

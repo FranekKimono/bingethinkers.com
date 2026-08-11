@@ -5,7 +5,7 @@ description: How Binge Thinkers handles information submitted through the bookin
 
 # Privacy Policy
 
-**Last updated:** [Date]
+**Last updated:** August 11, 2026
 
 ## Information We Collect
 

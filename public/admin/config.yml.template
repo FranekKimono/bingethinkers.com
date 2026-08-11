@@ -104,6 +104,8 @@ collections:
               - { label: Venue, name: venue, widget: string }
               - { label: Address, name: location, widget: google-address, required: false, hint: 'Start typing and choose a Google address, or enter one manually.' }
               - { label: Time, name: time, widget: string, hint: 'e.g. 7:00 PM' }
+              - { label: Start date, name: startDate, widget: string, required: false, hint: 'YYYY-MM-DD — optional; weekly/monthly events ignore dates before this' }
+              - { label: End date, name: endDate, widget: string, required: false, hint: 'YYYY-MM-DD — optional; weekly/monthly events ignore dates after this' }
               - label: Recurrence
                 name: recurrence
                 widget: object
