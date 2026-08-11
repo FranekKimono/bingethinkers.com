@@ -350,6 +350,10 @@ a.venue-link:focus-visible {
   z-index: 0;
 }
 
+.skeleton-image.is-loaded {
+  background: transparent;
+}
+
 .skeleton-image.is-loaded::before {
   opacity: 0;
   transition: opacity 0.25s ease;
