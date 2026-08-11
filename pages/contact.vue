@@ -88,7 +88,7 @@ async function submitForm() {
   );
   border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
   border-radius: var(--radius);
-  padding: 1.75rem;
+  padding: 1rem 1.75rem 1.5rem;
   margin-bottom: 2.5rem;
   box-shadow: 0 0 32px color-mix(in srgb, var(--color-accent) 12%, transparent);
 }
@@ -100,7 +100,7 @@ async function submitForm() {
 
 .pricing-blurb h2 {
   font-size: var(--text-subsection);
-  margin-bottom: 0.75rem;
+  margin: 0 0 0.75rem;
   color: var(--color-accent);
 }
 
