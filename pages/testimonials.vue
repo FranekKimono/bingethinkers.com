@@ -15,9 +15,10 @@
             :ref="setDjSplashRef"
             src="/splash-dj.jpg"
             alt="A team working through trivia questions at a pub table"
-            width="1200"
-            height="324"
-            sizes="(max-width: 640px) 100vw, 1100px"
+            width="2657"
+            height="735"
+            sizes="sm:100vw xl:1400px"
+            format="webp"
             loading="lazy"
             @load="djSplashLoaded = true"
           />
@@ -238,7 +239,7 @@ useSeoMeta({
 }
 
 .testimonials-splash__image {
-  aspect-ratio: 1200 / 324;
+  aspect-ratio: 2657 / 735;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
