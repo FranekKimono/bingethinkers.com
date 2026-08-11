@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binge Thinkers — Admin</title>
+  <link rel="icon" href="/favicon/favicon.ico" />
+  <link rel="stylesheet" href="theme.css" />
+  <link href="config.yml" type="application/yaml" rel="cms-config-url" />
+</head>
+<body>
+  <div id="nc-root"></div>
+  <noscript>Enable JavaScript to use the CMS.</noscript>
+  <script src="maps-config.js"></script>
+  <script src="address-widget.js"></script>
+  <script>
+    (function () {
+      var OAUTH_KEY = 'decap-oauth-pending';
+
+      function readBaseUrl() {
+        return fetch('config.yml', { cache: 'no-store' })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Could not load Decap config');
+            return response.text();
+          })
+          .then(function (text) {
+            var match = text.match(/^\s*base_url:\s*(\S+)/m);
+            return match ? match[1].replace(/["']/g, '') : window.location.origin;
+          })
+          .catch(function () { return window.location.origin; });
+      }
+
+      function isCloudflarePagesHost(hostname) {
+        return hostname.endsWith('.pages.dev');
+      }
+
+      var baseUrlPromise = readBaseUrl();
+
+      window.__decapAdminReady = baseUrlPromise.then(function (baseUrl) {
+        var oauthUrl = new URL(baseUrl, window.location.href);
+        if (
+          oauthUrl.origin !== window.location.origin &&
+          isCloudflarePagesHost(oauthUrl.hostname) &&
+          isCloudflarePagesHost(window.location.hostname)
+        ) {
+          oauthUrl.pathname = '/admin/';
+          oauthUrl.search = window.location.search;
+          oauthUrl.hash = window.location.hash;
+          window.location.replace(oauthUrl.href);
+          return false;
+        }
+        return true;
+      });
+
+      function completeFromStorage() {
+        var raw = localStorage.getItem(OAUTH_KEY);
+        if (!raw) return;
+        localStorage.removeItem(OAUTH_KEY);
+
+        var payload;
+        try { payload = JSON.parse(raw); } catch (e) { return; }
+
+        baseUrlPromise.then(function (baseUrl) {
+          window.dispatchEvent(new MessageEvent('message', {
+            data: 'authorizing:github',
+            origin: baseUrl,
+          }));
+          window.dispatchEvent(new MessageEvent('message', {
+            data: 'authorization:github:' + payload.status + ':' + JSON.stringify(payload.content),
+            origin: baseUrl,
+          }));
+        });
+      }
+
+      window.addEventListener('load', completeFromStorage);
+      window.addEventListener('focus', completeFromStorage);
+      setInterval(completeFromStorage, 500);
+    })();
+  </script>
+  <script>
+    window.__decapAdminReady.then(function (ready) {
+      if (!ready) return;
+      window.CMS_MANUAL_INIT = true;
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js';
+      script.onload = function () {
+        if (!window.CMS) return;
+        window.CMS.registerPreviewStyle('preview.css');
+        if (window.registerBingeAddressWidget) {
+          window.registerBingeAddressWidget(window.CMS, window.createClass, window.h);
+        }
+        window.CMS.init();
+      };
+      document.body.appendChild(script);
+    });
+  </script>
+  <script>
+    window.addEventListener('unhandledrejection', function (event) {
+      showBootError(String(event.reason && event.reason.message ? event.reason.message : event.reason));
+    });
+    window.addEventListener('error', function (event) {
+      showBootError(event.message || String(event.error));
+    });
+    function showBootError(message) {
+      var el = document.getElementById('cms-boot-error');
+      if (!el) {
+        el = document.createElement('pre');
+        el.id = 'cms-boot-error';
+        el.style.cssText = 'margin:1rem;padding:1rem;background:#fee;border:1px solid #c00;color:#400;font:14px/1.4 monospace;white-space:pre-wrap';
+        document.body.prepend(el);
+      }
+      el.textContent = 'CMS failed to load. Check the browser console and /admin/config.yml.\n\n' + message;
+    }
+  </script>
+</body>
+</html>

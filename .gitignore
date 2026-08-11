@@ -1,1 +1,18 @@
 .DS_Store
+graphics/
+node_modules/
+.output/
+.nuxt/
+.nitro/
+dist/
+*.log
+
+# Local env / secrets (set in Cloudflare Pages → Environment variables)
+.env
+.env.*
+!.env.example
+.dev.vars
+.wrangler/
+
+# Generated from GOOGLE_MAPS_API_KEY by scripts/prepare-admin.mjs
+/public/admin/maps-config.js
