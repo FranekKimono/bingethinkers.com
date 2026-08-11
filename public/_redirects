@@ -1,1 +1,4 @@
 /admin /admin/ 302
+
+# Serve Nuxt's generated error page for unknown paths (static hosting)
+/*    /404.html   404

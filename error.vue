@@ -1,10 +1,22 @@
 <template>
   <div class="error-page">
-    <h1>404</h1>
-    <p>This page doesn't exist. Maybe it was a trivia question we haven't written yet.</p>
+    <h1>{{ statusCode }}</h1>
+    <p>{{ message }}</p>
     <NuxtLink to="/" class="btn btn-primary">Back to Home</NuxtLink>
   </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps<{ error: { statusCode?: number; statusMessage?: string; message?: string } }>()
+
+const statusCode = computed(() => props.error?.statusCode || 404)
+const message = computed(() => {
+  if (statusCode.value === 404) {
+    return "This page doesn't exist. Maybe it was a trivia question we haven't written yet."
+  }
+  return props.error?.statusMessage || props.error?.message || 'Something went wrong.'
+})
+</script>
 
 <style scoped>
 .error-page {
