@@ -3,8 +3,8 @@
     <h1>{{ settings?.title }}</h1>
     <p style="color:var(--color-muted); margin-bottom:2rem">{{ settings?.intro }}</p>
 
-    <section class="pricing-row" aria-label="Pricing">
-      <div class="pricing-blurb">
+    <section class="pricing-blurb" aria-label="Pricing">
+      <div class="pricing-blurb__copy">
         <h2>{{ settings?.pricingTitle }}</h2>
         <p>{{ settings?.pricingBody }}</p>
         <p>{{ settings?.pricingCta }}</p>
@@ -15,7 +15,7 @@
         alt="Binge Thinkers mascot"
         width="1257"
         height="1079"
-        sizes="200px"
+        sizes="180px"
         format="webp"
       />
     </section>
@@ -77,16 +77,10 @@ async function submitForm() {
 </script>
 
 <style scoped>
-.pricing-row {
+.pricing-blurb {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  margin-bottom: 2.5rem;
-}
-
-.pricing-blurb {
-  flex: 1 1 auto;
-  min-width: 0;
   background: linear-gradient(
     135deg,
     color-mix(in srgb, var(--color-accent) 18%, var(--color-surface)),
@@ -95,7 +89,13 @@ async function submitForm() {
   border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
   border-radius: var(--radius);
   padding: 1.75rem;
+  margin-bottom: 2.5rem;
   box-shadow: 0 0 32px color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.pricing-blurb__copy {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .pricing-blurb h2 {
@@ -115,24 +115,24 @@ async function submitForm() {
 
 .pricing-guy {
   flex: 0 0 auto;
-  width: 200px;
+  width: 180px;
   height: auto;
-  max-width: 38%;
+  max-width: 36%;
   display: block;
   margin: 0;
   background: transparent;
 }
 
 @media (max-width: 640px) {
-  .pricing-row {
+  .pricing-blurb {
     flex-direction: column;
     align-items: stretch;
   }
 
   .pricing-guy {
-    width: min(220px, 55%);
+    width: min(200px, 55%);
     max-width: none;
-    margin: 0 auto;
+    margin: 0.25rem auto 0;
   }
 }
 </style>
