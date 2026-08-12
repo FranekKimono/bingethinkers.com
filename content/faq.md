@@ -31,7 +31,7 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 
 <details>
 <summary>How does booking work?</summary>
-<p>Use our <a href="/contact">contact form</a>. Share your date, location, and crowd size. We'll confirm availability within <strong>24 hours</strong> and ask some follow-up questions to help tailor the night for you and give you a quote.</p>
+<p>Use our <a href="/contact">contact form</a>. Share your date, location, and crowd size. We'll confirm availability and ask some follow-up questions to help tailor the night for you and give you a quote.</p>
 </details>
 
 <details>
@@ -96,4 +96,4 @@ Thinking about bringing trivia to your bar, pub, or private event? Here are answ
 
 ---
 
-Still curious? **[Get in touch →](/contact)**. We respond within 24 hours.
+Still curious? **[Get in touch →](/contact)**.

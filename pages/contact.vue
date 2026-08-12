@@ -53,7 +53,7 @@ const { data: settings } = await useAsyncData('contact-settings', () =>
 
 useSeoMeta({
   title: 'Book & Contact | Binge Thinkers',
-  description: 'Book a hosted trivia night or ask for a quote. We respond within 24 hours.',
+  description: 'Book a hosted trivia night or ask for a quote.',
 })
 
 const form = reactive({ name: '', email: '', phone: '', message: '' })
