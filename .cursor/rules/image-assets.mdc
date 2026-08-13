@@ -1,0 +1,24 @@
+---
+description: Do not edit image assets without explicit user approval
+alwaysApply: true
+---
+
+# Image Assets
+
+Do **not** modify, replace, resize, crop, or composite text onto image files in this project unless the user explicitly asks you to.
+
+## Before touching any image
+
+- Ask first if the task could be solved in code instead (HTML/CSS overlays, `NuxtImg`, CMS content).
+- If image work is needed, confirm which file to use and what change is wanted before running ImageMagick, Pillow, or similar tools.
+- Never substitute a different splash or hero image from git history, backups, or other sources without approval.
+
+## Safe changes without asking
+
+- Updating `src`, `alt`, or layout/CSS that *references* an image (e.g. `pages/index.vue`, `assets/css/main.css`).
+- Editing CMS copy in `content/` that describes images.
+
+## Off limits unless explicitly requested
+
+- Overwriting files in `public/` (e.g. `splash.jpg`, `splash-dali.jpg`, logos, photos).
+- Generating or re-exporting images from Downloads or other sources to replace project assets.

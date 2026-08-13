@@ -99,9 +99,9 @@ function formatAccent(text: string): string {
 }
 
 useSeoMeta({
-  title: 'Binge Thinkers | Hosted Trivia Nights',
+  title: 'Binge Thinkers | Winnipeg Hosted Trivia Nights',
   description: 'Book a lively trivia night for your bar, pub, or private event. We bring the host and questions. You bring the crowd.',
-  ogTitle: 'Binge Thinkers | Hosted Trivia Nights',
+  ogTitle: 'Binge Thinkers | Winnipeg Hosted Trivia Nights',
   ogDescription: 'Book a lively trivia night for your bar, pub, or private event.',
   ogImage: 'https://bingethinkers.com/splash.jpg',
   ogType: 'website',
