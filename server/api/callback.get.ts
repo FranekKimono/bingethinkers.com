@@ -1,8 +1,9 @@
 import { renderCallbackPage, oauthHtmlHeaders } from '../utils/oauth-html'
+import { getRuntimeEnv } from '../utils/runtime-env'
 
 export default defineEventHandler(async (event) => {
-  const clientId = process.env.GITHUB_CLIENT_ID
-  const clientSecret = process.env.GITHUB_CLIENT_SECRET
+  const clientId = getRuntimeEnv(event, 'GITHUB_CLIENT_ID')
+  const clientSecret = getRuntimeEnv(event, 'GITHUB_CLIENT_SECRET')
   if (!clientId || !clientSecret) {
     throw createError({ statusCode: 500, message: 'GitHub OAuth is not configured' })
   }

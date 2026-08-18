@@ -1,6 +1,8 @@
+import { getRuntimeEnv } from '../utils/runtime-env'
+
 export default defineEventHandler(async (event) => {
-  const token = process.env.INSTAGRAM_TOKEN
-  const accountId = process.env.INSTAGRAM_ACCOUNT_ID
+  const token = getRuntimeEnv(event, 'INSTAGRAM_TOKEN')
+  const accountId = getRuntimeEnv(event, 'INSTAGRAM_ACCOUNT_ID')
 
   if (!token || !accountId) {
     return { posts: [], error: 'Instagram not configured' }
