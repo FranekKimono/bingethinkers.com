@@ -5,8 +5,8 @@
     "dev": "node scripts/prepare-admin.mjs && nuxt dev",
     "build": "node scripts/prepare-admin.mjs && nuxt build",
     "generate": "node scripts/prepare-admin.mjs && nuxt generate",
-    "postgenerate": "node scripts/write-oauth-worker.mjs && node scripts/patch-oauth-routes.mjs",
-    "postbuild": "node scripts/write-oauth-worker.mjs && node scripts/patch-oauth-routes.mjs",
+    "postgenerate": "node scripts/verify-cloudflare-worker.mjs && node scripts/patch-oauth-routes.mjs",
+    "postbuild": "node scripts/verify-cloudflare-worker.mjs && node scripts/patch-oauth-routes.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },

@@ -66,7 +66,7 @@ For `GOOGLE_MAPS_API_KEY`, enable **Maps JavaScript API** and **Places API (New)
 
 The key is used in the browser, so the restrictions are important. Without it, editors can still enter an address manually, but Google suggestions will be unavailable.
 
-OAuth is implemented in `dist/_worker.js` (generated at build time by `scripts/write-oauth-worker.mjs`). Local dev can also use `server/api/auth.get.ts` and `server/api/callback.get.ts`.
+OAuth is implemented by `server/api/auth.get.ts` and `server/api/callback.get.ts` in the generated Nuxt worker. The post-build verification rejects deployments that do not contain those routes and the contact form route.
 
 ### 3. Branches (production vs preview CMS)
 
@@ -108,8 +108,8 @@ After each save, Decap commits to the branch configured for that deployment; Clo
 - **Infinite reload at `/admin/`:** Was caused by a Nuxt redirect rule that replaced the admin page with `<meta refresh url=/admin/>`. Fixed — use `/admin/` and redeploy.
 - **White screen at `/admin`:** Open DevTools → Console. Often a bad `config.yml`. Confirm `/admin/config.yml` loads (200, YAML content). Use `/admin/` with trailing slash.
 - **Console spam `SES Removing unpermitted intrinsics`:** Usually a browser extension (often MetaMask). Try incognito with extensions disabled.
-- **Login popup shows broken image / blank page:** `/api/auth` is serving the coming-soon page instead of redirecting to GitHub. Confirm `https://bingethinkers.com/api/auth` returns a **302 to github.com** (not HTML). Redeploy **master** after the OAuth routing fix. On preview, use `https://dev.bingethinkers-com.pages.dev/admin/` and confirm `/api/auth` redirects to GitHub.
-- **`GITHUB_CLIENT_ID is not configured`:** Variables exist in Cloudflare but **Preview** was not checked when they were added, **or the deploy predates the variables** (Cloudflare only injects env vars at build/deploy time — saving variables does not update live deployments). Edit each variable → enable **Preview** → **Retry deployment** on the `dev` branch. Also confirm **Build command** is `./build.sh` (not bare `npm run generate`), so `dist/_worker.js` is created for OAuth.
+- **Login popup shows broken image / blank page:** `/api/auth` is serving a static page instead of the OAuth route. Confirm `https://bingethinkers.com/api/auth` returns the GitHub redirect page from the Nuxt worker. Redeploy **master** after the routing fix. On preview, use `https://dev.bingethinkers-com.pages.dev/admin/` and make the same check.
+- **`GITHUB_CLIENT_ID is not configured`:** Variables exist in Cloudflare but **Preview** was not checked when they were added, **or the deploy predates the variables** (Cloudflare only injects env vars at build/deploy time — saving variables does not update live deployments). Edit each variable → enable **Preview** → **Retry deployment** on the `dev` branch. Also confirm **Build command** is `./build.sh`; it builds and verifies the complete Nuxt worker.
 - **Login popup loops:** Usually missing Preview env vars, or wrong GitHub callback URL.
 - **Popup says "Authorization finished. Return to the admin tab" but admin still shows Login:** This happens when `/admin/` and the OAuth callback use different Cloudflare preview origins. Preview admin pages now redirect automatically to the stable branch URL (`https://dev.bingethinkers-com.pages.dev/admin/`) before Decap loads. If an older deployment still shows this behavior, open that stable URL directly.
 - **Login works but save fails:** User needs **Write** access on the repo; preview saves need permission to push to `dev`.

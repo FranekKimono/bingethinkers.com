@@ -63,7 +63,7 @@ GitHub OAuth app setup and collaborator access: [docs/decap-cms-setup.md](docs/d
 
 ## Contact form
 
-The contact form posts to `/api/contact` (Nuxt Nitro handler deployed as a Cloudflare Worker). Submissions are emailed via Resend when `RESEND_API_KEY` is set.
+The contact form posts to `/api/contact` (Nuxt Nitro handler deployed as part of the Cloudflare Worker). Submissions are emailed via Resend when `RESEND_API_KEY` is set. Production uses `nuxt build`, and the post-build verification fails the deployment if the contact or OAuth routes are missing from the Worker.
 
 ## Redirect
 
