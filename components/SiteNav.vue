@@ -63,7 +63,7 @@ const { showFaq } = defineProps<{
 const FEATURED_EVENT_LIMIT = 8
 const FEATURED_EVENT_INTERVAL_MS = 6000
 
-const now = ref(new Date())
+const { date: now, refresh: refreshNow } = useWinnipegDate()
 const upcomingEvents = ref<ReturnType<typeof getUpcomingEvents>>([])
 const featuredEventIndex = ref(0)
 let featuredEventTimer: ReturnType<typeof window.setInterval> | undefined
@@ -102,7 +102,7 @@ const featuredEventTimeLabel = computed(() => (
 ))
 
 onMounted(() => {
-  now.value = new Date()
+  refreshNow()
   upcomingEvents.value = getUpcomingEvents(now.value, FEATURED_EVENT_LIMIT)
   startFeaturedEventRotation()
 })

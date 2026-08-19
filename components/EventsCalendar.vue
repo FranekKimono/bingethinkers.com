@@ -97,12 +97,11 @@ import {
   type DayEvent,
 } from '~/utils/events'
 
-// Evaluated in the browser so prerender/build time does not freeze "today".
-const now = ref(new Date())
-const displayDate = ref(new Date())
+const { date: now, refresh: refreshNow } = useWinnipegDate()
+const displayDate = ref(new Date(now.value.getFullYear(), now.value.getMonth(), 1))
 
 onMounted(() => {
-  now.value = new Date()
+  refreshNow()
   displayDate.value = new Date(now.value.getFullYear(), now.value.getMonth(), 1)
 })
 
