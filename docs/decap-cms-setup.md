@@ -1,10 +1,10 @@
-# Decap CMS setup
+# Admin editor setup
 
-Decap CMS at `/admin` edits content in this repo via GitHub. There is no separate CMS server — saves commit to Git, and Cloudflare Pages rebuilds the site.
+The visual Nuxt editor at `/admin/` replaces the former Decap editing interface. It reuses the existing GitHub OAuth app and repository permissions; no new account service is required. Saves commit the edited JSON content and uploaded images together, then Cloudflare Pages rebuilds the site.
 
 ## Who can edit?
 
-Decap does **not** maintain its own user list. Access is controlled by **GitHub repo permissions**:
+The editor does **not** maintain its own user list. Access is controlled by **GitHub repo permissions**:
 
 - Anyone who can **log in with GitHub** and has **write access** to `FranekKimono/bingethinkers.com` can use `/admin`.
 - To add a second editor, invite them as a **collaborator** on the repo (see below).
@@ -27,7 +27,7 @@ Optional extra gate: [Cloudflare Access](https://developers.cloudflare.com/cloud
 
 Preview builds use **same-origin OAuth** on `https://dev.bingethinkers-com.pages.dev` (stable branch URL). Open `/admin/` on that URL when testing CMS on `dev`, not the per-deploy hash URL.
 
-Production (`master`) uses `https://bingethinkers.com` for OAuth. The master deploy is currently a coming-soon page, but it still serves OAuth at `/api/auth` and `/api/callback` via `dist/_worker.js`.
+Production (`master`) uses `https://bingethinkers.com` for OAuth. The production deployment serves the Nuxt site and the OAuth routes in `dist/_worker.js`.
 
 ### 2. Cloudflare Pages environment variables
 
@@ -77,41 +77,44 @@ Each Cloudflare preview build runs `scripts/prepare-admin.mjs`, which sets the C
 | Production (`master`) | `master` | `master` → live site |
 | Preview (`dev`, PRs, etc.) | `dev` (or branch name) | That preview branch only |
 
-- **Production:** `https://bingethinkers.com/admin` — edits go to `master` (once master deploys the Nuxt site).
+- **Production:** `https://bingethinkers.com/admin` — edits go to `master`.
 - **Preview:** `https://dev.bingethinkers-com.pages.dev/admin/` — edits go to `dev`. Use this stable URL for CMS testing (not the hash preview URL).
 
 ### 4. Deploy
 
-Push and let Cloudflare build. Open `/admin/` (with trailing slash) on the deployment you want and click **Login with GitHub**.
+Push and let Cloudflare build. Open `/admin/` (with trailing slash) on the deployment you want and click **Sign in with GitHub**.
 
 ## Add a second editor
 
 1. GitHub → repo **FranekKimono/bingethinkers.com** → **Settings** → **Collaborators** (or **Manage access**)
 2. **Add people** → enter their GitHub username or email
-3. Role: **Write** (enough to commit content via Decap; not Admin unless they need repo settings)
+3. Role: **Write** (enough to publish content from the editor; not Admin unless they need repo settings)
 4. They accept the invite
-5. They visit `/admin/` on production or preview, log in with **their** GitHub account, and edit Pages, Settings, and Calendar Events
+5. They visit `/admin/` on production or preview, log in with **their** GitHub account, and edit Calendar, Locations, and Pages
 
-No Decap configuration change is required per user.
+No editor configuration change is required per user.
 
 ## What editors can change
 
-| Collection | File(s) | Notes |
-|------------|---------|--------|
-| Pages | `content/*.md`, `content/settings/*.md` | Home, Testimonials, Book & Contact, Our Story, FAQ, and Privacy Policy |
-| Calendar Events | `data/events.json` | Trivia nights, addresses, Google Maps links, and recurrence rules |
+| Area | Source | Editing behavior |
+|------|--------|------------------|
+| Calendar | `data/events.json` | Weekly and custom schedules, dates, times, per-Event customizations, cancellation, and restoration |
+| Locations | `data/locations.json` | Shared names and addresses; archive and restore for later reuse |
+| Pages | `data/pages.json` | Six fixed page layouts with click-to-edit content, images, buttons, FAQ/testimonial entries, and search settings |
+| Images | `public/images/*` | PNG, JPEG, WebP, GIF, or AVIF uploads, up to 8 MB each |
 
-After each save, Decap commits to the branch configured for that deployment; Cloudflare rebuilds that branch.
+The preview shows unsaved page changes immediately. **Save & publish** commits all pending edits and uploads in one operation. The site changes after the rebuild succeeds. There is no separate saved-draft workflow.
+
+Location corrections update every linked Event, including past Events. When a venue moves, create a new Location and apply it to the relevant Events. Archiving a Location does not move or cancel scheduled Events.
 
 ## Troubleshooting
 
-- **Infinite reload at `/admin/`:** Was caused by a Nuxt redirect rule that replaced the admin page with `<meta refresh url=/admin/>`. Fixed — use `/admin/` and redeploy.
-- **White screen at `/admin`:** Open DevTools → Console. Often a bad `config.yml`. Confirm `/admin/config.yml` loads (200, YAML content). Use `/admin/` with trailing slash.
-- **Console spam `SES Removing unpermitted intrinsics`:** Usually a browser extension (often MetaMask). Try incognito with extensions disabled.
-- **Login popup shows broken image / blank page:** `/api/auth` is serving a static page instead of the OAuth route. Confirm `https://bingethinkers.com/api/auth` returns the GitHub redirect page from the Nuxt worker. Redeploy **master** after the routing fix. On preview, use `https://dev.bingethinkers-com.pages.dev/admin/` and make the same check.
-- **`GITHUB_CLIENT_ID is not configured`:** Variables exist in Cloudflare but **Preview** was not checked when they were added, **or the deploy predates the variables** (Cloudflare only injects env vars at build/deploy time — saving variables does not update live deployments). Edit each variable → enable **Preview** → **Retry deployment** on the `dev` branch. Also confirm **Build command** is `./build.sh`; it builds and verifies the complete Nuxt worker.
-- **Login popup loops:** Usually missing Preview env vars, or wrong GitHub callback URL.
-- **Popup says "Authorization finished. Return to the admin tab" but admin still shows Login:** This happens when `/admin/` and the OAuth callback use different Cloudflare preview origins. Preview admin pages now redirect automatically to the stable branch URL (`https://dev.bingethinkers-com.pages.dev/admin/`) before Decap loads. If an older deployment still shows this behavior, open that stable URL directly.
-- **Login works but save fails:** User needs **Write** access on the repo; preview saves need permission to push to `dev`.
-- **Events look wrong after edit:** Only fill recurrence fields that match the selected type (once / weekly / monthly / monthlyWeekday). Leave unused fields empty.
-- **Event address suggestions do not appear:** Confirm `GOOGLE_MAPS_API_KEY` is set for the deployment environment, Maps JavaScript API and Places API (New) are enabled, and the CMS host is allowed by the key's website restrictions. Manual addresses still save and open in Google Maps.
+- **Editor does not open from a local HTML file:** `/admin/` is now a Nuxt page. Start `npm run dev` and visit the reported localhost URL with `/admin/`. Use `/admin/?demo=1` for a development-only preview that cannot publish.
+- **Configuration could not load:** check `/admin/editor-config.json`. `scripts/prepare-admin.mjs` generates this file during `dev` and `build`.
+- **Sign-in popup fails or returns to the wrong site:** check the OAuth callback URLs, Preview/Production variables, and use the stable branch URL for preview editing. A change to Cloudflare variables requires a new deployment.
+- **`GITHUB_CLIENT_ID is not configured`:** enable the variable in the correct Cloudflare environment and redeploy. Keep `./build.sh` as the build command so the full Worker and OAuth routes are verified.
+- **Sign-in works, saving fails:** the GitHub user needs write permission on the configured repository branch. Branch protections still apply.
+- **Someone saved newer changes:** download your unpublished changes before reloading, then reapply them to the latest content. The editor never forces an overwrite of a newer Git commit.
+- **Saved changes are not visible yet:** the save completed, but Cloudflare may still be rebuilding. Check the branch's deployment result before expecting the public page to change.
+- **Address suggestions are unavailable:** check the Google Maps key, API enablement, and allowed website referrers. Manual addresses remain supported.
+- **Legacy Markdown or CMS config edits have no effect:** the six fixed pages and new editor use the JSON sources listed above. The old Markdown is a migration reference, not the live content source.

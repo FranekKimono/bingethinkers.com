@@ -1,0 +1,362 @@
+{
+  "home": {
+    "title": "Home Page Settings",
+    "heroTitle": "Book a <strong>Trivia Night</strong><br>Your Crowd Won't Forget<br>The Next Morning",
+    "heroSubtitle": "We bring the host, the questions, and you bring the thirsty minds.  Perfect for bars, pubs, private events, team building and even bar mitzvahs!",
+    "ctaText": "Book Your Night",
+    "introEyebrow": "Seoul Roots · Winnipeg Nights",
+    "introTitle": "Hosted Trivia with Decades of Curated Content",
+    "introBody": "We run trivia nights for bars, pubs, and private events. Our question library uses video, audio, and images across a wide range of topics - content we've been building for over 15 years, starting in South Korea and now in Winnipeg. Jeff Sinclair, a standup comedian, curates the program building a unique trivia experience that other companies simply do not.",
+    "eventsTitle": "Upcoming Trivia Nights",
+    "eventsSubtitle": "Find your next Winnipeg trivia night.",
+    "bottomCtaTitle": "Want Us at Your Venue?",
+    "bottomCtaBody": "Planning a night? Tell us the basics and we'll send a quote.",
+    "bottomCtaText": "Get in Touch",
+    "heroImage": "/splash.jpg",
+    "heroAlt": "Binge Thinkers Trivia Night",
+    "ctaUrl": "/contact",
+    "introImage": "/splash-dali.jpg",
+    "introAlt": "Salvador Dalí and Miles Davis in a library",
+    "storyLinkText": "Read our story →",
+    "storyLinkUrl": "/our-story",
+    "clientsLinkText": "See who we've worked with →",
+    "clientsLinkUrl": "/testimonials",
+    "bottomCtaUrl": "/contact",
+    "testimonialsLinkText": "See testimonials →",
+    "testimonialsLinkUrl": "/testimonials",
+    "faqLinkText": "Read the FAQ →",
+    "faqLinkUrl": "/faq",
+    "seoTitle": "Binge Thinkers | Winnipeg Hosted Trivia Nights",
+    "seoDescription": "Book a lively trivia night for your bar, pub, or private event. We bring the host and questions. You bring the crowd."
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "intro": "We've hosted trivia for bars, pubs, and companies on two continents. Here are a few kind words and familiar logos.",
+    "clientsTitle": "Some of Our Clients",
+    "quotesTitle": "What People Say",
+    "testimonials": [
+      {
+        "quote": "My husband and I spent so many of our early date nights playing trivia at Jeff's nights. It was the highlight of our week. Ten years later, we're still chasing that trivia vibe. No other host has done it as well. It's fun, it's funny, it's fair, it's fab.",
+        "name": "Alisha & Bryan",
+        "role": ""
+      },
+      {
+        "quote": "We hired Jeff to run trivia for our wedding social and it was a huge hit. The structure of the trivia worked great for a large event, allowing time for people to mingle/drink/put in their prize tickets in between rounds. We got many compliments from friends and family on the unique social and they still talk about some of the trivia categories to this day. If a traditional social isn't your thing, would highly recommend hiring Jeff for a trivia night.",
+        "name": "McKenna and Josh",
+        "role": ""
+      },
+      {
+        "quote": "Jeff provided trivia at two bars I owned. The first was the Rocky Mountain Tavern where he had a 5 year residency. Most Sunday nights were so packed, teams had to stand if they wanted to play... and they did. So it was a no-brainer to have him provide trivia for my next establishment, Bear Paw, for 3 years.",
+        "name": "Tyler D.",
+        "role": "Owner of Rocky Mountain Tavern & Bear Paw Bar & Grill"
+      },
+      {
+        "quote": "Jeff ran trivia and put expat butts in seats for years at the first bar I owned. When I moved on to another venue, his trivia was one of the first things I wanted to make a regular part of live entertainment. Customers thrive off his energy!",
+        "name": "Jamie C.",
+        "role": "Owner of Wolfhound Bar & Rocky Mountain Tavern"
+      },
+      {
+        "quote": "A trivia night hosted by Jeff Sinclair is far from your typical trivia event. His unique questions, humorous categories, and entertaining delivery create a memorable evening for everyone, whether you're a quiz master or simply there for a fun night out.",
+        "name": "Theatre by the River",
+        "role": "Matthew Komus, Past Chair"
+      },
+      {
+        "quote": "Jeff had a great way of bringing the party together at my son's Bar Mitzvah. He kept everyone engaged with fun trivia that appealed to all ages. Great trivia host that provided a great experience!",
+        "name": "Dan & Lisa M.",
+        "role": ""
+      },
+      {
+        "quote": "Couldn't have asked for a better night of trivia nor a better host! We have hired him twice for corporate gatherings and he put together quite the entertaining set of trivia categories. There was as much laughter as hushed whispering while teams debated answers. Highly recommend this trivia company!",
+        "name": "Chris. S.",
+        "role": "Head of Emergent BioSolutions"
+      },
+      {
+        "quote": "Wasn't sure what to expect as our company has a lot of employees from different countries, but this trivia company put together a night where everyone felt included and entertained! Already have them on the list for our next event.",
+        "name": "Chris D.",
+        "role": "Owner of Keener Jerseys"
+      },
+      {
+        "quote": "They brought so much creativity, energy, and humour to our Schitt's Creek Trivia Night fundraiser for We Rock Winnipeg. The questions, visuals, and overall experience were original, engaging, and incredibly fun for everyone involved. Jeff generously donated his time and talent to support our camp, and his passion for creating memorable events truly showed. We are so grateful for the support and would highly recommend him to anyone looking for an outstanding trivia host.",
+        "name": "Brandi",
+        "role": "Board Chair of We Rock"
+      }
+    ],
+    "splashImage": "/splash-dj.jpg",
+    "splashAlt": "A team working through trivia questions at a pub table",
+    "clients": [
+      {
+        "name": "Shindico",
+        "src": "/clients/logos__0000_Shindico.jpg"
+      },
+      {
+        "name": "9 circl",
+        "src": "/clients/logos__0001_9-circl.jpg"
+      },
+      {
+        "name": "Heartland",
+        "src": "/clients/logos__0002_Heartland.jpg"
+      },
+      {
+        "name": "Dignity Memorial",
+        "src": "/clients/logos__0003_Dignity-Memorial.jpg"
+      },
+      {
+        "name": "We Rock Winnipeg",
+        "src": "/clients/logos__0004_We-Rock-Winnipeg.jpg"
+      },
+      {
+        "name": "iQMetrix",
+        "src": "/clients/logos__0005_iQMetrix.jpg"
+      },
+      {
+        "name": "Kids Inc",
+        "src": "/clients/logos__0006_Kids-Inc.jpg"
+      },
+      {
+        "name": "Winnipeg Teachers Association",
+        "src": "/clients/logos__0007_Winnipeg-Teachers-Association.jpg"
+      },
+      {
+        "name": "Emergent BioSolutions",
+        "src": "/clients/logos__0008_Emergent-BIoSolutions.jpg"
+      },
+      {
+        "name": "ALSIP",
+        "src": "/clients/logos__0009_ALSIP.jpg"
+      },
+      {
+        "name": "Theatre By the River",
+        "src": "/clients/logos__0010_Theatre-By-the-River.jpg"
+      },
+      {
+        "name": "Keener Jerseys",
+        "src": "/clients/logos__0011_Keener-Jerseys.jpg"
+      },
+      {
+        "name": "Winnipeg Comedy Festival",
+        "src": "/clients/logos__0012_Winnipeg-Comedy-Festival.jpg"
+      },
+      {
+        "name": "West Four",
+        "src": "/clients/logos__0013_West-Four.jpg"
+      },
+      {
+        "name": "Quad Real",
+        "src": "/clients/logos__0014_Quad-Real.jpg"
+      },
+      {
+        "name": "PowerTec",
+        "src": "/clients/logos__0015_PowerTec.jpg"
+      },
+      {
+        "name": "Nu Burger",
+        "src": "/clients/logos__0016_Nu-Burger.jpg"
+      },
+      {
+        "name": "NavCanada",
+        "src": "/clients/logos__0017_NavCanada.jpg"
+      },
+      {
+        "name": "Northwest Company",
+        "src": "/clients/logos__0018_Northwest-Company.jpg"
+      },
+      {
+        "name": "Offspeed Volleyball",
+        "src": "/clients/logos__0019_Offspeed-Volleyball.jpg"
+      },
+      {
+        "name": "GAS STATION",
+        "src": "/clients/logos__0020_GAS-STATION.jpg"
+      }
+    ],
+    "gallery": [
+      {
+        "src": "/binge-images/1.jpg",
+        "alt": "Trivia night photo 1"
+      },
+      {
+        "src": "/binge-images/2.jpg",
+        "alt": "Trivia night photo 2"
+      },
+      {
+        "src": "/binge-images/3.jpg",
+        "alt": "Trivia night photo 3"
+      },
+      {
+        "src": "/binge-images/4.jpg",
+        "alt": "Trivia night photo 4"
+      },
+      {
+        "src": "/binge-images/5.jpg",
+        "alt": "Trivia night photo 5"
+      },
+      {
+        "src": "/binge-images/6.jpg",
+        "alt": "Trivia night photo 6"
+      },
+      {
+        "src": "/binge-images/7.jpg",
+        "alt": "Trivia night photo 7"
+      },
+      {
+        "src": "/binge-images/8.jpg",
+        "alt": "Trivia night photo 8"
+      },
+      {
+        "src": "/binge-images/9.jpg",
+        "alt": "Trivia night photo 9"
+      }
+    ],
+    "seoTitle": "Testimonials | Binge Thinkers",
+    "seoDescription": "See what venues and companies say about Binge Thinkers hosted trivia nights."
+  },
+  "contact": {
+    "title": "Book & Contact",
+    "intro": "Tell us what you're planning.",
+    "pricingTitle": "Pricing",
+    "pricingBody": "No two nights are the same. Price depends on your crowd, date, length, frequency, tech needs, and any custom rounds.",
+    "pricingCta": "Send us the details. We'll build a quote that fits.",
+    "image": "/binge-thinkers-guy.png",
+    "imageAlt": "Binge Thinkers mascot",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "phoneLabel": "Phone (optional)",
+    "phonePlaceholder": "+1 (555) 000-0000",
+    "messageLabel": "Tell us about your event",
+    "messagePlaceholder": "Date, venue, crowd size. Anything helpful.",
+    "submitText": "Send Message",
+    "sendingText": "Sending…",
+    "successText": "✓ Message sent! We'll be in touch soon.",
+    "errorText": "Something went wrong. Please try again in a moment.",
+    "seoTitle": "Book & Contact | Binge Thinkers",
+    "seoDescription": "Book a hosted trivia night or ask for a quote."
+  },
+  "our-story": {
+    "title": "Our Story",
+    "bannerImage": "/binge-thinkers-rectangle-dark.png",
+    "bannerAlt": "Binge Thinkers",
+    "intro": "<p>Binge Thinkers trivia nights began 15 years ago in Seoul, South Korea. It instantly became a hit among the English speaking expat community.</p>",
+    "photoImage": "/jeff.sinclair-black-wide.jpg",
+    "photoAlt": "Jeff Sinclair, stand-up comedian and curator of Binge Thinkers trivia content",
+    "afterPhoto": "<p>From there it grew into a series of nights at venues in various cities all over the peninsula. It was listed as the best trivia night in the country in Groove Magazine, the most prominent English publication on the peninsula.</p>",
+    "sections": [
+      {
+        "heading": "Building Something Real",
+        "body": "<p>We built custom rounds, league nights, and corporate events across South Korea. The rooms kept filling up. Our hosts became familiar faces. The questions got sharper. The nights got louder.</p>"
+      },
+      {
+        "heading": "A New Chapter in Winnipeg",
+        "body": "<p>Now Winnipeg gets the best of what we learned in Seoul: clever questions, experienced hosts, creative categories, and a multimedia extravaganza people want to repeat.</p>"
+      }
+    ],
+    "seoTitle": "Our Story | Binge Thinkers",
+    "seoDescription": "From one bar in South Korea to trivia nights across Winnipeg."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "intro": "<p>Thinking about bringing trivia to your bar, pub, or private event? Here are answers to the questions we hear most often.</p>",
+    "questions": [
+      {
+        "question": "What kind of events is this good for?",
+        "answer": "<p>We have done all kinds. Weekly trivia nights in bars, corporate events and dinners, team building events, wedding socials, Christmas parties, fundraisers, and even a bar mitzvah. See our <a href=\"/testimonials\">testimonials</a>.</p>"
+      },
+      {
+        "question": "What exactly does Binge Thinkers provide?",
+        "answer": "<p>We bring a <strong>professional host</strong>, all the <strong>questions and rounds</strong>, a <strong>laptop</strong>, pens, and <strong>answer sheets</strong>. Your host runs the game and keeps the room lively. You bring the crowd and, ideally, a screen. Other technical equipment can be provided upon request, such as a projector, mic, or speakers.</p>"
+      },
+      {
+        "question": "What does the venue need to provide?",
+        "answer": "<p>We need a <strong>TV or projector</strong> with HDMI, space for teams, and room for your crowd. We will also help you choose simple <strong>prizes</strong>, such as a bar tab, gift card, merch, or bragging rights. Food and drinks stay in your hands.</p>"
+      },
+      {
+        "question": "How long does a trivia night run?",
+        "answer": "<p>A standard night lasts about <strong>two hours</strong>, including several rounds of categories with short breaks in between. Need a different length? We can adjust.</p>"
+      },
+      {
+        "question": "How does booking work?",
+        "answer": "<p>Use our <a href=\"/contact\">contact form</a>. Share your date, location, and crowd size. We'll confirm availability and ask some follow-up questions to help tailor the night for you and give you a quote.</p>"
+      },
+      {
+        "question": "Do we get to pick our host?",
+        "answer": "<p>You don't need to choose. <strong>We assign a host</strong> who fits the night. If you have worked with us before and have a favourite, let us know.</p>"
+      },
+      {
+        "question": "What kind of trivia do you run?",
+        "answer": "<p>We write and update our questions in-house. Expect some of the classics like pop culture, music, movies, sports, and excellent bar arguments. We also toss in a few creative categories we've come up with that you won't find at other trivia events. It is competitive enough to matter and relaxed enough for everyone.</p>"
+      },
+      {
+        "question": "Do you have themed trivia?",
+        "answer": "<p>Yes, we have over <strong>30 themes</strong> involving TV shows, film franchises, music, and of course, Taylor Swift.</p>"
+      },
+      {
+        "question": "Can we buy trivia packages for our bar to use?",
+        "answer": "<p>Yes, we can arrange that and have provided trivia to bars in the <strong>USA, Europe, and Asia</strong>.</p>"
+      },
+      {
+        "question": "How is this different from running our own trivia?",
+        "answer": "<p>We've done this for <strong>over 15 years</strong> in dozens of venues. You get a proven format, fresh questions, and a host whose only job is giving your crowd a great night.</p>"
+      },
+      {
+        "question": "Can we book a one-off night, or do you do recurring trivia?",
+        "answer": "<p>Both. We run <strong>one-off private events</strong> and <strong>weekly or monthly nights</strong> for bars and pubs. We handle the game. You focus on your guests.</p>"
+      },
+      {
+        "question": "Do you do corporate or private events?",
+        "answer": "<p>We can add themes, inside jokes, or custom questions. Tell us your idea on the <a href=\"/contact\">contact form</a>.</p>"
+      },
+      {
+        "question": "How many people can play?",
+        "answer": "<p>Trivia works best in teams of <strong>6 max</strong>. People can play solo or with a group of friends or coworkers. We have hosted crowds from 20 to more than 250. Tell us your headcount and we'll shape the game around it.</p>"
+      },
+      {
+        "question": "What about prizes?",
+        "answer": "<p><strong>You and the host coordinate prizes.</strong> A bar tab, gift card, round of drinks, or pure bragging rights all work. We will help you pick what suits the crowd.</p>"
+      },
+      {
+        "question": "How much does it cost?",
+        "answer": "<p>Price depends on the crowd, date, frequency, and any custom work. <strong><a href=\"/contact\">Ask us for a quote</a></strong> and we'll keep it clear and practical.</p>"
+      },
+      {
+        "question": "How far in advance should we book?",
+        "answer": "<p>A few weeks is usually enough for a <strong>one-off event</strong>. Book earlier for recurring nights or popular dates. Once you have a date in mind, ask us.</p>"
+      },
+      {
+        "question": "What areas do you serve?",
+        "answer": "<p>We are based in <strong>Winnipeg</strong>, but can accommodate events all over Manitoba. We've been to Gimli, Steinbach, Oak Bank, Selkirk, Winkler, and Morden. One way or another, we will get to you!</p>"
+      }
+    ],
+    "outro": "<p>Still curious? <strong><a href=\"/contact\">Get in touch →</a></strong>.</p>",
+    "seoTitle": "Frequently Asked Questions | Binge Thinkers",
+    "seoDescription": "Everything venues and event planners need to know about booking a Binge Thinkers hosted trivia night."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "<p><strong>Last updated:</strong> August 11, 2026</p>",
+    "sections": [
+      {
+        "heading": "Information We Collect",
+        "body": "<p>When you submit our contact form, we collect your name, email address, phone number (optional), and the message you provide. We use this solely to respond to your inquiry about booking a trivia night.</p>"
+      },
+      {
+        "heading": "How We Use Your Information",
+        "body": "<ul>\n<li>To respond to your booking request</li>\n<li>To follow up about your event</li>\n<li>We do not sell, rent, or share your information with third parties</li>\n</ul>"
+      },
+      {
+        "heading": "Data Storage",
+        "body": "<p>Form submissions are sent via email to our team. We do not store submissions in a database. Emails are retained for the duration of the client relationship.</p>"
+      },
+      {
+        "heading": "Your Rights",
+        "body": "<p>You may request that we delete your submitted information at any time through the contact form.</p>"
+      },
+      {
+        "heading": "Contact",
+        "body": "<p>For questions about this policy, please use the <a href=\"/contact\">contact form</a>.</p>"
+      }
+    ],
+    "seoTitle": "Privacy Policy | Binge Thinkers",
+    "seoDescription": "How Binge Thinkers handles information submitted through the booking and contact form."
+  }
+}

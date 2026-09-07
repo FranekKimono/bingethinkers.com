@@ -1,31 +1,44 @@
 <template>
   <div>
-    <section class="hero">
-      <div class="hero-splash-wrap skeleton-image" :class="{ 'is-loaded': splashLoaded }">
+    <section class="hero" data-edit-section="hero">
+      <div
+        class="hero-splash-wrap skeleton-image"
+        :class="{ 'is-loaded': splashLoaded }"
+      >
         <NuxtImg
           ref="splashRef"
-          src="/splash.jpg"
-          alt="Binge Thinkers Trivia Night"
+          :src="safeImage(settings.heroImage)"
+          :alt="settings.heroAlt"
           class="hero-splash"
           sizes="sm:100vw lg:700px"
           @load="splashLoaded = true"
         />
       </div>
-      <h1 v-if="settings" v-html="formatAccent(settings.heroTitle)" />
-      <p v-if="settings" v-html="formatAccent(settings.heroSubtitle)" />
-      <NuxtLink v-if="settings" to="/contact" class="btn btn-primary">{{ settings.ctaText }}</NuxtLink>
+      <h1 v-if="settings" v-html="safeHtml(settings.heroTitle)" />
+      <p v-if="settings">{{ settings.heroSubtitle }}</p>
+      <NuxtLink
+        v-if="settings"
+        :to="safeLink(settings.ctaUrl)"
+        class="btn btn-primary"
+        >{{ settings.ctaText }}</NuxtLink
+      >
     </section>
 
-    <section class="section home-intro">
+    <section class="section home-intro" data-edit-section="intro">
       <div class="container">
         <div class="home-intro__inner">
-          <p class="text-eyebrow home-intro__eyebrow">{{ settings?.introEyebrow }}</p>
+          <p class="text-eyebrow home-intro__eyebrow">
+            {{ settings?.introEyebrow }}
+          </p>
         </div>
-        <div class="hero-splash-wrap splash-wide skeleton-image" :class="{ 'is-loaded': introSplashLoaded }">
+        <div
+          class="hero-splash-wrap splash-wide skeleton-image"
+          :class="{ 'is-loaded': introSplashLoaded }"
+        >
           <NuxtImg
             ref="introSplashRef"
-            src="/splash-dali.jpg"
-            alt="Salvador Dalí and Miles Davis in a library"
+            :src="safeImage(settings.introImage)"
+            :alt="settings.introAlt"
             class="hero-splash"
             sizes="sm:100vw lg:700px"
             @load="introSplashLoaded = true"
@@ -35,14 +48,22 @@
           <h2 class="text-display">{{ settings?.introTitle }}</h2>
           <p class="text-lead home-intro__lead">{{ settings?.introBody }}</p>
           <div class="home-intro__links">
-            <NuxtLink to="/our-story">Read our story →</NuxtLink>
-            <NuxtLink to="/testimonials">See who we've worked with →</NuxtLink>
+            <NuxtLink :to="safeLink(settings.storyLinkUrl)">{{
+              settings.storyLinkText
+            }}</NuxtLink>
+            <NuxtLink :to="safeLink(settings.clientsLinkUrl)">{{
+              settings.clientsLinkText
+            }}</NuxtLink>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="calendar" class="section home-events">
+    <section
+      id="calendar"
+      class="section home-events"
+      data-edit-section="calendar"
+    >
       <div class="container">
         <h2 class="section-title">{{ settings?.eventsTitle }}</h2>
         <p class="section-subtitle">{{ settings?.eventsSubtitle }}</p>
@@ -50,14 +71,24 @@
       </div>
     </section>
 
-    <section class="section home-cta">
+    <section class="section home-cta" data-edit-section="bottom">
       <div class="container home-cta__inner">
-        <h2 class="text-display home-cta__title">{{ settings?.bottomCtaTitle }}</h2>
+        <h2 class="text-display home-cta__title">
+          {{ settings?.bottomCtaTitle }}
+        </h2>
         <p class="text-lead home-cta__lead">{{ settings?.bottomCtaBody }}</p>
-        <NuxtLink to="/contact" class="btn btn-outline">{{ settings?.bottomCtaText }}</NuxtLink>
+        <NuxtLink
+          :to="safeLink(settings.bottomCtaUrl)"
+          class="btn btn-outline"
+          >{{ settings?.bottomCtaText }}</NuxtLink
+        >
         <div class="home-cta__links">
-          <NuxtLink to="/testimonials">See testimonials →</NuxtLink>
-          <NuxtLink to="/faq">Read the FAQ →</NuxtLink>
+          <NuxtLink :to="safeLink(settings.testimonialsLinkUrl)">{{
+            settings.testimonialsLinkText
+          }}</NuxtLink>
+          <NuxtLink :to="safeLink(settings.faqLinkUrl)">{{
+            settings.faqLinkText
+          }}</NuxtLink>
         </div>
       </div>
     </section>
@@ -65,68 +96,68 @@
 </template>
 
 <script setup lang="ts">
-const { data: settings } = await useAsyncData('home-settings', () =>
-  queryContent('settings/home').findOne()
-)
+import { safeHtml, safeImage, safeLink } from "~/utils/page-content";
+const settings = usePageContent("home");
+const socialImage = computed(() => {
+  const image = safeImage(settings.value.heroImage);
+  return image.startsWith("/") ? `https://bingethinkers.com${image}` : image;
+});
+useSeoMeta({
+  ogType: "website",
+  ogImage: () => socialImage.value,
+  twitterCard: "summary_large_image",
+});
 
-const splashLoaded = ref(false)
-const splashRef = ref<ComponentPublicInstance | HTMLImageElement | null>(null)
-const introSplashLoaded = ref(false)
-const introSplashRef = ref<ComponentPublicInstance | HTMLImageElement | null>(null)
+const splashLoaded = ref(false);
+const splashRef = ref<ComponentPublicInstance | HTMLImageElement | null>(null);
+const introSplashLoaded = ref(false);
+const introSplashRef = ref<ComponentPublicInstance | HTMLImageElement | null>(
+  null,
+);
 
 function markImageLoaded(
   refValue: ComponentPublicInstance | HTMLImageElement | null,
   loaded: Ref<boolean>,
 ) {
-  const el = refValue
-  const img = el instanceof HTMLImageElement
-    ? el
-    : (el as ComponentPublicInstance | null)?.$el as HTMLImageElement | undefined
-  if (img?.complete && img.naturalWidth) loaded.value = true
+  const el = refValue;
+  const img =
+    el instanceof HTMLImageElement
+      ? el
+      : ((el as ComponentPublicInstance | null)?.$el as
+          HTMLImageElement | undefined);
+  if (img?.complete && img.naturalWidth) loaded.value = true;
 }
 
 onMounted(() => {
   nextTick(() => {
-    markImageLoaded(splashRef.value, splashLoaded)
-    markImageLoaded(introSplashRef.value, introSplashLoaded)
-  })
-})
+    markImageLoaded(splashRef.value, splashLoaded);
+    markImageLoaded(introSplashRef.value, introSplashLoaded);
+  });
+});
 
-function formatAccent(text: string): string {
-  return text
-    .replace(/\\n/g, '<br>')
-    .replace(/\*\*(.+?)\*\*/g, '<span class="accent">$1</span>')
-}
-
-useSeoMeta({
-  title: 'Binge Thinkers | Winnipeg Hosted Trivia Nights',
-  description: 'Book a lively trivia night for your bar, pub, or private event. We bring the host and questions. You bring the crowd.',
-  ogTitle: 'Binge Thinkers | Winnipeg Hosted Trivia Nights',
-  ogDescription: 'Book a lively trivia night for your bar, pub, or private event.',
-  ogImage: 'https://bingethinkers.com/splash.jpg',
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-})
-
-useHead({
+useHead(() => ({
   script: [
     {
-      type: 'application/ld+json',
+      type: "application/ld+json",
       children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        name: 'Binge Thinkers',
-        description: 'Professional hosted trivia nights for bars, pubs, and private events.',
-        url: 'https://bingethinkers.com',
-        image: 'https://bingethinkers.com/splash.jpg',
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Binge Thinkers",
+        description: settings.value.seoDescription,
+        url: "https://bingethinkers.com",
+        image: socialImage.value,
       }),
     },
   ],
-})
-
+}));
 </script>
 
 <style scoped>
+.hero :deep(strong) {
+  color: var(--color-accent);
+  font-weight: inherit;
+}
+
 .home-intro {
   background: linear-gradient(
     180deg,
@@ -173,7 +204,11 @@ useHead({
 
 .home-cta {
   background:
-    radial-gradient(ellipse 70% 80% at 50% 50%, var(--color-primary-tint-soft) 0%, transparent 65%),
+    radial-gradient(
+      ellipse 70% 80% at 50% 50%,
+      var(--color-primary-tint-soft) 0%,
+      transparent 65%
+    ),
     var(--color-surface);
   border-top: 1px solid var(--color-border);
 }

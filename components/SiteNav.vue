@@ -66,7 +66,7 @@ const FEATURED_EVENT_INTERVAL_MS = 6000
 const { date: now, refresh: refreshNow } = useWinnipegDate()
 const upcomingEvents = ref<ReturnType<typeof getUpcomingEvents>>([])
 const featuredEventIndex = ref(0)
-let featuredEventTimer: ReturnType<typeof window.setInterval> | undefined
+let featuredEventTimer: number | undefined
 
 const featuredEvent = computed(() => upcomingEvents.value[featuredEventIndex.value] ?? null)
 

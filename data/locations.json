@@ -1,0 +1,58 @@
+{
+  "locations": [
+    {
+      "id": "location-1",
+      "name": "X-Cues",
+      "address": "551 Sargent Ave, Winnipeg, MB R3B 1W4",
+      "archived": false
+    },
+    {
+      "id": "location-2",
+      "name": "Kilter",
+      "address": "450 Rue Deschambault, Winnipeg, MB R2H 0K1",
+      "archived": false
+    },
+    {
+      "id": "location-3",
+      "name": "Rec Room",
+      "address": "696 Sterling Lyon Pkwy Lot 5, Winnipeg, MB R3P 1E9",
+      "archived": false
+    },
+    {
+      "id": "location-4",
+      "name": "Underdogs",
+      "address": "2609 Portage Ave, Winnipeg, MB R3J 0P6",
+      "archived": false
+    },
+    {
+      "id": "location-5",
+      "name": "Garbonzos Polo Park",
+      "address": "1320 Ellice Ave, Winnipeg, MB R3G 0E9",
+      "archived": false
+    },
+    {
+      "id": "location-6",
+      "name": "Shannon's Irish Pub",
+      "address": "175 Carlton St, Winnipeg, MB R3C 3H9",
+      "archived": false
+    },
+    {
+      "id": "location-7",
+      "name": "Smitty's Grant",
+      "address": "580 Pembina Hwy, Winnipeg, MB R3M 2M5",
+      "archived": false
+    },
+    {
+      "id": "location-8",
+      "name": "Smitty's Pembina South",
+      "address": "2835 Pembina Hwy #1, Winnipeg, MB R3T 4Z8",
+      "archived": false
+    },
+    {
+      "id": "location-9",
+      "name": "Smitty's Pembina",
+      "address": "2835 Pembina Hwy #1, Winnipeg, MB R3T 4Z8",
+      "archived": false
+    }
+  ]
+}

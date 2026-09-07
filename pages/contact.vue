@@ -1,9 +1,17 @@
 <template>
   <div class="content-page">
-    <h1>{{ settings?.title }}</h1>
-    <p style="color:var(--color-muted); margin-bottom:2rem">{{ settings?.intro }}</p>
+    <div data-edit-section="intro">
+      <h1>{{ settings?.title }}</h1>
+      <p style="color: var(--color-muted); margin-bottom: 2rem">
+        {{ settings?.intro }}
+      </p>
+    </div>
 
-    <section class="pricing-blurb" aria-label="Pricing">
+    <section
+      class="pricing-blurb"
+      data-edit-section="pricing"
+      aria-label="Pricing"
+    >
       <div class="pricing-blurb__copy">
         <h2>{{ settings?.pricingTitle }}</h2>
         <p>{{ settings?.pricingBody }}</p>
@@ -11,8 +19,8 @@
       </div>
       <NuxtImg
         class="pricing-guy"
-        src="/binge-thinkers-guy.png"
-        alt="Binge Thinkers mascot"
+        :src="safeImage(settings.image)"
+        :alt="settings.imageAlt"
         width="1257"
         height="1079"
         sizes="180px"
@@ -20,58 +28,85 @@
       />
     </section>
 
-    <form @submit.prevent="submitForm">
+    <form data-edit-section="form" @submit.prevent="submitForm">
       <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" v-model="form.name" type="text" required placeholder="Your name" />
+        <label for="name">{{ settings.nameLabel }}</label>
+        <input
+          id="name"
+          v-model="form.name"
+          type="text"
+          required
+          :placeholder="settings.namePlaceholder"
+        />
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" v-model="form.email" type="email" required placeholder="you@example.com" />
+        <label for="email">{{ settings.emailLabel }}</label>
+        <input
+          id="email"
+          v-model="form.email"
+          type="email"
+          required
+          :placeholder="settings.emailPlaceholder"
+        />
       </div>
       <div class="form-group">
-        <label for="phone">Phone (optional)</label>
-        <input id="phone" v-model="form.phone" type="tel" placeholder="+1 (555) 000-0000" />
+        <label for="phone">{{ settings.phoneLabel }}</label>
+        <input
+          id="phone"
+          v-model="form.phone"
+          type="tel"
+          :placeholder="settings.phonePlaceholder"
+        />
       </div>
       <div class="form-group">
-        <label for="message">Tell us about your event</label>
-		<textarea id="message" v-model="form.message" required placeholder="Date, venue, crowd size. Anything helpful."></textarea>
+        <label for="message">{{ settings.messageLabel }}</label>
+        <textarea
+          id="message"
+          v-model="form.message"
+          required
+          :placeholder="settings.messagePlaceholder"
+        ></textarea>
       </div>
-      <button type="submit" class="btn btn-primary" :disabled="status === 'sending'">
-        {{ status === 'sending' ? 'Sending…' : 'Send Message' }}
+      <button
+        type="submit"
+        class="btn btn-primary"
+        :disabled="status === 'sending'"
+      >
+        {{ status === "sending" ? settings.sendingText : settings.submitText }}
       </button>
-      <p v-if="status === 'success'" class="form-feedback form-feedback--success">✓ Message sent! We'll be in touch soon.</p>
-      <p v-if="status === 'error'" class="form-feedback form-feedback--error">Something went wrong. Please try again in a moment.</p>
+      <p
+        v-if="status === 'success'"
+        class="form-feedback form-feedback--success"
+      >
+        {{ settings.successText }}
+      </p>
+      <p v-if="status === 'error'" class="form-feedback form-feedback--error">
+        {{ settings.errorText }}
+      </p>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-const { data: settings } = await useAsyncData('contact-settings', () =>
-  queryContent('settings/contact').findOne()
-)
+import { safeImage } from "~/utils/page-content";
+const settings = usePageContent("contact");
 
-useSeoMeta({
-  title: 'Book & Contact | Binge Thinkers',
-  description: 'Book a hosted trivia night or ask for a quote.',
-})
-
-const form = reactive({ name: '', email: '', phone: '', message: '' })
-const status = ref<'idle' | 'sending' | 'success' | 'error'>('idle')
+const form = reactive({ name: "", email: "", phone: "", message: "" });
+const status = ref<"idle" | "sending" | "success" | "error">("idle");
 
 async function submitForm() {
-  status.value = 'sending'
+  status.value = "sending";
   try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
-    })
-    if (!res.ok) throw new Error()
-    status.value = 'success'
-    form.name = form.email = form.phone = form.message = ''
+    });
+    if (!res.ok) throw new Error();
+    status.value = "success";
+    form.name = form.email = form.phone = form.message = "";
   } catch {
-    status.value = 'error'
+    status.value = "error";
   }
 }
 </script>
@@ -86,7 +121,8 @@ async function submitForm() {
     color-mix(in srgb, var(--color-accent) 18%, var(--color-surface)),
     color-mix(in srgb, var(--color-primary) 30%, var(--color-surface))
   );
-  border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
   border-radius: var(--radius);
   padding: 1rem 1.75rem 1.5rem;
   margin-bottom: 2.5rem;

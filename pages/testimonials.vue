@@ -1,11 +1,14 @@
 <template>
   <div class="testimonials-page">
-    <header class="testimonials-page__header content-page">
+    <header
+      class="testimonials-page__header content-page"
+      data-edit-section="intro"
+    >
       <h1 class="section-title">{{ settings?.title }}</h1>
       <p>{{ settings?.intro }}</p>
     </header>
 
-    <section class="section testimonials-splash">
+    <section class="section testimonials-splash" data-edit-section="splash">
       <div class="container">
         <div
           class="testimonials-splash__image splash-wide skeleton-image"
@@ -13,8 +16,8 @@
         >
           <NuxtImg
             :ref="setDjSplashRef"
-            src="/splash-dj.jpg"
-            alt="A team working through trivia questions at a pub table"
+            :src="safeImage(settings.splashImage)"
+            :alt="settings.splashAlt"
             width="2657"
             height="735"
             sizes="sm:100vw xl:1400px"
@@ -26,7 +29,7 @@
       </div>
     </section>
 
-    <section class="section testimonials-logos">
+    <section class="section testimonials-logos" data-edit-section="clients">
       <div class="container">
         <h2 class="clients-title">{{ settings?.clientsTitle }}</h2>
         <div class="logo-grid">
@@ -39,7 +42,7 @@
           >
             <NuxtImg
               :ref="(el) => setLogoRef(el, client.src)"
-              :src="client.src"
+              :src="safeImage(client.src)"
               :alt="`${client.name} logo`"
               width="160"
               height="160"
@@ -52,7 +55,7 @@
       </div>
     </section>
 
-    <section class="section testimonials-quotes">
+    <section class="section testimonials-quotes" data-edit-section="quotes">
       <div class="container">
         <h2 class="section-title">{{ settings?.quotesTitle }}</h2>
         <div class="testimonial-feed">
@@ -68,14 +71,11 @@
               </footer>
             </blockquote>
 
-            <div
-              v-else-if="item.type === 'gallery-row'"
-              class="gallery-row"
-            >
+            <div v-else-if="item.type === 'gallery-row'" class="gallery-row">
               <a
                 v-for="img in item.data"
                 :key="img"
-                :href="`/binge-images/${img}.jpg`"
+                :href="safeImage(settings.gallery[img - 1].src)"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="gallery-photo skeleton-image"
@@ -84,8 +84,8 @@
               >
                 <NuxtImg
                   :ref="(el) => setImageRef(el, img)"
-                  :src="`/binge-images/${img}.jpg`"
-                  :alt="`Trivia night photo ${img}`"
+                  :src="safeImage(settings.gallery[img - 1].src)"
+                  :alt="settings.gallery[img - 1].alt"
                   width="480"
                   height="480"
                   sizes="(max-width: 640px) 45vw, 360px"
@@ -103,117 +103,108 @@
 
 <script setup lang="ts">
 interface Testimonial {
-  id: number
-  quote: string
-  name: string
-  role: string
+  id: number;
+  quote: string;
+  name: string;
+  role: string;
 }
 
-const { data: settings } = await useAsyncData('testimonials-settings', () =>
-  queryContent('settings/testimonials').findOne()
-)
-
-const clientLogos = [
-  { name: 'Shindico', src: '/clients/logos__0000_Shindico.jpg' },
-  { name: '9 circl', src: '/clients/logos__0001_9-circl.jpg' },
-  { name: 'Heartland', src: '/clients/logos__0002_Heartland.jpg' },
-  { name: 'Dignity Memorial', src: '/clients/logos__0003_Dignity-Memorial.jpg' },
-  { name: 'We Rock Winnipeg', src: '/clients/logos__0004_We-Rock-Winnipeg.jpg' },
-  { name: 'iQMetrix', src: '/clients/logos__0005_iQMetrix.jpg' },
-  { name: 'Kids Inc', src: '/clients/logos__0006_Kids-Inc.jpg' },
-  { name: 'Winnipeg Teachers Association', src: '/clients/logos__0007_Winnipeg-Teachers-Association.jpg' },
-  { name: 'Emergent BioSolutions', src: '/clients/logos__0008_Emergent-BIoSolutions.jpg' },
-  { name: 'ALSIP', src: '/clients/logos__0009_ALSIP.jpg' },
-  { name: 'Theatre By the River', src: '/clients/logos__0010_Theatre-By-the-River.jpg' },
-  { name: 'Keener Jerseys', src: '/clients/logos__0011_Keener-Jerseys.jpg' },
-  { name: 'Winnipeg Comedy Festival', src: '/clients/logos__0012_Winnipeg-Comedy-Festival.jpg' },
-  { name: 'West Four', src: '/clients/logos__0013_West-Four.jpg' },
-  { name: 'Quad Real', src: '/clients/logos__0014_Quad-Real.jpg' },
-  { name: 'PowerTec', src: '/clients/logos__0015_PowerTec.jpg' },
-  { name: 'Nu Burger', src: '/clients/logos__0016_Nu-Burger.jpg' },
-  { name: 'NavCanada', src: '/clients/logos__0017_NavCanada.jpg' },
-  { name: 'Northwest Company', src: '/clients/logos__0018_Northwest-Company.jpg' },
-  { name: 'Offspeed Volleyball', src: '/clients/logos__0019_Offspeed-Volleyball.jpg' },
-  { name: 'GAS STATION', src: '/clients/logos__0020_GAS-STATION.jpg' },
-]
+import { safeImage } from "~/utils/page-content";
+const settings = usePageContent("testimonials");
+const clientLogos = computed(() => settings.value.clients);
 
 const testimonials = computed<Testimonial[]>(() =>
   (settings.value?.testimonials || []).map(
-    (testimonial: Omit<Testimonial, 'id'>, index: number) => ({
+    (testimonial: Omit<Testimonial, "id">, index: number) => ({
       ...testimonial,
       id: index + 1,
     }),
-  )
-)
+  ),
+);
 
-const galleryImages = Array.from({ length: 9 }, (_, i) => i + 1)
+const galleryImages = Array.from({ length: 9 }, (_, i) => i + 1);
 
 type FeedItem =
-  | { type: 'testimonial'; key: string; data: Testimonial }
-  | { type: 'gallery-row'; key: string; data: number[] }
+  | { type: "testimonial"; key: string; data: Testimonial }
+  | { type: "gallery-row"; key: string; data: number[] };
 
 function pushGalleryRow(items: FeedItem[], startIdx: number): number {
-  const pair: number[] = []
-  let idx = startIdx
-  if (idx < galleryImages.length) pair.push(galleryImages[idx++])
-  if (idx < galleryImages.length) pair.push(galleryImages[idx++])
+  const pair: number[] = [];
+  let idx = startIdx;
+  if (idx < galleryImages.length) pair.push(galleryImages[idx++]);
+  if (idx < galleryImages.length) pair.push(galleryImages[idx++]);
   if (pair.length) {
-    items.push({ type: 'gallery-row', key: `gr-${pair.join('-')}`, data: pair })
+    items.push({
+      type: "gallery-row",
+      key: `gr-${pair.join("-")}`,
+      data: pair,
+    });
   }
-  return idx
+  return idx;
 }
 
 const feed = computed<FeedItem[]>(() => {
-  const items: FeedItem[] = []
-  let galleryIdx = 0
+  const items: FeedItem[] = [];
+  let galleryIdx = 0;
 
   for (let i = 0; i < testimonials.value.length; i += 2) {
-    items.push({ type: 'testimonial', key: `t-${testimonials.value[i].id}`, data: testimonials.value[i] })
+    items.push({
+      type: "testimonial",
+      key: `t-${testimonials.value[i].id}`,
+      data: testimonials.value[i],
+    });
     if (i + 1 < testimonials.value.length) {
-      items.push({ type: 'testimonial', key: `t-${testimonials.value[i + 1].id}`, data: testimonials.value[i + 1] })
+      items.push({
+        type: "testimonial",
+        key: `t-${testimonials.value[i + 1].id}`,
+        data: testimonials.value[i + 1],
+      });
     }
-    galleryIdx = pushGalleryRow(items, galleryIdx)
+    galleryIdx = pushGalleryRow(items, galleryIdx);
   }
 
   while (galleryIdx < galleryImages.length) {
-    galleryIdx = pushGalleryRow(items, galleryIdx)
+    galleryIdx = pushGalleryRow(items, galleryIdx);
   }
 
-  return items
-})
+  return items;
+});
 
-const loaded = reactive<Record<number, boolean>>({})
-const logoLoaded = reactive<Record<string, boolean>>({})
-const djSplashLoaded = ref(false)
+const loaded = reactive<Record<number, boolean>>({});
+const logoLoaded = reactive<Record<string, boolean>>({});
+const djSplashLoaded = ref(false);
 
 function markImageLoadedIfCached(
   el: Element | ComponentPublicInstance | null,
   onLoaded: () => void,
 ) {
   nextTick(() => {
-    const img = el instanceof HTMLImageElement
-      ? el
-      : (el as ComponentPublicInstance | null)?.$el as HTMLImageElement | undefined
-    if (img?.complete && img.naturalWidth) onLoaded()
-  })
+    const img =
+      el instanceof HTMLImageElement
+        ? el
+        : ((el as ComponentPublicInstance | null)?.$el as
+            HTMLImageElement | undefined);
+    if (img?.complete && img.naturalWidth) onLoaded();
+  });
 }
 
 function setImageRef(el: Element | ComponentPublicInstance | null, i: number) {
-  markImageLoadedIfCached(el, () => { loaded[i] = true })
+  markImageLoadedIfCached(el, () => {
+    loaded[i] = true;
+  });
 }
 
 function setLogoRef(el: Element | ComponentPublicInstance | null, src: string) {
-  markImageLoadedIfCached(el, () => { logoLoaded[src] = true })
+  markImageLoadedIfCached(el, () => {
+    logoLoaded[src] = true;
+  });
 }
 
 function setDjSplashRef(el: Element | ComponentPublicInstance | null) {
-  markImageLoadedIfCached(el, () => { djSplashLoaded.value = true })
+  markImageLoadedIfCached(el, () => {
+    djSplashLoaded.value = true;
+  });
 }
-
-useSeoMeta({
-  title: 'Testimonials | Binge Thinkers',
-  description: 'See what venues and companies say about Binge Thinkers hosted trivia nights.',
-})
 </script>
 
 <style scoped>
@@ -377,5 +368,4 @@ useSeoMeta({
     gap: 1rem;
   }
 }
-
 </style>

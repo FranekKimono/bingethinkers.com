@@ -1,6 +1,8 @@
 # Binge Thinkers
 
-Static site for bingethinkers.com, built with [Nuxt 3](https://nuxt.com) + [Nuxt Content](https://content.nuxt.com) + [Decap CMS](https://decapcms.org).
+Site for bingethinkers.com, built with [Nuxt 3](https://nuxt.com), a visual admin editor, and GitHub-backed content publishing.
+
+Project documentation: [domain glossary](CONTEXT.md), [project background](docs/project-background.md), and [admin editor redesign](docs/admin-editor-design.md).
 
 ## Quick start
 
@@ -33,27 +35,38 @@ Cloudflare Pages auto-deploys **production** from `master`. Pushes to `dev` (and
 
 ## Content editing (for non-devs)
 
-Go to **bingethinkers.com/admin** → log in with GitHub. Decap CMS provides a WYSIWYG editor for:
+Go to **bingethinkers.com/admin/** and sign in with GitHub.
 
-- **Pages** — edit Home, Testimonials, Book & Contact, Our Story, FAQ, and Privacy Policy
-- **Calendar Events** — add or edit trivia nights in `data/events.json`
+- **Calendar** — click a date to add an Event or click an Event to change it. Repeats, individual customizations, cancellations, and restoration share the same calendar.
+- **Locations** — save names and addresses for reuse; archive and restore places without removing existing Events.
+- **Pages** — view the actual page and click a section to edit text, images, buttons, FAQs, or testimonials in the adjacent panel. Page layouts stay fixed; the shared header and footer are not editable. Search titles and descriptions are under Page settings.
 
-CMS commits go to the branch being built: **`master`** on production, **`dev`** on preview (see `scripts/prepare-admin.mjs`). Use **bingethinkers.com/admin** for live edits; use **`https://dev.bingethinkers-com.pages.dev/admin/`** to test CMS on `dev` (stable branch URL, not the hash preview URL).
+**Save & publish** saves all pending content changes and uploaded images in one Git commit. Cloudflare then rebuilds the site. The editor reports a successful save separately from deployment completion. If another editor saves first, it keeps your edits and offers a download before you reload the latest content.
 
-**Setup and adding editors:** see [docs/decap-cms-setup.md](docs/decap-cms-setup.md) (GitHub OAuth, Cloudflare env vars, inviting a second GitHub user as a repo collaborator).
+Production saves go to **`master`**; preview saves go to the branch configured by `CF_PAGES_BRANCH`. Use the stable [dev admin](https://dev.bingethinkers-com.pages.dev/admin/) for preview editing.
+
+The source files are `data/events.json`, `data/locations.json`, and `data/pages.json`. The original Markdown files in `content/` are retained as migration references; the six fixed pages no longer read their copy from those files. Do not edit the legacy Markdown to change live page content.
+
+The editor is a Nuxt route, so run the site and visit `/admin/`; opening an HTML file directly does not run the editor. For a local preview without GitHub sign-in, start `npm run dev` and open `/admin/?demo=1`. This mode is available only in development and cannot publish.
+
+**Setup and adding editors:** see [docs/decap-cms-setup.md](docs/decap-cms-setup.md). The existing OAuth configuration and GitHub collaborator permissions are reused.
+
+## Verification
+
+Run `npm test` with Node 22.18 or newer for recurrence, customization, cancellation, and atomic publishing checks. Run `npm run typecheck` to check the Vue and TypeScript code. Run `npm run build` to compile the public pages and admin, generate static previews, and verify the contact and OAuth Worker routes.
 
 ## Secrets
 
 **Do not commit secret values.** `.env`, `.env.local`, and `.dev.vars` are gitignored. Copy [`.env.example`](.env.example) to `.env` for local dev.
 
-**Do commit the server route files** (`server/api/auth.get.ts`, `server/api/callback.get.ts`, etc.). They contain no secrets — they read env vars at runtime. Without them in git, Cloudflare Pages cannot serve `/api/auth` or `/api/callback` and Decap login breaks.
+**Do commit the server route files** (`server/api/auth.get.ts`, `server/api/callback.get.ts`, etc.). They contain no secrets — they read env vars at runtime. Without them in git, Cloudflare Pages cannot serve `/api/auth` or `/api/callback` and admin sign-in breaks.
 
 Set these in **Cloudflare Pages → Settings → Variables and Secrets**. When adding each one, check **Preview** and/or **Production** as needed — preview CMS on `dev` only sees variables enabled for **Preview**. After changing variables, redeploy.
 
 | Variable | Used by | Required |
 |----------|---------|----------|
-| `GITHUB_CLIENT_ID` | Decap CMS OAuth | Yes, for `/admin` |
-| `GITHUB_CLIENT_SECRET` | Decap CMS OAuth | Yes, for `/admin` |
+| `GITHUB_CLIENT_ID` | Admin GitHub OAuth | Yes, for `/admin` |
+| `GITHUB_CLIENT_SECRET` | Admin GitHub OAuth | Yes, for `/admin` |
 | `GOOGLE_MAPS_API_KEY` | CMS event address suggestions | Recommended for `/admin` |
 | `RESEND_API_KEY` | Contact form email | Yes, for booking form |
 | `INSTAGRAM_TOKEN` | Instagram feed API | If using feed |

@@ -37,19 +37,35 @@
           :class="{
             'events-calendar__cell--empty': day === null,
             'events-calendar__cell--today': isCurrentMonth && day === today,
-            'events-calendar__cell--has-events': day !== null && eventsByDay[day]?.length,
+            'events-calendar__cell--has-events':
+              day !== null &&
+              eventsByDay[day]?.some((e: DayEvent) => !e.event.cancelled),
             'events-calendar__cell--next': day !== null && isNextShowDay(day),
           }"
         >
-          <span v-if="day !== null" class="events-calendar__day">{{ day }}</span>
-          <ul v-if="day !== null && eventsByDay[day]?.length" class="events-calendar__events">
+          <span v-if="day !== null" class="events-calendar__day">{{
+            day
+          }}</span>
+          <ul
+            v-if="day !== null && eventsByDay[day]?.length"
+            class="events-calendar__events"
+          >
             <li
               v-for="item in eventsByDay[day]"
               :key="dayEventKey(item)"
               :class="{ 'events-calendar__event--next': isNextShow(item) }"
             >
-              <span class="events-calendar__event-name">{{ item.event.title }}</span>
-              <span v-if="item.event.time" class="events-calendar__event-time">{{ item.event.time }}</span>
+              <span v-if="item.event.cancelled" class="event-cancelled-label"
+                >Cancelled</span
+              >
+              <span class="events-calendar__event-name">{{
+                item.event.title
+              }}</span>
+              <span
+                v-if="item.event.time"
+                class="events-calendar__event-time"
+                >{{ item.event.time }}</span
+              >
               <VenueLink
                 v-if="item.event.venue"
                 :name="item.event.venue"
@@ -69,10 +85,21 @@
         :class="{ 'events-calendar__list-item--next': isNextShow(item) }"
       >
         <time :datetime="formatDateKey(item.date)">
-          {{ item.date.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' }) }}
+          {{
+            item.date.toLocaleDateString("en-CA", {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+            })
+          }}
         </time>
         <span>{{ item.event.title }}</span>
-        <span v-if="item.event.time" class="events-calendar__list-time">{{ item.event.time }}</span>
+        <strong v-if="item.event.cancelled" class="event-cancelled-label"
+          >Cancelled</strong
+        >
+        <span v-if="item.event.time" class="events-calendar__list-time">{{
+          item.event.time
+        }}</span>
         <VenueLink
           v-if="item.event.venue"
           :name="item.event.venue"
@@ -95,70 +122,105 @@ import {
   formatDateKey,
   dayEventKey,
   type DayEvent,
-} from '~/utils/events'
+} from "~/utils/events";
 
-const { date: now, refresh: refreshNow } = useWinnipegDate()
-const displayDate = ref(new Date(now.value.getFullYear(), now.value.getMonth(), 1))
+const { date: now, refresh: refreshNow } = useWinnipegDate();
+const displayDate = ref(
+  new Date(now.value.getFullYear(), now.value.getMonth(), 1),
+);
 
 onMounted(() => {
-  refreshNow()
-  displayDate.value = new Date(now.value.getFullYear(), now.value.getMonth(), 1)
-})
+  refreshNow();
+  displayDate.value = new Date(
+    now.value.getFullYear(),
+    now.value.getMonth(),
+    1,
+  );
+});
 
-const today = computed(() => now.value.getDate())
+const today = computed(() => now.value.getDate());
 
-const year = computed(() => displayDate.value.getFullYear())
-const month = computed(() => displayDate.value.getMonth())
+const year = computed(() => displayDate.value.getFullYear());
+const month = computed(() => displayDate.value.getMonth());
 
 const isCurrentMonth = computed(
-  () => year.value === now.value.getFullYear() && month.value === now.value.getMonth(),
-)
+  () =>
+    year.value === now.value.getFullYear() &&
+    month.value === now.value.getMonth(),
+);
 
-const monthLabel = computed(() => getMonthLabel(year.value, month.value))
-const weekdayLabels = getWeekdayLabels()
-const grid = computed(() => getCalendarGrid(year.value, month.value))
-const monthEvents = computed(() => getEventsForMonth(year.value, month.value))
+const monthLabel = computed(() => getMonthLabel(year.value, month.value));
+const weekdayLabels = getWeekdayLabels();
+const grid = computed(() => getCalendarGrid(year.value, month.value));
+const monthEvents = computed(() => getEventsForMonth(year.value, month.value));
 
 const eventsByDay = computed(() => {
-  const map: Record<number, DayEvent[]> = {}
+  const map: Record<number, DayEvent[]> = {};
   for (let day = 1; day <= 31; day++) {
-    const onDay = getEventsOnDay(monthEvents.value, year.value, month.value, day)
-    if (onDay.length) map[day] = onDay
+    const onDay = getEventsOnDay(
+      monthEvents.value,
+      year.value,
+      month.value,
+      day,
+    );
+    if (onDay.length) map[day] = onDay;
   }
-  return map
-})
+  return map;
+});
 
 const upcomingList = computed(() => {
-  const startOfToday = new Date(now.value.getFullYear(), now.value.getMonth(), now.value.getDate())
+  const startOfToday = new Date(
+    now.value.getFullYear(),
+    now.value.getMonth(),
+    now.value.getDate(),
+  );
   if (isCurrentMonth.value) {
-    return monthEvents.value.filter((e) => e.date >= startOfToday)
+    return monthEvents.value.filter((e: DayEvent) => e.date >= startOfToday);
   }
-  return monthEvents.value
-})
+  return monthEvents.value;
+});
 
-const nextShow = computed(() => getNextEvent(now.value))
-const nextShowKey = computed(() => (nextShow.value ? dayEventKey(nextShow.value) : null))
+const nextShow = computed(() => getNextEvent(now.value));
+const nextShowKey = computed(() =>
+  nextShow.value ? dayEventKey(nextShow.value) : null,
+);
 
 function isNextShow(item: DayEvent): boolean {
-  return nextShowKey.value === dayEventKey(item)
+  return nextShowKey.value === dayEventKey(item);
 }
 
 function isNextShowDay(day: number): boolean {
-  if (!nextShow.value) return false
-  const d = nextShow.value.date
-  return d.getFullYear() === year.value && d.getMonth() === month.value && d.getDate() === day
+  if (!nextShow.value) return false;
+  const d = nextShow.value.date;
+  return (
+    d.getFullYear() === year.value &&
+    d.getMonth() === month.value &&
+    d.getDate() === day
+  );
 }
 
 function prevMonth() {
-  displayDate.value = new Date(year.value, month.value - 1, 1)
+  displayDate.value = new Date(year.value, month.value - 1, 1);
 }
 
 function nextMonth() {
-  displayDate.value = new Date(year.value, month.value + 1, 1)
+  displayDate.value = new Date(year.value, month.value + 1, 1);
 }
 </script>
 
 <style scoped>
+.event-cancelled-label {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #ffc4cf;
+  border: 1px solid #a86c7a;
+  border-radius: 3px;
+  padding: 1px 3px;
+  margin-bottom: 3px;
+}
+
 .events-calendar {
   width: 100%;
 }
@@ -187,7 +249,9 @@ function nextMonth() {
   font-size: 1.25rem;
   line-height: 1;
   padding: 0.5rem 0.85rem;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .events-calendar__nav:hover {
@@ -363,7 +427,7 @@ function nextMonth() {
   }
 
   .events-calendar__cell--has-events .events-calendar__day::after {
-    content: '';
+    content: "";
     display: block;
     width: 4px;
     height: 4px;
