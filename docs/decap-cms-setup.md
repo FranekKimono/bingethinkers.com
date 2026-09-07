@@ -58,6 +58,8 @@ If you only set Production, preview `/admin` will show `GITHUB_CLIENT_ID is not 
 
 After adding or changing variables, **trigger a new deploy** — existing deployments do not pick up new values.
 
+With the checked-in `wrangler.toml`, store `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` as **encrypted secrets** in Cloudflare. The Wrangler configuration controls plain-text runtime variables, so a client ID added only as a dashboard plain-text variable can be dropped during deployment. Although the client ID is public, storing it as a secret keeps both OAuth settings attached to the deployed Worker. Check `/api/auth` after deployment; it should return the GitHub redirect page without a configuration error.
+
 For `GOOGLE_MAPS_API_KEY`, enable **Maps JavaScript API** and **Places API (New)** in Google Cloud. Restrict the key to those APIs and to the website referrers that use the CMS:
 
 - `https://bingethinkers.com/*`
