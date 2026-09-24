@@ -173,6 +173,150 @@
         "date": "2026-09-26"
       },
       "exceptions": {}
+    },
+    {
+      "id": "smittys-south-2026-10-02",
+      "seriesId": "smittys-south-2026-10-02",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-8",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-02"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "smittys-grant-2026-10-10",
+      "seriesId": "smittys-grant-2026-10-10",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-7",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-10"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "smittys-south-2026-10-17",
+      "seriesId": "smittys-south-2026-10-17",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-8",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-17"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "smittys-grant-2026-10-24",
+      "seriesId": "smittys-grant-2026-10-24",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-7",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-24"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "smittys-grant-2026-11-07",
+      "seriesId": "smittys-grant-2026-11-07",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-7",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-11-07"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "smittys-south-2026-11-13",
+      "seriesId": "smittys-south-2026-11-13",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-8",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-11-13"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "smittys-grant-2026-11-21",
+      "seriesId": "smittys-grant-2026-11-21",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-7",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-11-21"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "smittys-south-2026-11-28",
+      "seriesId": "smittys-south-2026-11-28",
+      "title": "Trivia Night",
+      "time": "19:00",
+      "locationId": "location-8",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-11-28"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "grizzly-goose-2026-10-08",
+      "seriesId": "grizzly-goose-2026-10-08",
+      "title": "Trivia Night",
+      "time": "19:30",
+      "locationId": "location-10",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-08"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "grizzly-goose-2026-10-22",
+      "seriesId": "grizzly-goose-2026-10-22",
+      "title": "Trivia Night",
+      "time": "19:30",
+      "locationId": "location-10",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-22"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "underdogs-attitude-era-2026-10-19",
+      "seriesId": "underdogs-attitude-era-2026-10-19",
+      "title": "Attitude Era Wrestling Trivia",
+      "time": "19:00",
+      "locationId": "location-4",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-19"
+      },
+      "exceptions": {}
+    },
+    {
+      "id": "rec-room-mcu-2026-10-04",
+      "seriesId": "rec-room-mcu-2026-10-04",
+      "title": "Marvel Cinematic Universe Trivia",
+      "time": "19:00",
+      "locationId": "location-3",
+      "recurrence": {
+        "type": "once",
+        "date": "2026-10-04"
+      },
+      "exceptions": {}
     }
   ]
 }

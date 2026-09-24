@@ -53,6 +53,12 @@
       "name": "Smitty's Pembina",
       "address": "2835 Pembina Hwy #1, Winnipeg, MB R3T 4Z8",
       "archived": false
+    },
+    {
+      "id": "location-10",
+      "name": "Grizzly Goose",
+      "address": "845 Dakota St #1, Winnipeg, MB R2M 5M3",
+      "archived": false
     }
   ]
 }
