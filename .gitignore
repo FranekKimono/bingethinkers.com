@@ -1,5 +1,6 @@
 .DS_Store
 graphics/
+instagram.videos/
 node_modules/
 .output/
 .nuxt/
