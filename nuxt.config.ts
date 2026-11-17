@@ -17,7 +17,7 @@ async function ensureAppManifest(buildDir: string, buildId: string) {
 }
 
 export default defineNuxtConfig({
-  modules: ["@nuxt/content", "@nuxt/image"],
+  modules: ["@nuxt/image"],
 
   hooks: {
     ready: async (nuxt) => {
@@ -32,6 +32,22 @@ export default defineNuxtConfig({
     "/pricing": { redirect: "/contact" },
     "/how-it-works": { redirect: "/" },
     "/gallery": { redirect: "/testimonials" },
+    // Worker responses are not covered by public/_headers.
+    "/api/**": {
+      headers: {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "Referrer-Policy": "no-referrer",
+        "Cache-Control": "no-store",
+        "X-Robots-Tag": "noindex",
+      },
+    },
+  },
+
+  // Static pages are served with a trailing slash; link to them directly
+  // so visitors and crawlers skip the redirect.
+  experimental: {
+    defaults: { nuxtLink: { trailingSlash: "append" } },
   },
 
   nitro: {
@@ -50,20 +66,14 @@ export default defineNuxtConfig({
     },
   },
 
-  content: {
-    highlight: false,
-    markdown: {
-      remarkPlugins: [],
-      rehypePlugins: [],
-    },
-  },
-
   app: {
     head: {
+      htmlAttrs: { lang: "en-CA" },
       title: "Binge Thinkers | Trivia Nights",
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "theme-color", content: "#06030a" },
         {
           name: "description",
           content:
@@ -71,7 +81,6 @@ export default defineNuxtConfig({
         },
       ],
       link: [
-        { rel: "icon", type: "image/svg+xml", href: "/favicon/favicon.svg" },
         {
           rel: "icon",
           type: "image/png",

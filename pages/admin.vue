@@ -272,10 +272,12 @@ onMounted(async () => {
       );
     config.value = await res.json();
     const configured = new URL(config.value!.oauthBase);
+    // Sign-in only completes on the OAuth origin, so always edit from there.
     if (
-      location.hostname.endsWith(".pages.dev") &&
-      configured.hostname.endsWith(".pages.dev") &&
-      location.origin !== configured.origin
+      location.origin !== configured.origin &&
+      ((location.hostname.endsWith(".pages.dev") &&
+        configured.hostname.endsWith(".pages.dev")) ||
+        location.hostname === `www.${configured.hostname}`)
     ) {
       location.replace(`${configured.origin}/admin/`);
       return;

@@ -18,4 +18,26 @@
 <script setup lang="ts">
 import { safeHtml } from "~/utils/page-content";
 const settings = usePageContent("faq");
+const plainText = (html: unknown) =>
+  safeHtml(html)
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+useHead(() => ({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: (settings.value.questions || []).map((entry: any) => ({
+          "@type": "Question",
+          name: String(entry.question || ""),
+          acceptedAnswer: { "@type": "Answer", text: plainText(entry.answer) },
+        })),
+      }).replace(/</g, "\\u003c"),
+    },
+  ],
+}));
 </script>

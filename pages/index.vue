@@ -11,6 +11,8 @@
           :alt="settings.heroAlt"
           class="hero-splash"
           sizes="sm:100vw lg:700px"
+          loading="eager"
+          fetchpriority="high"
           @load="splashLoaded = true"
         />
       </div>
@@ -97,15 +99,10 @@
 
 <script setup lang="ts">
 import { safeHtml, safeImage, safeLink } from "~/utils/page-content";
-const settings = usePageContent("home");
+const settings = usePageContent("home", { image: "heroImage" });
 const socialImage = computed(() => {
   const image = safeImage(settings.value.heroImage);
-  return image.startsWith("/") ? `https://bingethinkers.com${image}` : image;
-});
-useSeoMeta({
-  ogType: "website",
-  ogImage: () => socialImage.value,
-  twitterCard: "summary_large_image",
+  return absoluteUrl(image.startsWith("blob:") ? "/splash.jpg" : image);
 });
 
 const splashLoaded = ref(false);
@@ -139,14 +136,16 @@ useHead(() => ({
   script: [
     {
       type: "application/ld+json",
-      children: JSON.stringify({
+      innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         name: "Binge Thinkers",
         description: settings.value.seoDescription,
-        url: "https://bingethinkers.com",
+        url: `${SITE_URL}/`,
         image: socialImage.value,
-      }),
+        logo: `${SITE_URL}/logo.png`,
+        areaServed: { "@type": "City", name: "Winnipeg" },
+      }).replace(/</g, "\\u003c"),
     },
   ],
 }));

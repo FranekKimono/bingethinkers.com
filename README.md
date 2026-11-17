@@ -1,6 +1,6 @@
 # Binge Thinkers
 
-Site for bingethinkers.com, built with [Nuxt 3](https://nuxt.com), a visual admin editor, and GitHub-backed content publishing.
+Site for bingethinkers.com, built with [Nuxt 4](https://nuxt.com), a visual admin editor, and GitHub-backed content publishing.
 
 Project documentation: [domain glossary](CONTEXT.md), [project background](docs/project-background.md), and [admin editor redesign](docs/admin-editor-design.md).
 
@@ -49,11 +49,13 @@ The source files are `data/events.json`, `data/locations.json`, and `data/pages.
 
 The editor is a Nuxt route, so run the site and visit `/admin/`; opening an HTML file directly does not run the editor. For a local preview without GitHub sign-in, start `npm run dev` and open `/admin/?demo=1`. This mode is available only in development and cannot publish.
 
+Sign-in only completes when the editor is open on the same origin as the OAuth callback (`bingethinkers.com` in production, the stable branch URL for previews), because the GitHub token is never handed to any other origin. For local work use the demo mode above.
+
 **Setup and adding editors:** see [docs/decap-cms-setup.md](docs/decap-cms-setup.md). The existing OAuth configuration and GitHub collaborator permissions are reused.
 
 ## Verification
 
-Run `npm test` with Node 22.18 or newer for recurrence, customization, cancellation, and atomic publishing checks. Run `npm run typecheck` to check the Vue and TypeScript code. Run `npm run build` to compile the public pages and admin, generate static previews, and verify the contact and OAuth Worker routes.
+Use the Node version in `.node-version` (22.22.3 or newer; Cloudflare Pages reads the same file). Run `npm test` for recurrence, customization, cancellation, and atomic publishing checks. Run `npm run typecheck` to check the Vue and TypeScript code. Run `npm run build` to compile the public pages and admin, generate static previews, and verify the contact and OAuth Worker routes.
 
 ## Secrets
 

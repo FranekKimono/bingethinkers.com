@@ -110,7 +110,7 @@ interface Testimonial {
 }
 
 import { safeImage } from "~/utils/page-content";
-const settings = usePageContent("testimonials");
+const settings = usePageContent("testimonials", { image: "splashImage" });
 const clientLogos = computed(() => settings.value.clients);
 
 const testimonials = computed<Testimonial[]>(() =>

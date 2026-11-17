@@ -1,12 +1,40 @@
 import { Resend } from 'resend'
 import { getRuntimeEnv } from '../utils/runtime-env'
 
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-  const { name, email, phone, message } = body
+const LIMITS = { name: 120, email: 254, phone: 40, message: 5000 }
 
-  if (!name || !email || !message) {
+/** Trimmed single-line text; control characters (including CR/LF) are removed. */
+function line(value: unknown, max: number): string | null {
+  if (value == null) return ''
+  if (typeof value !== 'string') return null
+  const text = value.replace(/[\u0000-\u001f\u007f]+/g, ' ').trim()
+  return text.length <= max ? text : null
+}
+
+export default defineEventHandler(async (event) => {
+  const body = await readBody(event).catch(() => null)
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    throw createError({ statusCode: 400, message: 'Invalid request.' })
+  }
+
+  // Honeypot: real visitors never see or fill this field. Pretend it worked.
+  if (typeof body.confirm === 'string' && body.confirm.trim()) {
+    return { success: true }
+  }
+
+  const name = line(body.name, LIMITS.name)
+  const email = line(body.email, LIMITS.email)
+  const phone = line(body.phone, LIMITS.phone)
+  const message =
+    typeof body.message === 'string' && body.message.trim().length <= LIMITS.message
+      ? body.message.trim()
+      : null
+
+  if (!name || !email || !message || phone === null) {
     throw createError({ statusCode: 400, message: 'Name, email, and message are required.' })
+  }
+  if (!/^[^\s@<>,;"]+@[^\s@<>,;"]+\.[^\s@<>,;"]+$/.test(email)) {
+    throw createError({ statusCode: 400, message: 'Please enter a valid email address.' })
   }
 
   const apiKey = getRuntimeEnv(event, 'RESEND_API_KEY')
@@ -26,13 +54,13 @@ export default defineEventHandler(async (event) => {
       replyTo: email,
       subject: `New inquiry from ${name}`,
       text: [
-	`Name: ${name}`,
-	`Email: ${email}`,
-	phone ? `Phone: ${phone}` : null,
-	``,
-	`Message:`,
-	message,
-      ].filter(Boolean).join('\n'),
+        `Name: ${name}`,
+        `Email: ${email}`,
+        phone ? `Phone: ${phone}` : null,
+        ``,
+        `Message:`,
+        message,
+      ].filter((part) => part !== null).join('\n'),
     })
 
     sendError = result.error

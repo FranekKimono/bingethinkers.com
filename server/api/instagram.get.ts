@@ -10,13 +10,14 @@ export default defineEventHandler(async (event) => {
 
   try {
     const fields = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp'
-    const url = `https://graph.facebook.com/v18.0/${accountId}/media?fields=${fields}&limit=9&access_token=${token}`
+    const url = `https://graph.facebook.com/v18.0/${encodeURIComponent(accountId)}/media?fields=${fields}&limit=9&access_token=${encodeURIComponent(token)}`
 
     const res = await fetch(url)
     const data = await res.json()
 
     if (data.error) {
-      return { posts: [], error: data.error.message }
+      console.error('Instagram API error:', data.error)
+      return { posts: [], error: 'Instagram feed is unavailable' }
     }
 
     return {
@@ -31,6 +32,7 @@ export default defineEventHandler(async (event) => {
       })),
     }
   } catch (e: any) {
-    return { posts: [], error: e.message }
+    console.error('Instagram fetch failed:', e)
+    return { posts: [], error: 'Instagram feed is unavailable' }
   }
 })

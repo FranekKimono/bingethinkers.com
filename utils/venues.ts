@@ -16,7 +16,8 @@ export function getVenueMapsUrl(
   venueName: string,
   location?: { address?: string; placeId?: string; mapsUrl?: string },
 ): string | null {
-  if (location?.mapsUrl) return location.mapsUrl;
+  if (location?.mapsUrl && /^https?:\/\/[^\s\\]+$/i.test(location.mapsUrl))
+    return location.mapsUrl;
 
   const address = location?.address || getVenueAddress(venueName);
   if (!address) return null;

@@ -14,7 +14,7 @@
               entry.name ||
               (entry.quote
                 ? entry.quote.slice(0, 45) + "…"
-                : `${field.label} ${index + 1}`)
+                : `${field.label} ${Number(index) + 1}`)
             }}
           </summary>
           <AdminFields
@@ -22,14 +22,14 @@
             :fields="field.fields || []"
             :media="media"
             :pending="pending"
-            @update:model-value="updateEntry(field.key, index, $event)"
+            @update:model-value="updateEntry(field.key, Number(index), $event)"
             @upload="emit('upload', $event)"
           />
           <button
             v-if="!field.fixed"
             type="button"
             class="editor-danger"
-            @click="removeEntry(field.key, index)"
+            @click="removeEntry(field.key, Number(index))"
           >
             Remove
             {{ field.label === "Questions" ? "question" : "testimonial" }}

@@ -13,17 +13,24 @@
     "typecheck": "nuxt prepare && vue-tsc --noEmit"
   },
   "devDependencies": {
-    "@nuxt/content": "^2.13.0",
-    "@types/node": "22.20.1",
-    "nuxt": "^3.13.0",
-    "typescript": "5.9.3",
-    "vue-tsc": "3.1.0"
+    "@types/node": "22.20.5",
+    "nuxt": "4.6.4",
+    "typescript": "6.0.3",
+    "vue-tsc": "3.3.14"
   },
   "dependencies": {
-    "@nuxt/image": "2.0.0",
-    "@react-email/render": "2.0.8",
-    "resend": "6.12.3",
-    "xss": "1.0.15"
+    "@nuxt/image": "2.2.1",
+    "@react-email/render": "2.3.1",
+    "resend": "6.38.1",
+    "xss": "1.0.17"
   },
-  "type": "module"
+  "type": "module",
+  "overrides": {
+    "readdir-glob": {
+      "minimatch": "^11.0.9"
+    }
+  },
+  "engines": {
+    "node": ">=22.22.3"
+  }
 }

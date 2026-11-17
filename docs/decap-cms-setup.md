@@ -68,6 +68,8 @@ For `GOOGLE_MAPS_API_KEY`, enable **Maps JavaScript API** and **Places API (New)
 
 The key is used in the browser, so the restrictions are important. Without it, editors can still enter an address manually, but Google suggestions will be unavailable.
 
+The sign-in flow requests the `repo` scope only, checks a short-lived `state` cookie set by `/api/auth`, and hands the GitHub token only to the editor on the same origin as `/api/callback`. Sign in from `/admin/` on that origin: the popup must be opened by the editor (opening `/api/callback` directly, or signing in from another host such as localhost, will not complete).
+
 OAuth is implemented by `server/api/auth.get.ts` and `server/api/callback.get.ts` in the generated Nuxt worker. The post-build verification rejects deployments that do not contain those routes and the contact form route.
 
 ### 3. Branches (production vs preview CMS)
@@ -113,6 +115,7 @@ Location corrections update every linked Event, including past Events. When a ve
 
 - **Editor does not open from a local HTML file:** `/admin/` is now a Nuxt page. Start `npm run dev` and visit the reported localhost URL with `/admin/`. Use `/admin/?demo=1` for a development-only preview that cannot publish.
 - **Configuration could not load:** check `/admin/editor-config.json`. `scripts/prepare-admin.mjs` generates this file during `dev` and `build`.
+- **"Sign-in could not be verified":** the popup's state cookie was missing or expired (more than 10 minutes, or cookies blocked for the site). Close the popup and sign in again from `/admin/`.
 - **Sign-in popup fails or returns to the wrong site:** check the OAuth callback URLs, Preview/Production variables, and use the stable branch URL for preview editing. A change to Cloudflare variables requires a new deployment.
 - **`GITHUB_CLIENT_ID is not configured`:** enable the variable in the correct Cloudflare environment and redeploy. Keep `./build.sh` as the build command so the full Worker and OAuth routes are verified.
 - **Sign-in works, saving fails:** the GitHub user needs write permission on the configured repository branch. Branch protections still apply.

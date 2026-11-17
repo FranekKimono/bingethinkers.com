@@ -36,6 +36,8 @@
           v-model="form.name"
           type="text"
           required
+          maxlength="120"
+          autocomplete="name"
           :placeholder="settings.namePlaceholder"
         />
       </div>
@@ -46,6 +48,8 @@
           v-model="form.email"
           type="email"
           required
+          maxlength="254"
+          autocomplete="email"
           :placeholder="settings.emailPlaceholder"
         />
       </div>
@@ -55,6 +59,8 @@
           id="phone"
           v-model="form.phone"
           type="tel"
+          maxlength="40"
+          autocomplete="tel"
           :placeholder="settings.phonePlaceholder"
         />
       </div>
@@ -64,8 +70,20 @@
           id="message"
           v-model="form.message"
           required
+          maxlength="5000"
           :placeholder="settings.messagePlaceholder"
         ></textarea>
+      </div>
+      <div class="form-hp" aria-hidden="true">
+        <label for="bt-confirm">Leave this field empty</label>
+        <input
+          id="bt-confirm"
+          v-model="form.confirm"
+          type="text"
+          name="bt-confirm"
+          tabindex="-1"
+          autocomplete="off"
+        />
       </div>
       <button
         type="submit"
@@ -91,7 +109,13 @@
 import { safeImage } from "~/utils/page-content";
 const settings = usePageContent("contact");
 
-const form = reactive({ name: "", email: "", phone: "", message: "" });
+const form = reactive({
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+  confirm: "",
+});
 const status = ref<"idle" | "sending" | "success" | "error">("idle");
 
 async function submitForm() {
@@ -112,6 +136,14 @@ async function submitForm() {
 </script>
 
 <style scoped>
+.form-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .pricing-blurb {
   display: flex;
   align-items: center;
